@@ -7,27 +7,37 @@ import hashlib
 from pathlib import Path
 from sync import sync2
 
+parser = argparse.ArgumentParser(prog='spc')
+
+# coreapi variables
 
 client = None
 document = None
 
-parser = argparse.ArgumentParser(prog='spc')
+
+# Status variables
 
 server_url = None
 domain = None
 login_status = False
+observe_path = None
+
+# User details
+
 username = None
 password = None
 
-observe_path = None
-myupath=os.path.expanduser('~')
+# EN-DE Variables
+
+myupath=os.path.expanduser('~') # work around
+
 parser.add_argument("--status", help="Current status of client", action="store_true")
 parser.add_argument("--sync", help="Syncs the user with the client.", action="store_true")
 parser.add_argument('--version', action='version', version='%(prog)s 0.7')
 parser.add_argument("--observe", help="Observe a directory")
 parser.add_argument("--login", help="Check if fields are filled", action="store_true")
-parser.add_argument("--download", action="store_true", help="Temporary work around for sync")
-parser.add_argument("--upload", action="store_true", help="Temporary work around for sync")
+parser.add_argument("--download", action="store_true", help="A subprocess to download the files - has to be removed")
+parser.add_argument("--upload", action="store_true", help="A subprocess to upload the files - has to be removed")
 
 subparsers = parser.add_subparsers(help='Specify secondary options', dest='sub')
 
@@ -243,9 +253,15 @@ def download():
                     with open(abspath, 'w') as fOut:
                         fOut.write(file_dict['file_data'])
             else:
-                print(str(abspath) + " is being downloaded")
-                with open(abspath, 'w', encoding='utf-8') as fOut:
-                    fOut.write(file_dict['file_data'])
+                if os.path.exists(str(abspath)):
+                    pass
+                else:
+                    if file_dict['file_type'] == "DIR":
+                        os.makedirs(str(abspath))
+                    else:
+                        print(str(abspath) + " is being downloaded")
+                        with open(abspath, 'w', encoding='utf-8') as fOut:
+                            fOut.write(file_dict['file_data'])
 
 def login():
     try:
