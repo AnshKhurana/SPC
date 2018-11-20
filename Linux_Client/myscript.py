@@ -161,13 +161,12 @@ def disconnect():
     server_url = None
     os.remove(myupath+'/config/url.json')
     print("Disconnected")
-
-def getsubs(mypath):
-    flist=[]
-    for fname in walk(mypath):
-        flist.extend([join(fname[0],f) for f in listdir(fname[0])])
-    return flist
-
+#
+# def getsubs(mypath):
+#     flist=[]
+#     for fname in walk(mypath):
+#         flist.extend([join(fname[0],f) for f in listdir(fname[0])])
+#     return flist
 
 def upload():
     try:

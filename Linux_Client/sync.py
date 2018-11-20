@@ -1,8 +1,9 @@
 from os import walk, listdir
 from os.path import join, isfile
-from apt_pkg import md5sum
+#from apt_pkg import md5sum
 import base64
 from aes import encrypt
+import hashlib
 import coreapi
 import magic
 import requests
@@ -14,11 +15,23 @@ from progressbar import ProgressBar
 # obdir='/home/aman/Desktop/machine-learning-ex8'
 # upath='127.0.0.1:8000'
 
+
+def md5sumc(filename):
+    with open(filename, 'rb') as file_to_check:
+        # read contents of the file
+        data = file_to_check.read().encode('utf-8')
+        # pipe contents of the file through
+        md5_returned = hashlib.md5(data).hexdigest()
+        return md5_returned
+
+
 def getsubs(mypath):
     flist=[]
     for fname in walk(mypath):
         flist.extend([join(fname[0],f) for f in listdir(fname[0])])
     return flist
+
+
 def sync2(uname,passwd,obdir,upath,domain):
     pbar=ProgressBar()
     sublist=getsubs(obdir)
@@ -45,11 +58,11 @@ def sync2(uname,passwd,obdir,upath,domain):
                 if(j['file_type']=='DIR'):
                     break
                 else:
-                    if(md5sum(open(obdir+'/'.join(f.split('/')[0:])))!=j['md5sum']):
+                    if md5sumc(obdir+'/'.join(f.split('/')[0:]))!=j['md5sum']:
                         ft = magic.from_file(obdir + '/'.join(f.split('/')[0:]))
                         id1=j['id']
                         fd=encrypt(obdir+'/'.join(f.split('/')[0:]),'hello')
-                        msum = md5sum(open(obdir + '/'.join(f.split('/')[0:])))
+                        msum = md5sumc(obdir + '/'.join(f.split('/')[0:]))
                         auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
                         client = coreapi.Client(auth=auth)
                         document = client.get('http://'+upath + "/schema/")
@@ -63,7 +76,7 @@ def sync2(uname,passwd,obdir,upath,domain):
             msum='-'
             if isfile(obdir+'/'.join(f.split('/')[0:])):
                 ft=magic.from_file(obdir+'/'.join(f.split('/')[0:]))
-                msum=md5sum(open(obdir+'/'.join(f.split('/')[0:])))
+                msum=md5sumc(obdir+'/'.join(f.split('/')[0:]))
                 fd=encrypt(obdir+'/'.join(f.split('/')[0:]),'kmvkf')
                 # print('hello')
                 # print(fd)
@@ -78,3 +91,6 @@ def sync2(uname,passwd,obdir,upath,domain):
             document = client.get('http://'+upath + "/schema/")
             client.action(document, ['filedatabase', 'create'],params={'file_name':f,'file_type':ft,'file_data':str(fd),'md5sum':msum})
             # print('done')
+
+if __name__ == '__main__':
+    print(md5sumc('requirements.txt'))
