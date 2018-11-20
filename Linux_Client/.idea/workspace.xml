@@ -2,13 +2,12 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/Linux_Client.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/Linux_Client.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/vcs.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myscript.py" beforeDir="false" afterPath="$PROJECT_DIR$/myscript.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/abc/Makefile.aes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/abc/aes.py.aes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/abc/file2.txt.aes" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/abc/test.png" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/abc/test.png.aes" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/sync.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sync2.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -93,23 +92,23 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="41" />
+          <entry key="py" value="103" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="41" />
+          <entry key="Python" value="103" />
         </counts>
       </usages-collector>
     </session>
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myscript.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="105">
-              <caret line="113" selection-start-line="113" selection-end-line="113" />
+            <state relative-caret-position="135">
+              <caret line="60" column="16" lean-forward="true" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -128,11 +127,14 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sync.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <caret line="9" selection-start-line="9" selection-end-line="9" />
+            <state relative-caret-position="267">
+              <caret line="82" column="30" selection-start-line="82" selection-start-column="30" selection-end-line="82" selection-end-column="30" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -145,6 +147,8 @@
       <find>md5sum</find>
       <find>walk</find>
       <find>getsubs</find>
+      <find>ft</find>
+      <find>sublist</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -155,8 +159,8 @@
       <list>
         <option value="$PROJECT_DIR$/../sync.py" />
         <option value="$PROJECT_DIR$/../myscript.py" />
-        <option value="$PROJECT_DIR$/sync.py" />
         <option value="$PROJECT_DIR$/myscript.py" />
+        <option value="$PROJECT_DIR$/sync.py" />
       </list>
     </option>
   </component>
@@ -227,7 +231,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1280" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.26256078" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -273,6 +276,16 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/myscript.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="135">
+          <caret line="60" column="16" lean-forward="true" selection-start-line="60" selection-start-column="16" selection-end-line="60" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/aes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -284,17 +297,10 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sync.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <caret line="9" selection-start-line="9" selection-end-line="9" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/myscript.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="113" selection-start-line="113" selection-end-line="113" />
+        <state relative-caret-position="267">
+          <caret line="82" column="30" selection-start-line="82" selection-start-column="30" selection-end-line="82" selection-end-column="30" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>

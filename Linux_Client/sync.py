@@ -17,7 +17,7 @@ from progressbar import ProgressBar
 
 
 def md5sumc(filename):
-    with open(filename, 'rb') as file_to_check:
+    with open(filename, 'r') as file_to_check:
         # read contents of the file
         data = file_to_check.read().encode('utf-8')
         # pipe contents of the file through
@@ -52,17 +52,21 @@ def sync2(uname,passwd,obdir,upath,domain):
     for f in pbar(list(sublist)):
         # print('hello')
         b=0
+        # print(f)
         for j in mylist:
             if(j['file_name']==f):
                 b=1
                 if(j['file_type']=='DIR'):
                     break
                 else:
-                    if md5sumc(obdir+'/'.join(f.split('/')[0:]))!=j['md5sum']:
-                        ft = magic.from_file(obdir + '/'.join(f.split('/')[0:]))
+                    # print('/'.join(f.split('/')[0:]))
+                    # print(md5sumc('/'.join(f.split('/')[0:])))
+                    if md5sumc('/'.join(f.split('/')[0:]))!=j['md5sum']:
+                        ft = magic.from_file('/'.join(f.split('/')[0:]))
                         id1=j['id']
-                        fd=encrypt(obdir+'/'.join(f.split('/')[0:]),'hello')
-                        msum = md5sumc(obdir + '/'.join(f.split('/')[0:]))
+                        fd=encrypt('/'.join(f.split('/')[0:]),'hello')
+                        msum = md5sumc('/'.join(f.split('/')[0:]))
+                        # print(msum)
                         auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
                         client = coreapi.Client(auth=auth)
                         document = client.get('http://'+upath + "/schema/")
@@ -74,10 +78,13 @@ def sync2(uname,passwd,obdir,upath,domain):
             ft=''
             fd=b''
             msum='-'
-            if isfile(obdir+'/'.join(f.split('/')[0:])):
-                ft=magic.from_file(obdir+'/'.join(f.split('/')[0:]))
-                msum=md5sumc(obdir+'/'.join(f.split('/')[0:]))
-                fd=encrypt(obdir+'/'.join(f.split('/')[0:]),'kmvkf')
+            # print(obdir+'/'.join(f.split('/')[0:]))
+            if isfile('/'.join(f.split('/')[0:])):
+                ft=magic.from_file('/'.join(f.split('/')[0:]))
+                # print('/'.join(f.split('/')[0:]))
+                # print(ft)
+                msum=md5sumc('/'.join(f.split('/')[0:]))
+                fd=encrypt('/'.join(f.split('/')[0:]),'kmvkf')
                 # print('hello')
                 # print(fd)
             else:
