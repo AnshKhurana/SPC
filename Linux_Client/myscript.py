@@ -6,6 +6,7 @@ import os
 import hashlib
 from pathlib import Path
 from sync import sync2
+from aes import decrypt
 
 parser = argparse.ArgumentParser(prog='spc')
 
@@ -171,12 +172,6 @@ def disconnect():
     server_url = None
     os.remove(myupath+'/config/url.json')
     print("Disconnected")
-#
-# def getsubs(mypath):
-#     flist=[]
-#     for fname in walk(mypath):
-#         flist.extend([join(fname[0],f) for f in listdir(fname[0])])
-#     return flist
 
 def upload():
     try:
@@ -204,6 +199,7 @@ def upload():
 
 
 def download():
+   # key = password # Temporary
     try:
         with open(myupath+"/config/config.json", "r") as read_file:
             data = json.load(read_file)
@@ -250,8 +246,10 @@ def download():
                     pass
                 else:
                     print(str(abspath) + " is being downloaded")
-                    with open(abspath, 'w') as fOut:
-                        fOut.write(file_dict['file_data'])
+                    # with open(abspath, 'w', encoding='utf-8') as fOut:
+                    #     fOut.write(file_dict['file_data'])
+                    contents = file_dict['file_data']
+                    decrypt(str(abspath), contents, password)
             else:
                 if os.path.exists(str(abspath)):
                     pass
@@ -260,9 +258,10 @@ def download():
                         os.makedirs(str(abspath))
                     else:
                         print(str(abspath) + " is being downloaded")
-                        with open(abspath, 'w', encoding='utf-8') as fOut:
-                            fOut.write(file_dict['file_data'])
-
+                        # with open(abspath, 'w', encoding='utf-8') as fOut:
+                        #     fOut.write(file_dict['file_data'])
+                        contents = file_dict['file_data']
+                        decrypt(str(abspath), contents, password)
 def login():
     try:
         with open(myupath+"/config/config.json", "r") as read_file:
