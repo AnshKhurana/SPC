@@ -6,13 +6,22 @@
 {% if user.is_authenticated %}
   Hi {{ user.username }}!
     Choose decryption scheme and key:
-    <form action="/files/" method="get">
+    <br>
         <input type="radio" name="scheme" value="AES">AES<br>
         <input type="radio" name="scheme" value="ARC4">ARC4<br>
         <input type="radio" name="scheme" value="TripleDES">TripleDES<br>
         <input type="text" name="key" placeholder="Key" required>
-        <input type="submit" value="Submit">
-    </form>
+        <input type="submit" value="Submit" onclick="savedata()">
+
+    <script>
+    function savedata(){
+        console.log('hello');
+        document.cookie = "scheme=" + document.getElementsByName('scheme').value;
+        document.cookie = "key=" + document.getElementsByName('key').value;
+        window.location = '/files/'
+
+    }
+    </script>
 {% else %}
   <p>You are not logged in</p>
 {% endif %}

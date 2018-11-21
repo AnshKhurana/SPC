@@ -1,8 +1,9 @@
 {% extends 'base.html' %}
  {% block title %}Files in {{ root }}{% endblock %}
  {% block content %}
-  {%  autoescape off %}
+     <span id='disp'></span>
+     {%  autoescape off %}
      {{ html }}
   {% endautoescape %}
-     <span id='disp'></span>
+
 {% endblock %} 

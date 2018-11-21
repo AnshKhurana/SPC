@@ -74,8 +74,6 @@ class SignUp(generic.CreateView):
 def filedisp(request):
     curruser = request.user
     db = sqlite3.connect("db.sqlite3")
-    key = request.GET['key']
-    scheme = request.GET['scheme']
     db = sqlite3.connect('db.sqlite3')
     cur = db.cursor()
     cur.execute("SELECT file_name FROM filedatabase_filerecord order by id limit 1")
@@ -85,8 +83,8 @@ def filedisp(request):
         filename = root
     else:
         filename = request.GET['filename']
-        html = html + "<a href='/files/?scheme=" + scheme + "&key=" + urllib.parse.quote_plus(key) + "&filename=" + \
-                urllib.parse.quote_plus('/'.join(filename.split('/')[:-1])) + "'>Back<a><br>\n"
+        html = html + "<a href='/files/?filename=" + urllib.parse.quote_plus('/'.join(filename.split('/')[:-1])) + \
+                      "'>Back<a><br>\n"
 
     cur.execute("SELECT * FROM filedatabase_filerecord where file_name=? and owner_id=?", [filename, curruser.id])
     obj = cur.fetchall()
@@ -98,8 +96,8 @@ def filedisp(request):
         files = cur.fetchall()
         html = html + "<ul>"
         for f in files:
-            html = html + "<li><a href='/files/?scheme=" + scheme + "&key=" + urllib.parse.quote_plus(key) + \
-                   "&filename=" + urllib.parse.quote_plus(f[0]) + "'>" + f[0].split('/')[-1] + "<a><br>\n"
+            html = html + "<li><a href='/files/?filename=" + urllib.parse.quote_plus(f[0]) + "'>" + \
+                            f[0].split('/')[-1] + "<a><br>\n"
     else:
         file = obj[0]
         if file[4] == "DIR":
@@ -108,8 +106,8 @@ def filedisp(request):
             files = cur.fetchall()
             html = html + "<ul>"
             for f in files:
-                html = html + "<li><a href='/files/?scheme=" + scheme + "&key=" + urllib.parse.quote_plus(key) + \
-                       "&filename=" + urllib.parse.quote_plus(f[0]) + "'>"+f[0].split('/')[-1]+"<a><br>\n"
+                html = html + "<li><a href='/files/?filename=" + urllib.parse.quote_plus(f[0]) + "'>"+\
+                       f[0].split('/')[-1]+"<a><br>\n"
         else:
             if scheme == 'AES':
                 html = html + "<script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/" \
@@ -120,7 +118,8 @@ def filedisp(request):
                               "sha1.js'></script>\n" \
                               "<script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/" \
                               "rc4.js'></script>\n" \
-                              "<script> var key = CryptoJS.SHA1('" + key + "');" \
+                              "<script> var key = CryptoJS.SHA1(encodeURI('" + key + "'));" \
+                                                                           "console.log(key.toString());" \
                               "var decrypted = CryptoJS.RC4.decrypt" \
                                                 "(\"" + file[6] + "\", key);\n" \
 
@@ -128,7 +127,7 @@ def filedisp(request):
                 html = html + "console.log(decrypted);\n" \
                                                       "document.getElementById" \
                                                       "('disp').innerHTML = decrypted.toString(CryptoJS.enc.Utf8);"\
-                                                                            "</script>"
+                                                      "</script>"
 
     return render(request, 'files.html', {'html': html, 'root': root})
 
