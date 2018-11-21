@@ -10,14 +10,21 @@ def encrypt(filename, key):
             pyAesCrypt.encryptStream(fIn, fOut, key, bufferSize)
     tempfile = filename + ".aes"
     with open(tempfile, 'rb') as fRead:
-        #remove(tempfile)
+        remove(tempfile)
         return fRead.read()
     
 
 def decrypt(filename, key):
     bufferSize = 64 * 1024
     encFileSize = stat(filename).st_size
-    with open(filename, "rb") as fIn:
+    with open(filename, "r") as fIn:
+        data = fIn.read()
+        fIn.seek(0)
+    with open(filename, 'wb+') as fIn:
+        fIn.write(data.encode('utf-8'))
+        fIn.seek(0)
+        fIn.close()
+    with open(filename, 'rb') as fIn:
         with open("decrypted", "wb") as fOut:
             try:
                 # decrypt file stream
@@ -45,8 +52,8 @@ def decrypt(filename, key):
 
 
 if __name__ == '__main__':
-    print(encrypt("Makefile", "hello"))
-    decrypt("Makefile.aes", "hello")
+    #print(encrypt("Makefile", "hello"))
+    decrypt("abc/Makefile", "arkhamknight")
 
 
     #decrypt("test.png.aes", "hello")

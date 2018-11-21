@@ -8,13 +8,14 @@ from pathlib import Path
 from sync import sync2
 from aes import decrypt
 
+from file_status import get_status
+
 parser = argparse.ArgumentParser(prog='spc')
 
 # coreapi variables
 
 client = None
 document = None
-
 
 # Status variables
 
@@ -35,9 +36,9 @@ schema_name = None
 sym_key = None
 public_key = None
 private_key = None
+IDS = {"RSA": 4, "AES": 1, "ARC4": 2, "Blowfish": 3}
 
-
-myupath=os.path.expanduser('~') # work around
+myupath = os.path.expanduser('~')  # work around
 
 parser.add_argument("--status", help="Current status of client", action="store_true")
 parser.add_argument("--sync", help="Syncs the user with the client.", action="store_true")
@@ -53,7 +54,6 @@ parser_server = subparsers.add_parser("server", help='Server sub-commands')
 parser_ende = subparsers.add_parser('en-de', help='en-de sub-commands')
 parser_config = subparsers.add_parser('config', help='config sub-commands')
 
-
 parser_server.add_argument('--set_url', action="store_true", help="Set up url of the server")
 parser_server.add_argument('--disconnect', action="store_true", help="Remove server")
 
@@ -65,6 +65,7 @@ parser_ende.add_argument('--view', action='store_true')
 
 parser_config.add_argument('--delete', action="store_true")
 parser_config.add_argument('--edit', action='store_true')
+
 
 # subparsers_level2 = parser_ende.add_subparsers(help='sub options for encryption and decryption', dest='ende')
 # parser_update = subparsers_level2.add_parser('update', help="update scheme options")
@@ -82,70 +83,129 @@ def md5sum(filename):
         md5_returned = hashlib.md5(data).hexdigest()
         return md5_returned
 
+
+def read_schema():
+    try:
+        with open(myupath + "/config/scheme.json", "r") as read_file:
+            data = json.load(read_file)
+            schema_id = data['ID']
+            schema_name = data['Scheme_Name']
+            sym_key = data['Symmetric_Key']
+    except FileNotFoundError:
+        print("Need to set the schema before this operation")
+
+
+
 def update_scheme_file(filename):
-    print("Encryption schema has been updated according to " + filename)
+    updated = False
+    if os.path.exists(filename):
+        with open(filename, 'r') as f:
+            content = f.read().splitlines()
+            if content[0] in ['AES', 'ARC4', 'RSA', 'Blowfish']:
+                schema_name = content[0]
+                schema_id = IDS[schema_name]
+                sym_key = content[1]
+                data = {"ID": schema_id, "Scheme_Name": schema_name, "key-gen": 'NA', "Symmetric_Key": sym_key, \
+                        "Public_Key": 'NA', "Private_Key": 'NA'}
+                if os.path.exists(myupath + "/config/"):
+                    with open(myupath + "/config/scheme.json", "w") as write_file:
+                        json.dump(data, write_file)
+                        updated = True
+                else:
+                    os.makedirs(myupath + "/config/")
+                    with open(myupath + "/config/scheme.json", "w") as write_file:
+                        json.dump(data, write_file)
+                        updated = True
+
+            else:
+                print("Invalid file format. The first line must be a valid encryption scheme")
+    else:
+        print("Invalid file path")
+
+    if updated:
+        print("Encryption schema has been updated according to " + filename)
 
 
 def update_schema():
     print("Schema update")
     list_schemes()
     print("")
-    IDS = {"RSA" : 4, "AES" : 1, "ACR4" : 2, "Blowfish" : 3}
     while True:
         schema_name = input("Enter a scheme name: ")
-        if schema_name in ['RSA', 'AES', 'ACR4', 'Blowfish']:
+        if schema_name in ['RSA', 'AES', 'ARC4', 'Blowfish']:
             break
         else:
             print("Schema name is not valid, enter the scheme name from the above list(case sensitive)")
+
     schema_id = IDS[schema_name]
     sym_key = input("Enter the key for your encryption scheme: ")
-    data = {"ID": schema_id, "Scheme_Name": schema_name, "key-gen": 'NA', "Symmetric_Key": 'NA', \
+    data = {"ID": schema_id, "Scheme_Name": schema_name, "key-gen": 'NA', "Symmetric_Key": sym_key, \
             "Public_Key": 'NA', "Private_Key": 'NA'}
     if os.path.exists(myupath + "/config/"):
         with open(myupath + "/config/scheme.json", "w") as write_file:
             json.dump(data, write_file)
     else:
         os.makedirs(myupath + "/config/")
+        with open(myupath + "/config/scheme.json", "w") as write_file:
+            json.dump(data, write_file)
+
 
 def view_schema():
-    print("Current Schema")
     try:
         with open(myupath + "/config/scheme.json", "r") as read_file:
             while True:
-                print("WARNING: Sensitive information will be displayed on screen. Continue? [Y/n]")
+                print("WARNING: Sensitive information will be displayed on the screen. Continue? [Y/n]")
                 ch = input()
                 if ch == 'Y':
                     break
                 else:
                     return
+            print("Current Schema")
+            print("")
             data = json.load(read_file)
             schema_id = data['ID']
             schema_name = data['Scheme_Name']
-            sym_key = data['Symmetric Key']
-            print("Schema ID:" + schema_id)
-            print("Scheme Name:" + schema_name)
-            print("")
+            sym_key = data['Symmetric_Key']
+            print("Schema ID: " + str(schema_id))
+            print("Scheme Name: " + schema_name)
+            print("Symmetric Key: " + sym_key)
     except FileNotFoundError:
         print("No configuration set")
 
+
+def dump_schema_file(filename):
+    with open(filename, 'w+') as dump_file:
+        try:
+            with open(myupath + "/config/scheme.json", "r") as read_file:
+                data = json.load(read_file)
+                dump_file.write(data['Scheme_Name'])
+                dump_file.write("\n")
+                dump_file.write(data['Symmetric_Key'])
+        except:
+            print("Encryption schema not set.")
+
+def dump_schema():
+    view_schema()
+
 def config_delete():
     try:
-        with open(myupath+"/config/config.json", "r") as read_file:
+        with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
             username = data['username']
             password = data['password']
             print("User logged in: " + username)
             check_pass = getpass.getpass("Enter your password to logout: ")
             if check_pass == password:
-                os.remove(myupath+"/config/config.json")
+                os.remove(myupath + "/config/config.json")
                 print("Succesfully logged out.")
             else:
                 print("Authentication failed.")
     except FileNotFoundError:
         print("No configuration set")
 
+
 def config_edit():
-    while(True):
+    while (True):
         usern = input("Username: ")
         passwd = getpass.getpass("Password: ")
         pass_check = getpass.getpass("Confirm password: ")
@@ -154,13 +214,21 @@ def config_edit():
         else:
             print("Passwords do not match")
     login_status = True
-    data = {"username" : usern, "password" : passwd, "login" : login_status}
-    with open(myupath+"/config/config.json", "w") as write_file:
+    data = {"username": usern, "password": passwd, "login": login_status}
+    with open(myupath + "/config/config.json", "w") as write_file:
         json.dump(data, write_file)
+
+def choose_scheme(id):
+    if id==1:
+        from aes import decrypt
+    elif id==2:
+        from arc4 import decrypt
+    elif id==3:
+        from blowfish import decrypt
 
 def status():
     try:
-        with open(myupath+"/config/config.json", "r") as read_file:
+        with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
             username = data['username']
             password = data['password']
@@ -169,7 +237,7 @@ def status():
     except FileNotFoundError:
         print("No user logged in")
     try:
-        with open(myupath+"/config/url.json", "r") as read_file:
+        with open(myupath + "/config/url.json", "r") as read_file:
             data = json.load(read_file)
             server_url = data['server_url']
             domain = data['domain']
@@ -177,12 +245,15 @@ def status():
     except FileNotFoundError:
         print("Server not set-up")
     try:
-        with open(myupath+"/config/path.json", 'r') as read_file:
+        with open(myupath + "/config/path.json", 'r') as read_file:
             data = json.load(read_file)
             observe_path = data['observe_path']
             print("Currently observing: " + os.path.abspath(observe_path))
     except:
         print("Directory not set-up")
+    print("-----------------")
+    get_status(username, password, observe_path, server_url, domain)
+
 
 
 def sync():
@@ -199,7 +270,7 @@ def sync():
 
 def observe(path):
     data = {"observe_path": path}
-    with open(myupath+"/config/path.json", "w") as write_file:
+    with open(myupath + "/config/path.json", "w") as write_file:
         json.dump(data, write_file)
     print("Now observing  " + path)
 
@@ -208,23 +279,28 @@ def set_url():
     url = input("Enter domain: ")
     port_number = input("Enter port: ")
     sys_url = url + ":" + port_number
-    data = {"server_url": sys_url, "domain" : url}
-    with open(myupath+"/config/url.json", "w") as write_file:
+    data = {"server_url": sys_url, "domain": url}
+    with open(myupath + "/config/url.json", "w") as write_file:
         json.dump(data, write_file)
     print("Connecting to " + sys_url)
 
+
 def scheme():
-    with open(myupath+"/config/scheme.json", "r") as read_file:
+    with open(myupath + "/config/scheme.json", "r") as read_file:
         data = json.load(read_file)
+
 
 def disconnect():
     server_url = None
-    os.remove(myupath+'/config/url.json')
+    os.remove(myupath + '/config/url.json')
     print("Disconnected")
 
+
 def upload():
+    read_schema()
+    choose_scheme(schema_id)
     try:
-        with open(myupath+"/config/config.json", "r") as read_file:
+        with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
             username = data['username']
             password = data['password']
@@ -232,14 +308,14 @@ def upload():
     except FileNotFoundError:
         print("No user logged in")
     try:
-        with open(myupath+"/config/url.json", "r") as read_file:
+        with open(myupath + "/config/url.json", "r") as read_file:
             data = json.load(read_file)
             server_url = data['server_url']
             domain = data['domain']
     except FileNotFoundError:
         print("Server not set-up")
     try:
-        with open(myupath+"/config/path.json", 'r') as read_file:
+        with open(myupath + "/config/path.json", 'r') as read_file:
             data = json.load(read_file)
             observe_path = data['observe_path']
     except:
@@ -248,9 +324,9 @@ def upload():
 
 
 def download():
-   # key = password # Temporary
+    # key = password # Temporary
     try:
-        with open(myupath+"/config/config.json", "r") as read_file:
+        with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
             username = data['username']
             password = data['password']
@@ -258,14 +334,14 @@ def download():
     except FileNotFoundError:
         print("No user logged in")
     try:
-        with open(myupath+"/config/url.json", "r") as read_file:
+        with open(myupath + "/config/url.json", "r") as read_file:
             data = json.load(read_file)
             server_url = data['server_url']
             domain = data['domain']
     except FileNotFoundError:
         print("Server not set-up")
     try:
-        with open(myupath+"/config/path.json", 'r') as read_file:
+        with open(myupath + "/config/path.json", 'r') as read_file:
             data = json.load(read_file)
             observe_path = data['observe_path']
     except:
@@ -279,11 +355,11 @@ def download():
         if obj['username'] == username:
             user_id = obj['id']
             break
-    if  user_id == None:
+    if user_id == None:
         print("User " + username + " has not signed up")
     file_list = client.action(document, ['filedatabase', 'list'])
     file_list = file_list['results']
-    #print(file_list)
+    # print(file_list)
     for file_dict in file_list:
         if (file_dict['owner'] == username):
             file_name = file_dict['file_name']
@@ -297,7 +373,7 @@ def download():
                     print(str(abspath) + " is being downloaded")
                     with open(abspath, 'w', encoding='utf-8') as fOut:
                         fOut.write(file_dict['file_data'])
-                    #decrypt(str(abspath), password)
+                    decrypt(str(abspath), password)
             else:
                 if os.path.exists(str(abspath)):
                     pass
@@ -308,10 +384,12 @@ def download():
                         print(str(abspath) + " is being downloaded")
                         with open(abspath, 'w', encoding='utf-8') as fOut:
                             fOut.write(file_dict['file_data'])
-                       # decrypt(str(abspath), password)
+                        decrypt(str(abspath), password)
+
+
 def login():
     try:
-        with open(myupath+"/config/config.json", "r") as read_file:
+        with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
             username = data['username']
             password = data['password']
@@ -319,7 +397,7 @@ def login():
     except FileNotFoundError:
         print("Use config --edit to login")
     try:
-        with open(myupath+"/config/url.json", "r") as read_file:
+        with open(myupath + "/config/url.json", "r") as read_file:
             data = json.load(read_file)
             server_url = data['server_url']
             domain = data['domain']
@@ -330,6 +408,7 @@ def login():
     document = client.get("http://" + server_url + "/schema/")
     print(document)
     client.action(document, ['users', 'list'])
+
 
 def signup():
     while (True):
@@ -350,13 +429,6 @@ def list_schemes():
     print("     4. RSA")
 
 
-def dump_schema_file(filename):
-    print("Current schema dumped to " + filename)
-
-
-def dump_schema():
-    print("To be implemented")
-
 
 if __name__ == '__main__':
     args = parser.parse_args()
@@ -372,7 +444,7 @@ if __name__ == '__main__':
         download()
     if args.upload:
         upload()
-    if args.sub =='server':
+    if args.sub == 'server':
         if args.set_url:
             set_url()
         if args.disconnect:
