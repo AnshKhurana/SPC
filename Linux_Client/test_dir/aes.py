@@ -1,6 +1,6 @@
 from Crypto.Cipher import ARC4
 from Crypto.Hash import SHA
-
+from ast import literal_eval
 
 def encrypt(filename, key):
     key = key.encode()
@@ -22,10 +22,10 @@ def decrypt(filename, data, key):
     # print(type(key))
     tempkey = SHA.new(key).digest()
     cipher = ARC4.new(tempkey)
-    fdata = data
-    print(fdata)
+    fdata = literal_eval(data)
+    print(fdata,type(fdata))
     msg = cipher.decrypt(fdata)
-    # print('hello man')
+    print('hello')
     #print(type(msg.decode('ascii')))
     # return msg
     with open(filename, 'wb') as fout:
@@ -33,9 +33,6 @@ def decrypt(filename, data, key):
 
 
 if __name__ == '__main__':
-    edata = encrypt("Makefile", "hello")
-    with open('ns', 'wb') as fout:
-        fout.write(edata)
-    ddata = decrypt('ns', 'hello')
-    with open('newMakefile', 'wb') as fout:
-        fout.write(ddata)
+    edata = encrypt("file1.txt", "arkhamknight")
+    print(str(edata)[2:-1])
+    decrypt('temp.txt',str(edata),"arkhamknight")

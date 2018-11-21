@@ -9,6 +9,7 @@ from sync import sync2
 from aes import decrypt
 
 from file_status import get_status
+from ast import literal_eval
 
 parser = argparse.ArgumentParser(prog='spc')
 
@@ -375,7 +376,8 @@ def download():
                     print(str(abspath) + " is being downloaded")
                     # with open(abspath, 'w', encoding='utf-8') as fOut:
                     #     fOut.write(file_dict['file_data'])
-                    decrypt(str(abspath), file_dict['file_data'], password)
+                    print(file_dict['file_data'])
+                    decrypt(str(abspath), literal_eval(file_dict['file_data']), password)
             else:
                 if os.path.exists(str(abspath)):
                     pass
@@ -386,7 +388,7 @@ def download():
                         print(str(abspath) + " is being downloaded")
                         # with open(abspath, 'w', encoding='utf-8') as fOut:
                         #     fOut.write(file_dict['file_data'])
-                        decrypt(str(abspath), file_dict['file_data'], password)
+                        decrypt(str(abspath), literal_eval(file_dict['file_data']), password)
 
 
 def login():

@@ -56,8 +56,8 @@ def sync2(uname,passwd,obdir,upath,domain):
     file_list = file_list['results']
     jdata=file_list
     mylist=[]
-    print([x['file_name'] for x in jdata])
-    print('--------------------')
+    # print([x['file_name'] for x in jdata])
+    # print('--------------------')
     for i in jdata:
         if i['owner']==uname:
             mylist.append(i)
@@ -68,9 +68,9 @@ def sync2(uname,passwd,obdir,upath,domain):
     # print("hello")
     # print(len(list(sublist)))
     sl=list(sublist)
-    print(sl)
-    print('--------------------')
-    print([x['file_name'] for x in mylist])
+    # print(sl)
+    # print('--------------------')
+    # print([x['file_name'] for x in mylist])
     for f in pbar(sl):
         # print('hello')
         b=0
@@ -113,6 +113,8 @@ def sync2(uname,passwd,obdir,upath,domain):
                 # print(ft)
                 msum=md5sumc('/'.join(f.split('/')[0:]))
                 fd=encrypt('/'.join(f.split('/')[0:]),passwd)
+                print(passwd)
+                print(fd)
                 # print('hello')
                 # print(fd)
 
@@ -127,6 +129,7 @@ def sync2(uname,passwd,obdir,upath,domain):
             document = client.get('http://'+upath + "/schema/")
             client.action(document, ['filedatabase', 'create'],params={'file_name':f,'file_type':ft,'file_data':str(fd),'md5sum':msum})
             # print('done')
+
 
 
 if __name__ == '__main__':
