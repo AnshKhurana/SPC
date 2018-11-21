@@ -6,7 +6,7 @@ import os
 import hashlib
 from pathlib import Path
 from sync import sync2
-from arc4 import decrypt
+
 from file_status import get_status
 
 from ast import literal_eval
@@ -101,6 +101,7 @@ def read_schema():
             schema_id = data['ID']
             schema_name = data['Scheme_Name']
             sym_key = data['Symmetric_Key']
+            choose_scheme(schema_id)
     except FileNotFoundError:
         print("Need to set the schema before this operation")
 
@@ -300,7 +301,6 @@ def disconnect():
 
 def upload():
     read_schema()
-    choose_scheme(schema_id)
     try:
         with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)

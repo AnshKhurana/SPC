@@ -16,6 +16,18 @@ from arc4 import encrypt, decrypt
 # upath='127.0.0.1:8000'
 
 
+def read_schema():
+    try:
+        with open(myupath + "/config/scheme.json", "r") as read_file:
+            data = json.load(read_file)
+            schema_id = data['ID']
+            schema_name = data['Scheme_Name']
+            sym_key = data['Symmetric_Key']
+            choose_scheme(schema_id)
+    except FileNotFoundError:
+        print("Need to set the schema before this operation")
+
+
 def choose_scheme(id):
     if id==1:
         from aes import encrypt, decrypt
@@ -42,7 +54,7 @@ def getsubs(mypath):
 
 
 def sync2(uname,passwd,obdir,upath,domain):
-    choose_scheme(2)
+    read_scheme()
     pbar=ProgressBar()
     sublist = getsubs(obdir)
     ol=len(obdir.split('/'))
