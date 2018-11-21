@@ -4,6 +4,7 @@ from django.contrib.auth.forms import UserCreationForm
 import sqlite3
 from django.db.models import QuerySet
 from django.http import HttpResponse, Http404
+from django.shortcuts import render
 from django.urls import reverse_lazy
 from django.views import generic
 from rest_framework.decorators import action, api_view, permission_classes
@@ -75,28 +76,30 @@ def filedisp(request):
     db = sqlite3.connect("db.sqlite3")
     key = request.GET['key']
     scheme = request.GET['scheme']
-
-    if 'filename' not in request.GET:
-        filename = ''
-        html = ""
-    else:
-        filename = request.GET['filename']
-        html = "<a href='/files/?scheme=" + scheme + "&ampkey=" + urllib.parse.quote_plus(key) + "&ampfilename=" + \
-                urllib.parse.quote_plus('/'.join(filename.split('/')[:-1])) + "'>Back<a><br>"
     db = sqlite3.connect('db.sqlite3')
     cur = db.cursor()
+    cur.execute("SELECT file_name FROM filedatabase_filerecord order by id limit 1")
+    root = cur.fetchall()[0][0].split('/')[0]
+    html = ""
+    if 'filename' not in request.GET or request.GET['filename'] == root:
+        filename = root
+    else:
+        filename = request.GET['filename']
+        html = html + "<a href='/files/?scheme=" + scheme + "&key=" + urllib.parse.quote_plus(key) + "&filename=" + \
+                urllib.parse.quote_plus('/'.join(filename.split('/')[:-1])) + "'>Back<a><br>\n"
+
     cur.execute("SELECT * FROM filedatabase_filerecord where file_name=? and owner_id=?", [filename, curruser.id])
     obj = cur.fetchall()
-    if len(obj) == 0 and filename != '':
+    if len(obj) == 0 and filename != root:
         raise Http404('File does not exist')
-    if filename == '':
-        cur.execute("SELECT file_name FROM filedatabase_filerecord where owner_id=? and file_name not like '%/%'",
+    if filename == root:
+        cur.execute("SELECT file_name FROM filedatabase_filerecord where owner_id=? and file_name not like '%/%/%'",
                     [curruser.id])
         files = cur.fetchall()
         html = html + "<ul>"
         for f in files:
-            html = html + "<li><a href='/files/?scheme=" + scheme + "&ampkey=" + urllib.parse.quote_plus(key) + \
-                   "&ampfilename=" + urllib.parse.quote_plus(f[0]) + "'>" + f[0].split('/')[0] + "<a><br>"
+            html = html + "<li><a href='/files/?scheme=" + scheme + "&key=" + urllib.parse.quote_plus(key) + \
+                   "&filename=" + urllib.parse.quote_plus(f[0]) + "'>" + f[0].split('/')[-1] + "<a><br>\n"
     else:
         file = obj[0]
         if file[4] == "DIR":
@@ -105,10 +108,29 @@ def filedisp(request):
             files = cur.fetchall()
             html = html + "<ul>"
             for f in files:
-                html = html + "<li><a href='/files/?scheme=" + scheme + "&ampkey=" + urllib.parse.quote_plus(key) + \
-                       "&ampfilename=" + urllib.parse.quote_plus(f[0]) + "'>"+f[0].split('/')[0]+"<a><br>"
+                html = html + "<li><a href='/files/?scheme=" + scheme + "&key=" + urllib.parse.quote_plus(key) + \
+                       "&filename=" + urllib.parse.quote_plus(f[0]) + "'>"+f[0].split('/')[-1]+"<a><br>\n"
+        else:
+            if scheme == 'AES':
+                html = html + "<script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/" \
+                              "aes.js'></script>\n" + "<script> var decrypted = CryptoJS.AES.decrypt" \
+                                                      "(\""+file[6]+"\", '"+key+"');\n"
+            elif scheme == 'ARC4':
+                html = html + "<script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/" \
+                              "sha1.js'></script>\n" \
+                              "<script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/" \
+                              "rc4.js'></script>\n" \
+                              "<script> var key = CryptoJS.SHA1('" + key + "');" \
+                              "var decrypted = CryptoJS.RC4.decrypt" \
+                                                "(\"" + file[6] + "\", key);\n" \
 
-    return HttpResponse(html)
+            if "ASCII text" in file[4]:
+                html = html + "console.log(decrypted);\n" \
+                                                      "document.getElementById" \
+                                                      "('disp').innerHTML = decrypted.toString(CryptoJS.enc.Utf8);"\
+                                                                            "</script>"
+
+    return render(request, 'files.html', {'html': html, 'root': root})
 
 
 
