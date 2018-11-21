@@ -2,10 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="00cfb76a-c9f6-4bba-917a-f44c253128cd" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dictionaries/HP.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/dictionaries/HP.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/filedatabase/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/filedatabase/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/files.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/files.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/home.html" beforeDir="false" afterPath="$PROJECT_DIR$/templates/home.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../../web-app/web-client.html" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -125,7 +122,7 @@
           <entry key="Django Console" value="655" />
           <entry key="css" value="3" />
           <entry key="html" value="656" />
-          <entry key="py" value="2373" />
+          <entry key="py" value="2651" />
           <entry key="sql" value="11" />
         </counts>
       </usages-collector>
@@ -133,7 +130,7 @@
         <counts>
           <entry key="CSS" value="3" />
           <entry key="HTML" value="656" />
-          <entry key="Python" value="3025" />
+          <entry key="Python" value="3303" />
           <entry key="SQL" value="3" />
           <entry key="Scratch" value="11" />
         </counts>
@@ -191,11 +188,10 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/filedatabase/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="115" column="34" lean-forward="true" selection-start-line="115" selection-start-column="34" selection-end-line="115" selection-end-column="34" />
+            <state relative-caret-position="203">
+              <caret line="83" column="16" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
-                <marker date="1542837184919" expanded="true" signature="2295:5574" ph="..." />
               </folding>
             </state>
           </provider>
@@ -660,13 +656,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/templates/files.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="68">
-          <caret line="4" column="26" lean-forward="true" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/templates/home.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="126">
@@ -674,13 +663,19 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/templates/files.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="26" lean-forward="true" selection-start-line="4" selection-start-column="26" selection-end-line="4" selection-end-column="26" />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/filedatabase/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="115" column="34" lean-forward="true" selection-start-line="115" selection-start-column="34" selection-end-line="115" selection-end-column="34" />
+        <state relative-caret-position="203">
+          <caret line="83" column="16" selection-start-line="83" selection-start-column="16" selection-end-line="83" selection-end-column="16" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
-            <marker date="1542837184919" expanded="true" signature="2295:5574" ph="..." />
           </folding>
         </state>
       </provider>

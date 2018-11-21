@@ -79,6 +79,9 @@ def filedisp(request):
     cur.execute("SELECT file_name FROM filedatabase_filerecord order by id limit 1")
     root = cur.fetchall()[0][0].split('/')[0]
     html = ""
+    filedata = b''
+    filetype = ''
+    isdir = True
     if 'filename' not in request.GET or request.GET['filename'] == root:
         filename = root
     else:
@@ -109,27 +112,12 @@ def filedisp(request):
                 html = html + "<li><a href='/files/?filename=" + urllib.parse.quote_plus(f[0]) + "'>"+\
                        f[0].split('/')[-1]+"<a><br>\n"
         else:
-            if scheme == 'AES':
-                html = html + "<script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/" \
-                              "aes.js'></script>\n" + "<script> var decrypted = CryptoJS.AES.decrypt" \
-                                                      "(\""+file[6]+"\", '"+key+"');\n"
-            elif scheme == 'ARC4':
-                html = html + "<script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/" \
-                              "sha1.js'></script>\n" \
-                              "<script src='https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.2/rollups/" \
-                              "rc4.js'></script>\n" \
-                              "<script> var key = CryptoJS.SHA1(encodeURI('" + key + "'));" \
-                                                                           "console.log(key.toString());" \
-                              "var decrypted = CryptoJS.RC4.decrypt" \
-                                                "(\"" + file[6] + "\", key);\n" \
+            filetype = file[4]
+            filedata = file[6]
+            isdir = False
 
-            if "ASCII text" in file[4]:
-                html = html + "console.log(decrypted);\n" \
-                                                      "document.getElementById" \
-                                                      "('disp').innerHTML = decrypted.toString(CryptoJS.enc.Utf8);"\
-                                                      "</script>"
-
-    return render(request, 'files.html', {'html': html, 'root': root})
+    return render(request, 'files.html', {'html': html, 'root': root, 'filetype': filetype, 'filedata': filedata,
+                                          'isdir': isdir})
 
 
 
