@@ -70,9 +70,9 @@ def sync2(uname,passwd,obdir,upath,domain):
                         auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
                         client = coreapi.Client(auth=auth)
                         document = client.get('http://'+upath + "/schema/")
-                        userlist = client.action(document, ['filedatabase', 'update'],
-                                                 params={'file_name': f, 'file_type': ft, \
-                                                         'file_data': fd, 'md5sum': msum,'id':id1})
+                        # userlist = client.action(document, ['filedatabase', 'update'],
+                        #                          params={'file_name': f, 'file_type': ft, \
+                        #                                  'file_data': fd, 'md5sum': msum,'id':id1})
                     break
         if(b==0):
             ft=''
