@@ -1,4 +1,0 @@
-coreapi                           
-coreapi-cli 
-Django                             
-djangorestframework                

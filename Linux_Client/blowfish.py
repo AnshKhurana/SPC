@@ -29,13 +29,14 @@ def decrypt(filename, key):
     last_byte = msg[-1]
 
     msg = msg[:- (last_byte if type(last_byte) is int else ord(last_byte))]
+    print(msg)
     return msg
 
 
 if __name__ == '__main__':
-    edata = encrypt("id.jpeg", "hellorrrlmnkhmnk")
+    edata = encrypt("Makefile", "hellorrrlmnkhmnk")
     with open('ns', 'wb') as fout:
         fout.write(edata)
     ddata = decrypt('ns', 'hellorrrlmnkhmnk')
-    with open('newimg.jpeg', 'wb') as fout:
+    with open('newMakefile', 'wb') as fout:
         fout.write(ddata)

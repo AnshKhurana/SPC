@@ -1,59 +1,41 @@
-import pyAesCrypt
-from tempfile import TemporaryFile
-from os import stat, remove, rename
-import io
+from Crypto.Cipher import ARC4
+from Crypto.Hash import SHA
+
 
 def encrypt(filename, key):
-    bufferSize = 64 * 1024
+    key = key.encode('ascii')
     with open(filename, "rb") as fIn:
-        with open(filename + ".aes", 'wb') as fOut:
-            pyAesCrypt.encryptStream(fIn, fOut, key, bufferSize)
-    tempfile = filename + ".aes"
-    with open(tempfile, 'rb') as fRead:
-        remove(tempfile)
-        return fRead.read()
-    
+        # nonce=get_random_bytes(16)
+        # print(type(key))
+        tempkey = SHA.new(key).digest()
+        cipher = ARC4.new(tempkey)
+        fdata = fIn.read()
+        msg = cipher.encrypt(fdata)
+        return msg
 
-def decrypt(filename, key):
-    bufferSize = 64 * 1024
-    encFileSize = stat(filename).st_size
-    with open(filename, "r") as fIn:
-        data = fIn.read()
-        fIn.seek(0)
-    with open(filename, 'wb+') as fIn:
-        fIn.write(data.encode('utf-8'))
-        fIn.seek(0)
-        fIn.close()
-    with open(filename, 'rb') as fIn:
-        with open("decrypted", "wb") as fOut:
-            try:
-                # decrypt file stream
-                pyAesCrypt.decryptStream(fIn, fOut, key, bufferSize, encFileSize)
-            except ValueError:
-                # remove output file on error
-                #remove("dataout.txt")
-                print("Still an error")
 
-#
-# def decrypt(filename, key):
-#     bufferSize = 64 * 1024
-#     # with TemporaryFile() as fIn:
-#     #     fIn.write(bytes(data, 'UTF-8'))
-#     #     print(fIn.read())
-#     encFileSize = stat(filename).st_size
-#     with open(filename, 'w+', encoding='utf-8') as fIn:
-#         fIn.write(data)
-#         fIn.seek(0)
-#         print(fIn.read())
-#         fIn.seek(0)
-#         with open('temp', 'w+b') as fOut:
-#             pyAesCrypt.decryptStream(fIn, fOut, key, bufferSize, encFileSize)
-#     rename('temp', filename)
+def decrypt(filename, data, key):
+    key = key.encode('ascii')
+    # with open(filename, "rb") as fIn:
+    # tdecrpt=fIn.read()
+    # nonce = get_random_bytes(16)
+    # print(type(key))
+    tempkey = SHA.new(key).digest()
+    cipher = ARC4.new(tempkey)
+    fdata = data
+    print(fdata)
+    msg = cipher.decrypt(fdata)
+    print('hello')
+    #print(type(msg.decode('ascii')))
+    # return msg
+    with open(filename, 'wb') as fout:
+        fout.write(msg)
 
 
 if __name__ == '__main__':
-    #print(encrypt("Makefile", "hello"))
-    decrypt("abc/Makefile", "arkhamknight")
-
-
-    #decrypt("test.png.aes", "hello")
+    edata = encrypt("Makefile", "hello")
+    with open('ns', 'wb') as fout:
+        fout.write(edata)
+    ddata = decrypt('ns', 'hello')
+    with open('newMakefile', 'wb') as fout:
+        fout.write(ddata)

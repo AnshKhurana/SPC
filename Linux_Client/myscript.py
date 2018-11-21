@@ -75,6 +75,15 @@ parser_config.add_argument('--edit', action='store_true')
 # parser_dump.add_argument('-f', '--file')
 
 
+def choose_scheme(id):
+    if id==1:
+        from aes import decrypt
+    elif id==2:
+        from arc4 import decrypt
+    elif id==3:
+        from blowfish import decrypt
+
+
 def md5sum(filename):
     with open(filename, 'rb') as file_to_check:
         # read contents of the file
@@ -218,14 +227,6 @@ def config_edit():
     with open(myupath + "/config/config.json", "w") as write_file:
         json.dump(data, write_file)
 
-def choose_scheme(id):
-    if id==1:
-        from aes import decrypt
-    elif id==2:
-        from arc4 import decrypt
-    elif id==3:
-        from blowfish import decrypt
-
 def status():
     try:
         with open(myupath + "/config/config.json", "r") as read_file:
@@ -325,6 +326,7 @@ def upload():
 
 def download():
     # key = password # Temporary
+    print("d called")
     try:
         with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
@@ -371,9 +373,9 @@ def download():
                     pass
                 else:
                     print(str(abspath) + " is being downloaded")
-                    with open(abspath, 'w', encoding='utf-8') as fOut:
-                        fOut.write(file_dict['file_data'])
-                    decrypt(str(abspath), password)
+                    # with open(abspath, 'w', encoding='utf-8') as fOut:
+                    #     fOut.write(file_dict['file_data'])
+                    decrypt(str(abspath), file_dict['file_data'], password)
             else:
                 if os.path.exists(str(abspath)):
                     pass
@@ -382,9 +384,9 @@ def download():
                         os.makedirs(str(abspath))
                     else:
                         print(str(abspath) + " is being downloaded")
-                        with open(abspath, 'w', encoding='utf-8') as fOut:
-                            fOut.write(file_dict['file_data'])
-                        decrypt(str(abspath), password)
+                        # with open(abspath, 'w', encoding='utf-8') as fOut:
+                        #     fOut.write(file_dict['file_data'])
+                        decrypt(str(abspath), file_dict['file_data'], password)
 
 
 def login():
