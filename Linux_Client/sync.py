@@ -17,9 +17,9 @@ from progressbar import ProgressBar
 
 
 def md5sumc(filename):
-    with open(filename, 'r') as file_to_check:
+    with open(filename, 'rb') as file_to_check:
         # read contents of the file
-        data = file_to_check.read().encode('utf-8')
+        data = file_to_check.read()
         # pipe contents of the file through
         md5_returned = hashlib.md5(data).hexdigest()
         return md5_returned

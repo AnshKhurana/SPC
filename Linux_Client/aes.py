@@ -10,7 +10,7 @@ def encrypt(filename, key):
             pyAesCrypt.encryptStream(fIn, fOut, key, bufferSize)
     tempfile = filename + ".aes"
     with open(tempfile, 'rb') as fRead:
-        remove(tempfile)
+        #remove(tempfile)
         return fRead.read()
     
 
@@ -46,5 +46,7 @@ def decrypt(filename, key):
 
 if __name__ == '__main__':
     print(encrypt("Makefile", "hello"))
+    decrypt("Makefile.aes", "hello")
+
 
     #decrypt("test.png.aes", "hello")

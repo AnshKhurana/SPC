@@ -75,9 +75,9 @@ parser_config.add_argument('--edit', action='store_true')
 
 
 def md5sum(filename):
-    with open(filename, 'r') as file_to_check:
+    with open(filename, 'rb') as file_to_check:
         # read contents of the file
-        data = file_to_check.read().encode('utf-8')
+        data = file_to_check.read()
         # pipe contents of the file through
         md5_returned = hashlib.md5(data).hexdigest()
         return md5_returned
@@ -143,7 +143,6 @@ def config_delete():
                 print("Authentication failed.")
     except FileNotFoundError:
         print("No configuration set")
-
 
 def config_edit():
     while(True):
@@ -298,7 +297,7 @@ def download():
                     print(str(abspath) + " is being downloaded")
                     with open(abspath, 'w', encoding='utf-8') as fOut:
                         fOut.write(file_dict['file_data'])
-                    decrypt(str(abspath), password)
+                    #decrypt(str(abspath), password)
             else:
                 if os.path.exists(str(abspath)):
                     pass
@@ -309,7 +308,7 @@ def download():
                         print(str(abspath) + " is being downloaded")
                         with open(abspath, 'w', encoding='utf-8') as fOut:
                             fOut.write(file_dict['file_data'])
-                        decrypt(str(abspath), password)
+                       # decrypt(str(abspath), password)
 def login():
     try:
         with open(myupath+"/config/config.json", "r") as read_file:
