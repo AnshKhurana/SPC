@@ -2,13 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aes_backup.py" beforeDir="false" afterPath="$PROJECT_DIR$/aes.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/arc4.py" beforeDir="false" afterPath="$PROJECT_DIR$/arc4.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/blowfish.py" beforeDir="false" afterPath="$PROJECT_DIR$/blowfish.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/file_status.py" beforeDir="false" afterPath="$PROJECT_DIR$/file_status.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/myscript.py" beforeDir="false" afterPath="$PROJECT_DIR$/myscript.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/sync.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -88,8 +81,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/sync.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="176">
-              <caret line="52" column="65" lean-forward="true" selection-start-line="52" selection-start-column="65" selection-end-line="52" selection-end-column="65" />
+            <state relative-caret-position="233">
+              <caret line="78" column="3" lean-forward="true" selection-start-line="76" selection-start-column="3" selection-end-line="78" selection-end-column="3" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -217,15 +210,16 @@
       <option name="number" value="Default" />
       <option name="presentableId" value="Default" />
       <updated>1538582361435</updated>
-      <workItem from="1542825183465" duration="6137000" />
+      <workItem from="1542825183465" duration="7354000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="6137000" />
+    <option name="totallyTimeSpent" value="7354000" />
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1280" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.2771475" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -335,8 +329,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sync.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="176">
-          <caret line="52" column="65" lean-forward="true" selection-start-line="52" selection-start-column="65" selection-end-line="52" selection-end-column="65" />
+        <state relative-caret-position="233">
+          <caret line="78" column="3" lean-forward="true" selection-start-line="76" selection-start-column="3" selection-end-line="78" selection-end-column="3" />
           <folding>
             <element signature="e#0#28#0" expanded="true" />
           </folding>
