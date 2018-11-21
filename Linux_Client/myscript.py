@@ -6,9 +6,9 @@ import os
 import hashlib
 from pathlib import Path
 from sync import sync2
-from aes import decrypt
-
+from arc4 import decrypt
 from file_status import get_status
+
 from ast import literal_eval
 
 parser = argparse.ArgumentParser(prog='spc')
@@ -327,7 +327,7 @@ def upload():
 
 def download():
     # key = password # Temporary
-    print("d called")
+    count=0
     try:
         with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
@@ -376,7 +376,8 @@ def download():
                     print(str(abspath) + " is being downloaded")
                     # with open(abspath, 'w', encoding='utf-8') as fOut:
                     #     fOut.write(file_dict['file_data'])
-                    print(file_dict['file_data'])
+                    #print(file_dict['file_data'])
+                    count = count + 1
                     decrypt(str(abspath), literal_eval(file_dict['file_data']), password)
             else:
                 if os.path.exists(str(abspath)):
@@ -388,8 +389,10 @@ def download():
                         print(str(abspath) + " is being downloaded")
                         # with open(abspath, 'w', encoding='utf-8') as fOut:
                         #     fOut.write(file_dict['file_data'])
+                        count = count + 1
                         decrypt(str(abspath), literal_eval(file_dict['file_data']), password)
-
+    if count == 0:
+        print("Local directory already up-to-date")
 
 def login():
     try:
@@ -431,8 +434,6 @@ def list_schemes():
     print("     2. ACR4")
     print("     3. Blowfish")
     print("     4. RSA")
-
-
 
 if __name__ == '__main__':
     args = parser.parse_args()

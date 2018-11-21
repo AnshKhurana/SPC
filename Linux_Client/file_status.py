@@ -2,7 +2,7 @@ from os import walk, listdir
 from os.path import join, isfile, expanduser
 #from apt_pkg import md5sum
 import base64
-from aes import encrypt
+from arc4 import encrypt
 import hashlib
 import coreapi
 import magic
