@@ -33,10 +33,6 @@ def blowdecrypt(filename, key):
     last_byte = msg[-1]
 
     msg = msg[:- (last_byte if type(last_byte) is int else ord(last_byte))]
-    return msg
-
-
-if __name__ == '__main__':
     edata = blowencrypt("id.jpeg", "hellorrrlmnkhmnk")
     with open('ns', 'wb') as fout:
         fout.write(edata)
