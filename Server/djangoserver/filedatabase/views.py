@@ -1,6 +1,9 @@
+import urllib
+
 from django.contrib.auth.forms import UserCreationForm
 import sqlite3
 from django.db.models import QuerySet
+from django.http import HttpResponse, Http404
 from django.urls import reverse_lazy
 from django.views import generic
 from rest_framework.decorators import action, api_view, permission_classes
@@ -63,8 +66,49 @@ def create_user(request):
 
 class SignUp(generic.CreateView):
     form_class = UserCreationForm
-    success_url = '/schema'
+    success_url = '/home/'
     template_name = 'signup.html'
+
+
+def filedisp(request):
+    curruser = request.user
+    db = sqlite3.connect("db.sqlite3")
+    key = request.GET['key']
+    scheme = request.GET['scheme']
+
+    if 'filename' not in request.GET:
+        filename = ''
+        html = ""
+    else:
+        filename = request.GET['filename']
+        html = "<a href='/files/?scheme=" + scheme + "&ampkey=" + urllib.parse.quote_plus(key) + "&ampfilename=" + \
+                urllib.parse.quote_plus('/'.join(filename.split('/')[:-1])) + "'>Back<a><br>"
+    db = sqlite3.connect('db.sqlite3')
+    cur = db.cursor()
+    cur.execute("SELECT * FROM filedatabase_filerecord where file_name=? and owner_id=?", [filename, curruser.id])
+    obj = cur.fetchall()
+    if len(obj) == 0 and filename != '':
+        raise Http404('File does not exist')
+    if filename == '':
+        cur.execute("SELECT file_name FROM filedatabase_filerecord where owner_id=? and file_name not like '%/%'",
+                    [curruser.id])
+        files = cur.fetchall()
+        html = html + "<ul>"
+        for f in files:
+            html = html + "<li><a href='/files/?scheme=" + scheme + "&ampkey=" + urllib.parse.quote_plus(key) + \
+                   "&ampfilename=" + urllib.parse.quote_plus(f[0]) + "'>" + f[0].split('/')[0] + "<a><br>"
+    else:
+        file = obj[0]
+        if file[4] == "DIR":
+            cur.execute("SELECT file_name FROM filedatabase_filerecord where owner_id=? and file_name like ? || '/%' "
+                        "and file_name not like ? || '/%/%'", [curruser.id, filename, filename])
+            files = cur.fetchall()
+            html = html + "<ul>"
+            for f in files:
+                html = html + "<li><a href='/files/?scheme=" + scheme + "&ampkey=" + urllib.parse.quote_plus(key) + \
+                       "&ampfilename=" + urllib.parse.quote_plus(f[0]) + "'>"+f[0].split('/')[0]+"<a><br>"
+
+    return HttpResponse(html)
 
 
 

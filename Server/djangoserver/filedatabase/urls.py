@@ -1,4 +1,5 @@
 from django.urls import path, include
+from django.views.generic import TemplateView
 from rest_framework.routers import DefaultRouter
 from filedatabase import views
 from rest_framework.schemas import get_schema_view
@@ -16,5 +17,7 @@ urlpatterns = [
     path('', include(router.urls)),
     path('schema/', schema_view),
     path('signup/', views.SignUp.as_view(), name='signup'),
+    path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
+    path('files/', views.filedisp, name="files")
     # path('useronly/, views.')
 ]
