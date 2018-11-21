@@ -23,9 +23,7 @@ def decrypt(filename, data, key):
 
 
 if __name__ == '__main__':
-    edata = encrypt("Makefile", "hello")
+    edata = encrypt("Makefile", "arkhamknight")
     with open('ns', 'wb') as fout:
         fout.write(edata)
-    ddata = decrypt('ns', 'hello')
-    with open('newMakefile', 'wb') as fout:
-        fout.write(ddata)
+    decrypt('ns', edata, 'arkhamknight')

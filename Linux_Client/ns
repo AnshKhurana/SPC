@@ -1,1 +1,3 @@
-£Ä§¾ÅËµ³çe÷ÅMß½ĞFÔàX‰Áõ—Û„İsôÈ…-Sœu=Xı.Åœ”Q+swä åŞ|
+.PHONY
+install: spc myscript.py
+	sudo cp /usr/bin

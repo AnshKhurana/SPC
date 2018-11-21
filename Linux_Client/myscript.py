@@ -360,8 +360,16 @@ def download():
             break
     if user_id == None:
         print("User " + username + " has not signed up")
-    file_list = client.action(document, ['filedatabase', 'list'])
-    file_list = file_list['results']
+    file_list = []
+    pageno = 1
+    while True:
+        fetched_data = client.action(document, ['filedatabase', 'list'], params={'page': pageno})
+        # print(fetched_data)
+        pageno = pageno + 1
+        file_list = file_list + fetched_data['results']
+        # print(fetched_data['next'])
+        if fetched_data['next'] == None:
+            break
     # print(file_list)
     for file_dict in file_list:
         if (file_dict['owner'] == username):
