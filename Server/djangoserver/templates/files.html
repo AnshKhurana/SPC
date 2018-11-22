@@ -67,7 +67,16 @@
              document.getElementById('disp').innerHTML = '<embed height=50% width=70% src="data:text/txt;base64,' + btoa(decoded) + '">';
          }
          else if(filetype.includes('PNG image')){
-             document.getElementById('disp').innerHTML = '<embed height=50% width=70% src="data:image/png;base64,' + btoa(decoded) + '">';
+             document.getElementById('disp').innerHTML = '<embed height=50% src="data:image/png;base64,' + btoa(decoded) + '">';
+         }
+         else if(filetype.includes('JPEG image')){
+             document.getElementById('disp').innerHTML = '<embed height=50% src="data:image/jpeg;base64,' + btoa(decoded) + '">';
+         }
+         else if(filetype.includes('MPEG ')){
+             document.getElementById('disp').innerHTML = '<audio controls> <source src="data:audio/mpeg;base64,' + btoa(decoded) + '"> </audio>';
+         }
+         else if(filetype.includes('PDF document')){
+             document.getElementById('disp').innerHTML = '<embed height=70% width=70% src="data:application/pdf;base64,' + btoa(decoded) + '">';
          }
      }
      </script>
