@@ -53,6 +53,7 @@ def getsubs(mypath):
 
 
 def sync2(uname,passwd,obdir,upath,domain):
+    # print(obdir)
     read_schema()
     if schema_id==1:
         from aes import encrypt
