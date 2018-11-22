@@ -26,6 +26,7 @@ def decrypt(filename, data, key):
         with open(filename, "wb") as fOut:
             try:
                 pyAesCrypt.decryptStream(fIn, fOut, key, bufferSize, encFileSize)
+                remove('temp')
             except ValueError:
                 print("Still an error")
 

@@ -12,26 +12,37 @@ from blowfish import decrypt as bldec
 
 def schema_update(uname, passwd, upath, domain, oldscheme, newscheme, oldkey, newkey):
     print("upath is: " + upath)
-    if(oldscheme==newscheme):
+    if(oldscheme==newscheme and oldkey==newkey):
         return None
     encrypt=0
     decrypt=0
-    if(oldscheme=='aes'):
-        if(newscheme=='arc4'):
+    if(oldscheme==newscheme):
+        if(oldscheme=='AES'):
+            print('yo yp')
+            encrypt=aesenc
+            decrypt=aesdec
+        elif(oldscheme=='ARC4'):
+            encrypt=arcenc
+            decrypt=arcdec
+        else:
+            encrypt=blenc
+            decrypt=bldec
+    elif(oldscheme=='AES'):
+        if(newscheme=='ARC4'):
             decrypt=aesdec
             encrypt=arcenc
         else:
             encrypt=blenc
             decrypt=aesdec
-    if(oldscheme=='arc4'):
-        if(newscheme=='blowfish'):
+    elif(oldscheme=='ARC4'):
+        if(newscheme=='Blowfish'):
             decrypt=arcdec
             encrypt=blenc
         else:
             decrypt=arcdec
             encrypt=aesenc
     else:
-        if(newscheme=='aes'):
+        if(newscheme=='AES'):
             decrypt=bldec
             encrypt=aesenc
         else:
@@ -51,10 +62,11 @@ def schema_update(uname, passwd, upath, domain, oldscheme, newscheme, oldkey, ne
         if fetched_data['next'] == None:
             break
     user_files=[]
-    for i in user_files:
+    for i in file_list:
         if i['owner']==uname:
             user_files.append(i)
     for file in user_files:
+        # print('here')
         if(file['file_type']=='DIR'):
             continue
         decrypt('tempout',literal_eval(file['file_data']),oldkey)
