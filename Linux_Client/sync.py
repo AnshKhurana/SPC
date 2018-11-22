@@ -1,28 +1,39 @@
 from os import walk, listdir
-from os.path import join, isfile
-#from apt_pkg import md5sum
-import base64
+from os.path import join, isfile, expanduser
 import hashlib
 import coreapi
 import magic
-import requests
 import json
 from progressbar import ProgressBar
-from arc4 import encrypt, decrypt
-# import hashlib
-# uname='pk'
-# passwd='lokikoli'
-# obdir='/home/aman/Desktop/machine-learning-ex8'
-# upath='127.0.0.1:8000'
+
+# EN-DE Variables
+
+schema_id = None
+schema_name = None
+sym_key = None
+public_key = None
+private_key = None
+IDS = {"RSA": 4, "AES": 1, "ARC4": 2, "Blowfish": 3}
 
 
-def choose_scheme(id):
-    if id==1:
-        from aes import encrypt, decrypt
-    elif id==2:
-        from arc4 import encrypt, decrypt
-    elif id==3:
-        from blowfish import encrpyt, decrypt
+myupath = expanduser('~')  # work around
+
+def read_schema():
+    global schema_id
+    global schema_name
+    global sym_key
+    try:
+        with open(myupath + "/config/scheme.json", "r") as read_file:
+            data = json.load(read_file)
+            schema_id = data['ID']
+            schema_name = data['Scheme_Name']
+            sym_key = data['Symmetric_Key']
+          #  print(schema_id)
+           #choose_scheme(schema_id)
+    except FileNotFoundError:
+        print("Need to set the schema before this operation")
+
+
 
 
 def md5sumc(filename):
@@ -42,7 +53,16 @@ def getsubs(mypath):
 
 
 def sync2(uname,passwd,obdir,upath,domain):
-    choose_scheme(2)
+    prefix_obdir='/'.join(obdir.split('/')[0:-1])+'/'
+    # print(prefix_obdir)
+    # print('here')
+    read_schema()
+    if schema_id==1:
+        from aes import encrypt
+    elif schema_id==2:
+        from arc4 import encrypt
+    elif schema_id==3:
+        from blowfish import encrypt
     pbar=ProgressBar()
     sublist = getsubs(obdir)
     ol=len(obdir.split('/'))
@@ -67,16 +87,8 @@ def sync2(uname,passwd,obdir,upath,domain):
     for i in jdata:
         if i['owner']==uname:
             mylist.append(i)
-    #print(mylist)
-    #print(list(mylist))
-    # print(obdir)
-    # print(len(list(sublist)))
-    # print("hello")
-    # print(len(list(sublist)))
     sl=list(sublist)
     # print(sl)
-    # print('--------------------')
-    # print([x['file_name'] for x in mylist])
     for f in pbar(sl):
         # print('hello')
         b=0
@@ -91,13 +103,13 @@ def sync2(uname,passwd,obdir,upath,domain):
                 else:
                     # print('/'.join(f.split('/')[0:]))
                     # print(md5sumc('/'.join(f.split('/')[0:])))
-                    if md5sumc('/'.join(f.split('/')[0:]))!=j['md5sum']:
+                    if md5sumc(prefix_obdir+'/'.join(f.split('/')[0:]))!=j['md5sum']:
                         # print('entered')
-                        ft = magic.from_file('/'.join(f.split('/')[0:]))
+                        ft = magic.from_file(prefix_obdir+'/'.join(f.split('/')[0:]))
                         id1=j['id']
-                        fd=encrypt('/'.join(f.split('/')[0:]),passwd)
+                        fd=encrypt(prefix_obdir+'/'.join(f.split('/')[0:]), sym_key)
                         # fd = fd + b'=' * ((4 - (len(fd) % 4)) % 4)
-                        msum = md5sumc('/'.join(f.split('/')[0:]))
+                        msum = md5sumc(prefix_obdir+'/'.join(f.split('/')[0:]))
                         # print(msum)
                         auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
                         client = coreapi.Client(auth=auth)
@@ -113,12 +125,12 @@ def sync2(uname,passwd,obdir,upath,domain):
             fd=b''
             msum='-'
             # print(obdir+'/'.join(f.split('/')[0:]))
-            if isfile('/'.join(f.split('/')[0:])):
-                ft=magic.from_file('/'.join(f.split('/')[0:]))
+            if isfile(prefix_obdir+'/'.join(f.split('/')[0:])):
+                ft=magic.from_file(prefix_obdir+'/'.join(f.split('/')[0:]))
                 # print('/'.join(f.split('/')[0:]))
                 # print(ft)
-                msum=md5sumc('/'.join(f.split('/')[0:]))
-                fd=encrypt('/'.join(f.split('/')[0:]),passwd)
+                msum=md5sumc(prefix_obdir+'/'.join(f.split('/')[0:]))
+                fd=encrypt(prefix_obdir+'/'.join(f.split('/')[0:]), sym_key)
 
             else:
                 ft='DIR'

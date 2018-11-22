@@ -65,6 +65,6 @@ def schema_update(uname,passwd,upath,domain,oldscheme,newscheme,oldkey,newkey):
                                          'file_data': str(newdata), 'md5sum': file['md5sum'], 'id': file['id']})
     if(os.path.exists('tempout')):
         os.remove('tempout')
-    
+
 
 

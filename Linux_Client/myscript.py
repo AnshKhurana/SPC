@@ -6,9 +6,9 @@ import os
 import hashlib
 from pathlib import Path
 from sync import sync2
-from aes import decrypt
 
 from file_status import get_status
+
 from ast import literal_eval
 
 parser = argparse.ArgumentParser(prog='spc')
@@ -95,18 +95,25 @@ def md5sum(filename):
 
 
 def read_schema():
+    global schema_id
+    global schema_name
+    global sym_key
     try:
         with open(myupath + "/config/scheme.json", "r") as read_file:
             data = json.load(read_file)
             schema_id = data['ID']
             schema_name = data['Scheme_Name']
             sym_key = data['Symmetric_Key']
+          #  choose_scheme(schema_id)
     except FileNotFoundError:
         print("Need to set the schema before this operation")
 
 
 
 def update_scheme_file(filename):
+    global schema_id
+    global schema_name
+    global sym_key
     updated = False
     if os.path.exists(filename):
         with open(filename, 'r') as f:
@@ -135,8 +142,10 @@ def update_scheme_file(filename):
     if updated:
         print("Encryption schema has been updated according to " + filename)
 
-
 def update_schema():
+    global schema_id
+    global schema_name
+    global sym_key
     print("Schema update")
     list_schemes()
     print("")
@@ -161,6 +170,9 @@ def update_schema():
 
 
 def view_schema():
+    global schema_id
+    global schema_name
+    global sym_key
     try:
         with open(myupath + "/config/scheme.json", "r") as read_file:
             while True:
@@ -198,6 +210,8 @@ def dump_schema():
     view_schema()
 
 def config_delete():
+    global username
+    global password
     try:
         with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
@@ -215,7 +229,8 @@ def config_delete():
 
 
 def config_edit():
-    while (True):
+    global login_status
+    while True:
         usern = input("Username: ")
         passwd = getpass.getpass("Password: ")
         pass_check = getpass.getpass("Confirm password: ")
@@ -229,6 +244,12 @@ def config_edit():
         json.dump(data, write_file)
 
 def status():
+    global username
+    global password
+    global login_status
+    global server_url
+    global domain
+    global observe_path
     try:
         with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
@@ -259,6 +280,8 @@ def status():
 
 
 def sync():
+    global client
+    global document
     if (login and server_url):
         auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
         client = coreapi.Client(auth=auth)
@@ -299,8 +322,13 @@ def disconnect():
 
 
 def upload():
+    global username
+    global password
+    global login_status
+    global server_url
+    global domain
+    global observe_path
     read_schema()
-    choose_scheme(schema_id)
     try:
         with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
@@ -327,7 +355,19 @@ def upload():
 
 def download():
     # key = password # Temporary
-    print("d called")
+    global username
+    global password
+    global server_url
+    global domain
+    global observe_path
+    read_schema()
+    if schema_id==1:
+        from aes import decrypt
+    elif schema_id==2:
+        from arc4 import decrypt
+    elif schema_id==3:
+        from blowfish import decrypt
+    count=0
     try:
         with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
@@ -360,8 +400,16 @@ def download():
             break
     if user_id == None:
         print("User " + username + " has not signed up")
-    file_list = client.action(document, ['filedatabase', 'list'])
-    file_list = file_list['results']
+    file_list = []
+    pageno = 1
+    while True:
+        fetched_data = client.action(document, ['filedatabase', 'list'], params={'page': pageno})
+        # print(fetched_data)
+        pageno = pageno + 1
+        file_list = file_list + fetched_data['results']
+        # print(fetched_data['next'])
+        if fetched_data['next'] == None:
+            break
     # print(file_list)
     for file_dict in file_list:
         if (file_dict['owner'] == username):
@@ -376,8 +424,9 @@ def download():
                     print(str(abspath) + " is being downloaded")
                     # with open(abspath, 'w', encoding='utf-8') as fOut:
                     #     fOut.write(file_dict['file_data'])
-                    print(file_dict['file_data'])
-                    decrypt(str(abspath), literal_eval(file_dict['file_data']), password)
+                    #print(file_dict['file_data'])
+                    count = count + 1
+                    decrypt(str(abspath), literal_eval(file_dict['file_data']), sym_key)
             else:
                 if os.path.exists(str(abspath)):
                     pass
@@ -388,8 +437,10 @@ def download():
                         print(str(abspath) + " is being downloaded")
                         # with open(abspath, 'w', encoding='utf-8') as fOut:
                         #     fOut.write(file_dict['file_data'])
-                        decrypt(str(abspath), literal_eval(file_dict['file_data']), password)
-
+                        count = count + 1
+                        decrypt(str(abspath), literal_eval(file_dict['file_data']), sym_key)
+    if count == 0:
+        print("Local directory already up-to-date")
 
 def login():
     try:
@@ -431,8 +482,6 @@ def list_schemes():
     print("     2. ACR4")
     print("     3. Blowfish")
     print("     4. RSA")
-
-
 
 if __name__ == '__main__':
     args = parser.parse_args()

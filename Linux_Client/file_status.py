@@ -2,7 +2,7 @@ from os import walk, listdir
 from os.path import join, isfile, expanduser
 #from apt_pkg import md5sum
 import base64
-from aes import encrypt
+from arc4 import encrypt
 import hashlib
 import coreapi
 import magic
@@ -41,9 +41,21 @@ def get_status(uname,passwd,obdir,upath,domain):
     cdiff=[]
     sublist=getsubs(obdir)
     ol=len(obdir.split('/'))
+    auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
+    client = coreapi.Client(auth=auth)
+    document = client.get('http://' + upath + "/schema/")
     sublist=map(lambda s: '/'.join(s.split('/')[ol-1:]),sublist)
-    r=requests.get('http://'+upath+'/filedatabase')
-    jdata=json.loads(r.text)['results']
+    file_list = []
+    pageno = 1
+    while True:
+        fetched_data = client.action(document, ['filedatabase', 'list'], params={'page': pageno})
+        # print(fetched_data)
+        pageno = pageno + 1
+        file_list = file_list + fetched_data['results']
+        # print(fetched_data['next'])
+        if fetched_data['next'] == None:
+            break
+    jdata= file_list
     mylist=[]
     for i in jdata:
         if i['owner']==uname:
