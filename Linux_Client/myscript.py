@@ -147,27 +147,34 @@ def update_schema():
     global schema_id
     global schema_name
     global sym_key
-    print("Schema update")
-    list_schemes()
-    print("")
-    while True:
-        schema_name = input("Enter a scheme name: ")
-        if schema_name in ['RSA', 'AES', 'ARC4', 'Blowfish']:
-            break
-        else:
-            print("Schema name is not valid, enter the scheme name from the above list(case sensitive)")
+    try:
+        with open(myupath + "/config/scheme.json", "r") as read_file:
+            data = json.load(read_file)
+            old_id = data['ID']
+            old_schema_name = data['Scheme_Name']
+            old_sym_key = data['Symmetric_Key']
+    except FileNotFoundError:
+        print("Schema update")
+        list_schemes()
+        print("")
+        while True:
+            schema_name = input("Enter a scheme name: ")
+            if schema_name in ['RSA', 'AES', 'ARC4', 'Blowfish']:
+                break
+            else:
+                print("Schema name is not valid, enter the scheme name from the above list(case sensitive)")
 
-    schema_id = IDS[schema_name]
-    sym_key = input("Enter the key for your encryption scheme: ")
-    data = {"ID": schema_id, "Scheme_Name": schema_name, "key-gen": 'NA', "Symmetric_Key": sym_key, \
-            "Public_Key": 'NA', "Private_Key": 'NA'}
-    if os.path.exists(myupath + "/config/"):
-        with open(myupath + "/config/scheme.json", "w") as write_file:
-            json.dump(data, write_file)
-    else:
-        os.makedirs(myupath + "/config/")
-        with open(myupath + "/config/scheme.json", "w") as write_file:
-            json.dump(data, write_file)
+        schema_id = IDS[schema_name]
+        sym_key = input("Enter the key for your encryption scheme: ")
+        data = {"ID": schema_id, "Scheme_Name": schema_name, "key-gen": 'NA', "Symmetric_Key": sym_key, \
+                "Public_Key": 'NA', "Private_Key": 'NA'}
+        if os.path.exists(myupath + "/config/"):
+            with open(myupath + "/config/scheme.json", "w") as write_file:
+                json.dump(data, write_file)
+        else:
+            os.makedirs(myupath + "/config/")
+            with open(myupath + "/config/scheme.json", "w") as write_file:
+                json.dump(data, write_file)
 
 
 def view_schema():

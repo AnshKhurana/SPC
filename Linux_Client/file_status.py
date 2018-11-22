@@ -35,6 +35,7 @@ def getsubs(mypath):
 
 
 def get_status(uname,passwd,obdir,upath,domain):
+    prefix_obdir='/'.join(obdir.split('/')[0:-1])+'/'
     aib=[]
     amb=[]
     bma=[]
@@ -70,7 +71,7 @@ def get_status(uname,passwd,obdir,upath,domain):
                     aib.append(f)
                     break
                 else:
-                    if md5sumc('/'.join(f.split('/')[0:]))!=j['md5sum']:
+                    if md5sumc(prefix_obdir+'/'.join(f.split('/')[0:]))!=j['md5sum']:
                         cdiff.append(f)
                     else:
                         aib.append(f)
@@ -123,4 +124,3 @@ if __name__ == '__main__':
             observe_path = data['observe_path']
     except:
         print("Directory not set-up")
-
