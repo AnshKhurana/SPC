@@ -1,3 +1,4 @@
+import urllib
 from ast import literal_eval
 from os import walk, listdir
 from os.path import join, isfile, expanduser
@@ -30,7 +31,7 @@ def read_schema():
             schema_id = data['ID']
             schema_name = data['Scheme_Name']
             sym_key = data['Symmetric_Key']
-          #  print(schema_id)
+            #  print(schema_id)
            #choose_scheme(schema_id)
     except FileNotFoundError:
         print("Need to set the schema before this operation")
@@ -72,6 +73,24 @@ def sync2(uname,passwd,obdir,upath,domain):
     auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
     client = coreapi.Client(auth=auth)
     document = client.get('http://' + upath + "/schema/")
+    uid = None
+    count = 0
+    user_list = []
+    pageno = 1
+    while True:
+        fetched_data = client.action(document, ['users', 'list'], params={'page': pageno})
+        # print(fetched_data)
+        pageno = pageno + 1
+        user_list = user_list + fetched_data['results']
+        # print(fetched_data['next'])
+        if fetched_data['next'] == None:
+            break
+    # print(user_list)
+    for person in user_list:
+        if person['username'] == uname:
+            uid = person['id']
+            break
+    uid = str(uid)
     file_list = []
     pageno=1
     while True:
@@ -86,9 +105,9 @@ def sync2(uname,passwd,obdir,upath,domain):
     mylist=[]
     #print([x['file_name'] for x in jdata])
     #print('--------------------')
-    uid = None
     for i in jdata:
         if i['owner']==uname:
+            # uid = i['owner_id']
             mylist.append(i)
     sl=list(sublist)
     # print(sl)
@@ -121,6 +140,12 @@ def sync2(uname,passwd,obdir,upath,domain):
                         userlist = client.action(document, ['filedatabase', 'update'],
                                                  params={'file_name': f, 'file_type': ft, \
                                                          'file_data': str(fd), 'md5sum': msum,'id':id1})
+                        local_md = (hashlib.md5(fd).hexdigest())
+                        # print(upath, uid, f)
+                        server_md = requests.get("http://" + upath + "/md5/?ownerid=" + uid + "&filename=" + urllib.parse.quote_plus(f))
+                        server_md = server_md.json()['md5']
+                        if local_md != server_md:
+                            count = count + 1
 
                     break
         if(b==0):
@@ -145,13 +170,22 @@ def sync2(uname,passwd,obdir,upath,domain):
             auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
             client = coreapi.Client(auth=auth)
             document = client.get('http://'+upath + "/schema/")
+            client.action(document, ['filedatabase', 'create'],params={'file_name':f,'file_type':ft,'file_data':str(fd),'md5sum':msum})
 
             local_md = (hashlib.md5(fd).hexdigest())
+            # print(upath, uid, f)
+            # print(uid)
+            server_md = requests.get("http://" + upath + "/md5/?ownerid=" + uid + "&filename=" + urllib.parse.quote_plus(f))
+            server_md = server_md.json()["md5"]
 
+            if local_md != server_md:
+                count = count + 1
 
-            client.action(document, ['filedatabase', 'create'],params={'file_name':f,'file_type':ft,'file_data':str(fd),'md5sum':msum})
-            # result = requests.get(upath + "/md5/?id=" +  )
-            # print('done')
+    if count == 0:
+        print("Files were uploaded correctly and verified with md5sum")
+    else:
+        print("Files were not uploaded correctly, please retry.")
+    # print('done')
 
 
 
