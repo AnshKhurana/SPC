@@ -1,3 +1,4 @@
+//GithubGist Grimi94
 var ARC4 = function(key){
     var s = new Array(256);
     var s2 = new Array(256);
