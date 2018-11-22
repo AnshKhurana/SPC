@@ -18,17 +18,14 @@ def decrypt(filename, data, key):
     # with open(filename, "r") as fIn:
     #     data = fIn.read()
     #     fIn.seek(0)
-    with open('temp', 'w') as temp_file:
+    with open('temp', 'wb') as temp_file:
         temp_file.write(data)
         temp_file.close()
-    with open('temp', 'rb') as temp_file:
+    with open('temp', 'rb') as fIn:
         encFileSize = stat('temp').st_size
         with open(filename, "wb") as fOut:
             try:
-                # decrypt file stream
-                print(temp_file.read())
-                temp_file.seek(0)
-                pyAesCrypt.decryptStream(temp_file, fOut, key, bufferSize, encFileSize)
+                pyAesCrypt.decryptStream(fIn, fOut, key, bufferSize, encFileSize)
             except ValueError:
                 print("Still an error")
 

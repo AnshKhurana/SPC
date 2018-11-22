@@ -15,10 +15,10 @@ def encrypt(filename, key):
     padding=pack('b'*plen,*padding)
     return iv+cipher.encrypt(pdata+padding)
 
-def decrypt(filename, key):
+def decrypt(filename, data, key):
     bs = Blowfish.block_size
     key = key.encode('ascii')
-    pdata = open(filename, 'rb').read()
+    pdata = data
     iv = pdata[:bs]
     pdata=pdata[bs:]
     cipher = Blowfish.new(key, Blowfish.MODE_CBC,iv)
@@ -28,9 +28,8 @@ def decrypt(filename, key):
     msg = cipher.decrypt(pdata)
     last_byte = msg[-1]
     msg = msg[:- (last_byte if type(last_byte) is int else ord(last_byte))]
-    print(msg)
-    return msg
-
+    with open(filename, 'wb') as fOut:
+        fOut.write(msg)
 
 if __name__ == '__main__':
     edata = encrypt("Makefile", "hellorrrlmnkhmnk")
