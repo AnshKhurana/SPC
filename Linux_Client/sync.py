@@ -150,7 +150,7 @@ def sync2(uname,passwd,obdir,upath,domain):
 
 
             client.action(document, ['filedatabase', 'create'],params={'file_name':f,'file_type':ft,'file_data':str(fd),'md5sum':msum})
-            result = requests.get(upath + "/md5/?id=" +  )
+            # result = requests.get(upath + "/md5/?id=" +  )
             # print('done')
 
 
