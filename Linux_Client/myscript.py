@@ -281,20 +281,34 @@ def status():
 
 
 def sync():
-    global client
-    global document
-    if (login and server_url):
-        auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
-        client = coreapi.Client(auth=auth)
-        document = client.get("http://" + server_url + "/schema/")
-        print(document.url)
-        print(type(document))
-    else:
-        print("You need to login first")
-    print("To be implemented")
+
+    print("Choose spc sync approach:")
+    print("1. Mirror local directory to server")
+    print("2. Merge Server and disk contents and perform overwrites on server")
+    print("3. Merge Server and disk contents and perform overwrites on client")
+    print("")
+
+    while True:
+        ch = input("Enter choice[1-3] or s to show status: ")
+        if ch in ['1', '2', '3']:
+            if ch == '1':
+                delete()
+                upload()
+            elif ch == '2':
+                upload()
+                download()
+            else:
+                download()
+                upload()
+            break
+        elif ch == 's':
+            status()
+        else:
+            print("Invalid option")
 
 
 def observe(path):
+    path = os.path.abspath(path)
     data = {"observe_path": path}
     with open(myupath + "/config/path.json", "w") as write_file:
         json.dump(data, write_file)
@@ -415,8 +429,12 @@ def download():
     for file_dict in file_list:
         if (file_dict['owner'] == username):
             file_name = file_dict['file_name']
-            file_name = os.path.abspath(file_name)
+            file_name = "/" + file_name
+            file_name = "/".join(file_name.strip("/").split('/')[1:])
+            file_name = observe_path + "/" + file_name
+            # print(file_name)
             abspath = Path(file_name)
+            # print(abspath)
             if abspath.is_file():
                 md5offile = md5sum(abspath)
                 if md5offile == file_dict['md5sum']:
