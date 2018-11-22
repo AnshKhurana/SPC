@@ -48,7 +48,8 @@ def decrypt(filename, data, key):
 
 
 if __name__ == '__main__':
+    pass
     # print(encrypt("Makefile", "hello"))
-    decrypt("abc/Makefile", "arkhamknight")
-
+    # decrypt("abc/Makefile", "arkhamknight")
+    # decrypt()
     # decrypt("test.png.aes", "hello")
