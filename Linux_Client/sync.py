@@ -53,6 +53,9 @@ def getsubs(mypath):
 
 
 def sync2(uname,passwd,obdir,upath,domain):
+    #check here if user corr to uname has data field set to 1 and if yes say sorry and get out
+    #if it is 0 set it to 1
+    #try begins here
     prefix_obdir='/'.join(obdir.split('/')[0:-1])+'/'
     # print(prefix_obdir)
     # print('here')
@@ -72,6 +75,7 @@ def sync2(uname,passwd,obdir,upath,domain):
     document = client.get('http://' + upath + "/schema/")
     file_list = []
     pageno=1
+    #any exception if caught the simply set the user var 
     while True:
         fetched_data = client.action(document, ['filedatabase', 'list'], params={'page' : pageno})
         #print(fetched_data)
