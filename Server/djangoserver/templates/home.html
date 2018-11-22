@@ -7,16 +7,25 @@
   Hi {{ user.username }}!
     Choose decryption scheme and key:
     <br>
-        <input type="radio" name="scheme" value="AES" id="scheme">AES<br>
-        <input type="radio" name="scheme" value="ARC4" id="scheme">ARC4<br>
-        <input type="radio" name="scheme" value="TripleDES" id="scheme">TripleDES<br>
+
+        <input type="radio" name="scheme" value="AES" >AES<br>
+        <input type="radio" name="scheme" value="ARC4" >ARC4<br>
+        <input type="radio" name="scheme" value="TripleDES" >TripleDES<br>
         <input type="text" name="key" placeholder="Key" id="key" required>
         <input type="submit" value="Submit" onclick="savedata()">
 
     <script>
     function savedata(form){
-        console.log(document.getElementById("key").value);
-        document.cookie = "scheme=" + document.getElementById("scheme").value+";path=/";
+        var radios = document.getElementsByName("scheme");
+        var sche = "";
+        for(var i=0;i<3;++i){
+            if(radios[i].checked==true){
+                sche = radios[i].value;
+                break;
+            }
+        }
+        console.log(sche);
+        document.cookie = "scheme=" + sche+";path=/";
         document.cookie = "key=" + document.getElementById("key").value+";path=/";
         window.location = '/files/'
 

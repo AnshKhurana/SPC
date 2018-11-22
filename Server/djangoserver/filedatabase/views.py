@@ -1,4 +1,5 @@
 import hashlib
+import json
 import urllib
 from ast import literal_eval
 
@@ -92,14 +93,14 @@ def filedisp(request):
     root = cur.fetchall()[0][0].split('/')[0]
     html = ""
     filedata = "b''"
-    filetype = "''"
+    filetype = ""
     isnotdir = 'false'
     if 'filename' not in request.GET or request.GET['filename'] == root:
         filename = root
     else:
         filename = request.GET['filename']
         html = html + "<a href='/files/?filename=" + urllib.parse.quote_plus('/'.join(filename.split('/')[:-1])) + \
-                      "'>Back<a><br>\n"
+                      "'>Back</a><br>\n"
 
     cur.execute("SELECT * FROM filedatabase_filerecord where file_name=? and owner_id=?", [filename, curruser.id])
     obj = cur.fetchall()
@@ -112,7 +113,7 @@ def filedisp(request):
         html = html + "<ul>"
         for f in files:
             html = html + "<li><a href='/files/?filename=" + urllib.parse.quote_plus(f[0]) + "'>" + \
-                            f[0].split('/')[-1] + "<a><br>\n"
+                            f[0].split('/')[-1] + "</a><br>\n"
     else:
         file = obj[0]
         if file[4] == "DIR":
@@ -122,14 +123,14 @@ def filedisp(request):
             html = html + "<ul>"
             for f in files:
                 html = html + "<li><a href='/files/?filename=" + urllib.parse.quote_plus(f[0]) + "'>"+\
-                       f[0].split('/')[-1]+"<a><br>\n"
+                       f[0].split('/')[-1]+"</a><br>\n"
         else:
-            filetype = "\""+file[4]+"\""
-            filedata = file[6]
+            filetype = file[4]
+            filedata = file[6][2:-1]
             isnotdir = 'true'
 
-    return render(request, 'files.html', {'html': html, 'root': root, 'filetype': filetype, 'filedata': filedata,
-                                          'isnotdir': isnotdir})
+    return render(request, 'files.html', {'html': html, 'root': root, 'filetype': filetype, 'filedata':
+                  filedata.replace('"', '\\"'), 'isnotdir': isnotdir})
 
 
 

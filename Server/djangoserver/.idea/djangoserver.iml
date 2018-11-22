@@ -21,6 +21,7 @@
     <orderEntry type="library" name="rc4" level="application" />
     <orderEntry type="library" name="sha256" level="application" />
     <orderEntry type="library" name="index" level="application" />
+    <orderEntry type="library" name="blowfish" level="application" />
   </component>
   <component name="TemplatesService">
     <option name="TEMPLATE_CONFIGURATION" value="Django" />

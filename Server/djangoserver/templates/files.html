@@ -1,7 +1,8 @@
 {% extends 'base.html' %}
+{%  load staticfiles %}
+
  {% block title %}Files in {{ root }}{% endblock %}
  {% block content %}
-     <span id='disp'></span>
      {%  autoescape off %}
      {{ html }}
 
@@ -25,24 +26,49 @@
 }
      </script>
      <script type="text/javascript" src="https://cdn.rawgit.com/ricmoo/aes-js/e27b99df/index.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/rc4.js"></script>
-     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/sha256.js"></script>
-     <script>
+     <script type="text/javascript" src="{% static 'filedatabase/arc4.js' %}"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/js-sha256/0.9.0/sha256.js"></script>
+     <script type="text/javascript" src="http://sladex.org/blowfish.js/ext/blowfish.js"></script>
+         <script>
+         function str2ab(str) {
+             var buf = new ArrayBuffer(str.length);
+             var bufview = new Uint8Array(buf);
+             for(var i=0;i<str.length;++i){
+                 bufview[i]=str.charCodeAt(i);
+             }
+             return buf;
+         }
      if ({{ isnotdir }}) {
-        var key = getCookie('key');
-        var scheme = getCookie('scheme');
+         console.log('kk');
+         var key = getCookie('key');
+         var scheme = getCookie('scheme');
+         console.log(scheme);
+         {#var keyb = str2ab(key);#}
 
-        if (scheme == "AES"){
+         var filedata = "{{ filedata }}";
+         var filetype = "{{ filetype }}";
+         {#filedata = filedata.slice(2,filedata.length-1);#}
+         if (scheme == "AES") {
 
-        }
-        if (scheme == "ARC4"){
-            key = CryptoJS.SHA256(key).digest();
+         }
+         else if (scheme == "ARC4") {
+             var hash = sha256.create();
+             hash.update(key);
+             var nkey = hash.array();
+             console.log(str2ab(""));
 
-            var decoded = CryptoJS.RC4("{{ filedata }}", key);
-            if ( {{ filetype }} == 'ASCII text' ){
-                document.getElementById('disp').innerHTML = decoded.toString();
-            }
-        }
+             arc = new ARC4(nkey);
+             var decoded = arc.decrypt(filedata);
+
+
+         }
+
+         if (filetype.includes('ASCII text')) {
+             document.getElementById('disp').innerHTML = '<embed height=50% width=70% src="data:text/txt;base64,' + btoa(decoded) + '">';
+         }
+         else if(filetype.includes('PNG image')){
+             document.getElementById('disp').innerHTML = '<embed height=50% width=70% src="data:image/png;base64,' + btoa(decoded) + '">';
+         }
      }
      </script>
 {% endautoescape %}
