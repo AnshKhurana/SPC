@@ -48,6 +48,7 @@ parser.add_argument("--observe", help="Observe a directory")
 parser.add_argument("--login", help="Check if fields are filled", action="store_true")
 parser.add_argument("--download", action="store_true", help="A subprocess to download the files - has to be removed")
 parser.add_argument("--upload", action="store_true", help="A subprocess to upload the files - has to be removed")
+parser.add_argument("--delete", action="store_true", help="Delete files from the database")
 
 subparsers = parser.add_subparsers(help='Specify secondary options', dest='sub')
 
@@ -168,7 +169,6 @@ def update_schema():
         with open(myupath + "/config/scheme.json", "w") as write_file:
             json.dump(data, write_file)
 
-
 def view_schema():
     global schema_id
     global schema_name
@@ -280,20 +280,34 @@ def status():
 
 
 def sync():
-    global client
-    global document
-    if (login and server_url):
-        auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
-        client = coreapi.Client(auth=auth)
-        document = client.get("http://" + server_url + "/schema/")
-        print(document.url)
-        print(type(document))
-    else:
-        print("You need to login first")
-    print("To be implemented")
+
+    print("Choose spc sync approach:")
+    print("1. Mirror local directory to server")
+    print("2. Merge Server and disk contents and perform overwrites on server")
+    print("3. Merge Server and disk contents and perform overwrites on client")
+    print("")
+
+    while True:
+        ch = input("Enter choice[1-3] or s to show status: ")
+        if ch in ['1', '2', '3']:
+            if ch == '1':
+                delete()
+                upload()
+            elif ch == '2':
+                upload()
+                download()
+            else:
+                download()
+                upload()
+            break
+        elif ch == 's':
+            status()
+        else:
+            print("Invalid option")
 
 
 def observe(path):
+    path = os.path.abspath(path)
     data = {"observe_path": path}
     with open(myupath + "/config/path.json", "w") as write_file:
         json.dump(data, write_file)
@@ -414,8 +428,12 @@ def download():
     for file_dict in file_list:
         if (file_dict['owner'] == username):
             file_name = file_dict['file_name']
-            file_name = os.path.abspath(file_name)
+            file_name = "/" + file_name
+            file_name = "/".join(file_name.strip("/").split('/')[1:])
+            file_name = observe_path + "/" + file_name
+            # print(file_name)
             abspath = Path(file_name)
+            # print(abspath)
             if abspath.is_file():
                 md5offile = md5sum(abspath)
                 if md5offile == file_dict['md5sum']:
@@ -441,6 +459,57 @@ def download():
                         decrypt(str(abspath), literal_eval(file_dict['file_data']), sym_key)
     if count == 0:
         print("Local directory already up-to-date")
+
+
+def delete():
+    # key = password # Temporary
+    global username
+    global password
+    global server_url
+    global domain
+    global observe_path
+    try:
+        with open(myupath + "/config/config.json", "r") as read_file:
+            data = json.load(read_file)
+            username = data['username']
+            password = data['password']
+            login_status = data['login']
+    except FileNotFoundError:
+        print("No user logged in")
+    try:
+        with open(myupath + "/config/url.json", "r") as read_file:
+            data = json.load(read_file)
+            server_url = data['server_url']
+            domain = data['domain']
+    except FileNotFoundError:
+        print("Server not set-up")
+    auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
+    client = coreapi.Client(auth=auth)
+    document = client.get("http://" + server_url + "/schema/")
+    userlist = client.action(document, ['users', 'list'])
+    user_id = None
+    for obj in userlist['results']:
+        if obj['username'] == username:
+            user_id = obj['id']
+            break
+    if user_id == None:
+        print("User " + username + " has not signed up")
+    file_list = []
+    pageno = 1
+    while True:
+        fetched_data = client.action(document, ['filedatabase', 'list'], params={'page': pageno})
+        # print(fetched_data)
+        pageno = pageno + 1
+        file_list = file_list + fetched_data['results']
+        # print(fetched_data['next'])
+        if fetched_data['next'] == None:
+            break
+    # print(file_list)
+    for file_dict in file_list:
+        if (file_dict['owner'] == username):
+            file_name = file_dict['file_name']
+            client.action(document, ['filedatabase', 'delete'], params={'id': file_dict['id']})
+    # print(document)
 
 def login():
     try:
@@ -497,6 +566,8 @@ if __name__ == '__main__':
         download()
     if args.upload:
         upload()
+    if args.delete:
+        delete()
     if args.sub == 'server':
         if args.set_url:
             set_url()
