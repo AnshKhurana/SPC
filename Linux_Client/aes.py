@@ -1,41 +1,57 @@
-from Crypto.Cipher import ARC4
-from Crypto.Hash import SHA
+import pyAesCrypt
+from os import stat, remove, rename
 
 
 def encrypt(filename, key):
-    key = key.encode()
+    bufferSize = 64 * 1024
     with open(filename, "rb") as fIn:
-        # nonce=get_random_bytes(16)
-        # print(type(key))
-        tempkey = SHA.new(key).digest()
-        cipher = ARC4.new(tempkey)
-        fdata = fIn.read()
-        msg = cipher.encrypt(fdata)
-        return msg
+        with open(filename + ".aes", 'wb') as fOut:
+            pyAesCrypt.encryptStream(fIn, fOut, key, bufferSize)
+    tempfile = filename + ".aes"
+    with open(tempfile, 'rb') as fRead:
+        remove(tempfile)
+        return fRead.read()
 
 
 def decrypt(filename, data, key):
-    key = key.encode()
-    # with open(filename, "rb") as fIn:
-    # tdecrpt=fIn.read()
-    # nonce = get_random_bytes(16)
-    # print(type(key))
-    tempkey = SHA.new(key).digest()
-    cipher = ARC4.new(tempkey)
-    fdata = data
-    print(fdata)
-    msg = cipher.decrypt(fdata)
-    # print('hello man')
-    #print(type(msg.decode('ascii')))
-    # return msg
-    with open(filename, 'wb') as fout:
-        fout.write(msg)
+    bufferSize = 64 * 1024
+    # with open(filename, "r") as fIn:
+    #     data = fIn.read()
+    #     fIn.seek(0)
+    with open('temp', 'w') as temp_file:
+        temp_file.write(data)
+        temp_file.close()
+    with open('temp', 'rb') as temp_file:
+        encFileSize = stat('temp').st_size
+        with open(filename, "wb") as fOut:
+            try:
+                # decrypt file stream
+                print(temp_file.read())
+                temp_file.seek(0)
+                pyAesCrypt.decryptStream(temp_file, fOut, key, bufferSize, encFileSize)
+            except ValueError:
+                print("Still an error")
+
+
+#
+# def decrypt(filename, key):
+#     bufferSize = 64 * 1024
+#     # with TemporaryFile() as fIn:
+#     #     fIn.write(bytes(data, 'UTF-8'))
+#     #     print(fIn.read())
+#     encFileSize = stat(filename).st_size
+#     with open(filename, 'w+', encoding='utf-8') as fIn:
+#         fIn.write(data)
+#         fIn.seek(0)
+#         print(fIn.read())
+#         fIn.seek(0)
+#         with open('temp', 'w+b') as fOut:
+#             pyAesCrypt.decryptStream(fIn, fOut, key, bufferSize, encFileSize)
+#     rename('temp', filename)
 
 
 if __name__ == '__main__':
-    edata = encrypt("Makefile", "hello")
-    with open('ns', 'wb') as fout:
-        fout.write(edata)
-    ddata = decrypt('ns', 'hello')
-    with open('newMakefile', 'wb') as fout:
-        fout.write(ddata)
+    # print(encrypt("Makefile", "hello"))
+    decrypt("abc/Makefile", "arkhamknight")
+
+    # decrypt("test.png.aes", "hello")

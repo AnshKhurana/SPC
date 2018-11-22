@@ -8,7 +8,7 @@ import magic
 import requests
 import json
 from progressbar import ProgressBar
-from aes import encrypt, decrypt
+from arc4 import encrypt, decrypt
 # import hashlib
 # uname='pk'
 # passwd='lokikoli'
@@ -42,26 +42,32 @@ def getsubs(mypath):
 
 
 def sync2(uname,passwd,obdir,upath,domain):
-    choose_scheme(1)
+    choose_scheme(2)
     pbar=ProgressBar()
-    sublist=getsubs(obdir)
+    sublist = getsubs(obdir)
     ol=len(obdir.split('/'))
-    sublist=map(lambda s: '/'.join(s.split('/')[ol-1:]),sublist)
-    # r=requests.get('http://'+upath+'/filedatabase')
-    # print(r.text)
+    sublist = map(lambda s: '/'.join(s.split('/')[ol-1:]), sublist)
     auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
     client = coreapi.Client(auth=auth)
     document = client.get('http://' + upath + "/schema/")
-    file_list = client.action(document, ['filedatabase', 'list'])
-    file_list = file_list['results']
+    file_list = []
+    pageno=1
+    while True:
+        fetched_data = client.action(document, ['filedatabase', 'list'], params={'page' : pageno})
+        #print(fetched_data)
+        pageno = pageno + 1
+        file_list = file_list + fetched_data['results']
+        #print(fetched_data['next'])
+        if fetched_data['next'] == None:
+            break
     jdata=file_list
     mylist=[]
-    # print([x['file_name'] for x in jdata])
-    # print('--------------------')
+    #print([x['file_name'] for x in jdata])
+    #print('--------------------')
     for i in jdata:
         if i['owner']==uname:
             mylist.append(i)
-    # print(mylist)
+    #print(mylist)
     #print(list(mylist))
     # print(obdir)
     # print(len(list(sublist)))
@@ -113,10 +119,6 @@ def sync2(uname,passwd,obdir,upath,domain):
                 # print(ft)
                 msum=md5sumc('/'.join(f.split('/')[0:]))
                 fd=encrypt('/'.join(f.split('/')[0:]),passwd)
-                print(passwd)
-                print(fd)
-                # print('hello')
-                # print(fd)
 
             else:
                 ft='DIR'

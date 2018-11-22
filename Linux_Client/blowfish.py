@@ -27,7 +27,6 @@ def decrypt(filename, key):
     # padding = pack('b' * plen, *padding)
     msg = cipher.decrypt(pdata)
     last_byte = msg[-1]
-
     msg = msg[:- (last_byte if type(last_byte) is int else ord(last_byte))]
     print(msg)
     return msg
