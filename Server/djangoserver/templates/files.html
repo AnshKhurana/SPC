@@ -4,6 +4,46 @@
      <span id='disp'></span>
      {%  autoescape off %}
      {{ html }}
-  {% endautoescape %}
 
+    <span id ='disp'></span>
+
+     <script>
+     function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+    return "";
+}
+     </script>
+     <script type="text/javascript" src="https://cdn.rawgit.com/ricmoo/aes-js/e27b99df/index.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/rc4.js"></script>
+     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/3.1.9-1/sha256.js"></script>
+     <script>
+     if ({{ isnotdir }}) {
+        var key = getCookie('key');
+        var scheme = getCookie('scheme');
+
+        if (scheme == "AES"){
+
+        }
+        if (scheme == "ARC4"){
+            key = CryptoJS.SHA256(key).digest();
+
+            var decoded = CryptoJS.RC4("{{ filedata }}", key);
+            if ( {{ filetype }} == 'ASCII text' ){
+                document.getElementById('disp').innerHTML = decoded.toString();
+            }
+        }
+     }
+     </script>
+{% endautoescape %}
 {% endblock %} 

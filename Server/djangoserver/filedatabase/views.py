@@ -1,4 +1,6 @@
+import hashlib
 import urllib
+from ast import literal_eval
 
 from django.contrib.auth.forms import UserCreationForm
 import sqlite3
@@ -71,17 +73,27 @@ class SignUp(generic.CreateView):
     template_name = 'signup.html'
 
 
+def md5calc(request):
+    db = sqlite3.connect('db.sqlite3')
+    cur = db.cursor()
+    ownerid = request.GET['ownerid']
+    filename = request.GET['filename']
+    cur.execute("SELECT file_data from filedatabase_filerecord where owner_id=? and file_name=?", [ownerid, filename])
+    data = literal_eval(cur.fetchall()[0][0])
+    md5 = hashlib.md5(data).hexdigest()
+    return HttpResponse(md5)
+
+
 def filedisp(request):
     curruser = request.user
-    db = sqlite3.connect("db.sqlite3")
     db = sqlite3.connect('db.sqlite3')
     cur = db.cursor()
     cur.execute("SELECT file_name FROM filedatabase_filerecord order by id limit 1")
     root = cur.fetchall()[0][0].split('/')[0]
     html = ""
-    filedata = b''
-    filetype = ''
-    isdir = True
+    filedata = "b''"
+    filetype = "''"
+    isnotdir = 'false'
     if 'filename' not in request.GET or request.GET['filename'] == root:
         filename = root
     else:
@@ -112,12 +124,12 @@ def filedisp(request):
                 html = html + "<li><a href='/files/?filename=" + urllib.parse.quote_plus(f[0]) + "'>"+\
                        f[0].split('/')[-1]+"<a><br>\n"
         else:
-            filetype = file[4]
+            filetype = "\""+file[4]+"\""
             filedata = file[6]
-            isdir = False
+            isnotdir = 'true'
 
     return render(request, 'files.html', {'html': html, 'root': root, 'filetype': filetype, 'filedata': filedata,
-                                          'isdir': isdir})
+                                          'isnotdir': isnotdir})
 
 
 
