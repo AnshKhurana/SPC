@@ -9,6 +9,8 @@ from sync import sync2
 
 from file_status import get_status
 
+from modify_scheme import schema_update
+
 from ast import literal_eval
 
 parser = argparse.ArgumentParser(prog='spc')
@@ -147,12 +149,56 @@ def update_schema():
     global schema_id
     global schema_name
     global sym_key
+    global username
+    global password
+    global server_url
+    global domain
     try:
+        try:
+            with open(myupath + "/config/config.json", "r") as read_file:
+                data = json.load(read_file)
+                username = data['username']
+                password = data['password']
+                login_status = data['login']
+        except FileNotFoundError:
+            print("Use config --edit to login")
+        try:
+            with open(myupath + "/config/url.json", "r") as read_file:
+                data = json.load(read_file)
+                server_url = data['server_url']
+                domain = data['domain']
+        except FileNotFoundError:
+            print("Use server --set_url <url> to connect.")
+        # auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
+        # client = coreapi.Client(auth=auth)
+        # document = client.get("http://" + server_url + "/schema/")
         with open(myupath + "/config/scheme.json", "r") as read_file:
             data = json.load(read_file)
             old_id = data['ID']
             old_schema_name = data['Scheme_Name']
             old_sym_key = data['Symmetric_Key']
+            print("Schema update")
+            list_schemes()
+            print("")
+            while True:
+                schema_name = input("Enter a scheme name: ")
+                if schema_name in ['RSA', 'AES', 'ARC4', 'Blowfish']:
+                    break
+                else:
+                    print("Schema name is not valid, enter the scheme name from the above list(case sensitive)")
+
+            schema_id = IDS[schema_name]
+            sym_key = input("Enter the key for your encryption scheme: ")
+            data = {"ID": schema_id, "Scheme_Name": schema_name, "key-gen": 'NA', "Symmetric_Key": sym_key, \
+                    "Public_Key": 'NA', "Private_Key": 'NA'}
+            if os.path.exists(myupath + "/config/"):
+                with open(myupath + "/config/scheme.json", "w") as write_file:
+                    json.dump(data, write_file)
+            else:
+                os.makedirs(myupath + "/config/")
+                with open(myupath + "/config/scheme.json", "w") as write_file:
+                    json.dump(data, write_file)
+            schema_update(username, password, server_url, domain, old_schema_name, schema_name, old_sym_key, sym_key)
     except FileNotFoundError:
         print("Schema update")
         list_schemes()
@@ -556,7 +602,7 @@ def signup():
 def list_schemes():
     print("Available encryption schemes")
     print("     1. AES")
-    print("     2. ACR4")
+    print("     2. ARC4")
     print("     3. Blowfish")
     print("     4. RSA")
 

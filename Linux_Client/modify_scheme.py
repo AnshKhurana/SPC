@@ -11,6 +11,7 @@ from blowfish import encrypt as blenc
 from blowfish import decrypt as bldec
 
 def schema_update(uname, passwd, upath, domain, oldscheme, newscheme, oldkey, newkey):
+    print("upath is: " + upath)
     if(oldscheme==newscheme):
         return None
     encrypt=0
