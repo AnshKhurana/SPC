@@ -385,8 +385,45 @@ def status():
     get_status(username, password, observe_path, server_url, domain)
 
 
-
 def sync():
+    global username
+    global password
+    global login_status
+    global server_url
+    global domain
+    global observe_path
+    read_schema()
+    try:
+        with open(myupath + "/config/config.json", "r") as read_file:
+            data = json.load(read_file)
+            username = data['username']
+            password = data['password']
+            login_status = data['login']
+    except FileNotFoundError:
+        print("No user logged in")
+        return None
+    try:
+        with open(myupath + "/config/url.json", "r") as read_file:
+            data = json.load(read_file)
+            server_url = data['server_url']
+            domain = data['domain']
+    except FileNotFoundError:
+        print("Server not set-up")
+        return None
+    try:
+        with open(myupath + "/config/path.json", 'r') as read_file:
+            data = json.load(read_file)
+            observe_path = data['observe_path']
+    except:
+        print("Directory not set-up")
+        return None
+    try:
+        auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
+        client = coreapi.Client(auth=auth)
+        document = client.get("http://" + server_url + "/schema/")
+    except:
+        print("Authentication failed")
+        return None
 
     print("Choose spc sync approach:")
     print("1. Mirror local directory to server")
