@@ -124,4 +124,3 @@ if __name__ == '__main__':
             observe_path = data['observe_path']
     except:
         print("Directory not set-up")
-

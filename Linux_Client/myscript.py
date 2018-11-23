@@ -89,7 +89,7 @@ def choose_scheme(id):
 
 
 def md5sum(filename):
-    with open(filename, 'rb') as file_to_check:
+    with open(str(filename), 'rb') as file_to_check:
         # read contents of the file
         data = file_to_check.read()
         # pipe contents of the file through
@@ -174,7 +174,7 @@ def update_scheme_file(filename):
             schema_update(username, password, server_url, domain, old_schema_name, schema_name, old_sym_key, sym_key)
     except FileNotFoundError:
         if os.path.exists(filename):
-            with open(filename, 'r') as f:
+            with open(str(filename), 'r') as f:
                 content = f.read().splitlines()
                 if content[0] in ['AES', 'ARC4', 'RSA', 'Blowfish']:
                     schema_name = content[0]
