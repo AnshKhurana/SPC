@@ -101,7 +101,7 @@ def filedisp(request):
         root = cur.fetchall()[0][0].split('/')[0]
     except:
         raise Http404("No files exist")
-    html = ""
+    html = "<a class='btn btn-info brn-lg' href='/home/'>Change Key</a><br>"
     filedata = "b''"
     filetype = ""
     isnotdir = 'false'
@@ -109,7 +109,7 @@ def filedisp(request):
         filename = root
     else:
         filename = request.GET['filename']
-        html = html + "<a href='/files/?filename=" + urllib.parse.quote_plus('/'.join(filename.split('/')[:-1])) + \
+        html = html + "<a class='btn btn-info btn-lg' href='/files/?filename=" + urllib.parse.quote_plus('/'.join(filename.split('/')[:-1])) + \
                       "'>Back</a><br>\n"
 
     cur.execute("SELECT * FROM filedatabase_filerecord where file_name=? and owner_id=?", [filename, curruser.id])
@@ -117,23 +117,32 @@ def filedisp(request):
     if len(obj) == 0 and filename != root:
         raise Http404('File does not exist')
     if filename == root:
-        cur.execute("SELECT file_name FROM filedatabase_filerecord where owner_id=? and file_name not like '%/%/%'",
+        cur.execute("SELECT file_name,file_type FROM filedatabase_filerecord where owner_id=? and file_name not like '%/%/%'",
                     [curruser.id])
         files = cur.fetchall()
         html = html + "<ul>"
         for f in files:
-            html = html + "<li><a href='/files/?filename=" + urllib.parse.quote_plus(f[0]) + "'>" + \
-                            f[0].split('/')[-1] + "</a><br>\n"
+            if f[1] == 'DIR':
+                html = html + "<li><span class='glyphicon glyphicon-folder-open'></span><a href='/files/?filename=" + urllib.parse.quote_plus(f[0]) + "'>" + \
+                                f[0].split('/')[-1] + "</a><br>\n"
+            else:
+                html = html + "<li><span class='glyphicon glyphicon-file'></span><a href='/files/?filename=" + urllib.parse.quote_plus(
+                    f[0]) + "'>" + f[0].split('/')[-1] + "</a><br>\n"
     else:
         file = obj[0]
         if file[4] == "DIR":
-            cur.execute("SELECT file_name FROM filedatabase_filerecord where owner_id=? and file_name like ? || '/%' "
-                        "and file_name not like ? || '/%/%'", [curruser.id, filename, filename])
+            cur.execute("SELECT file_name,file_type FROM filedatabase_filerecord where owner_id=? and file_name "
+                        "like ? || '/%' and file_name not like ? || '/%/%'", [curruser.id, filename, filename])
             files = cur.fetchall()
             html = html + "<ul>"
             for f in files:
-                html = html + "<li><a href='/files/?filename=" + urllib.parse.quote_plus(f[0]) + "'>"+\
-                       f[0].split('/')[-1]+"</a><br>\n"
+                if f[1] == 'DIR':
+                    html = html + "<li><span class='glyphicon glyphicon-folder-open'></span><a href='/files/?filename=" + urllib.parse.quote_plus(
+                        f[0]) + "'>" + \
+                           f[0].split('/')[-1] + "</a><br>\n"
+                else:
+                    html = html + "<li><span class='glyphicon glyphicon-file'></span><a href='/files/?filename=" + urllib.parse.quote_plus(
+                        f[0]) + "'>" + f[0].split('/')[-1] + "</a><br>\n"
         else:
             filetype = file[4]
             filedata = file[6][2:-1]
