@@ -137,7 +137,7 @@ def filedisp(request):
             isnotdir = 'true'
 
     return render(request, 'files.html', {'html': html, 'root': root, 'filetype': filetype, 'filedata':
-                  filedata.replace('"', '\\"'), 'isnotdir': isnotdir})
+                  filedata.replace('"', '\\"'), 'isnotdir': isnotdir, 'filename': filename.split('/')[-1]})
 
 
 

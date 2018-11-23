@@ -72,7 +72,8 @@
          }
 
          if (filetype.includes('ASCII text')) {
-             document.getElementById('disp').innerHTML = '<embed height=50% width=70% src="data:text/txt;base64,' + btoa(decoded) + '">';
+             document.getElementById('disp').innerHTML = '<embed height=50% width=70% src="data:text/txt;base64,' + btoa(decoded) + '"><br>' +
+                 '<a href="data:text/txt;base64,'+btoa(decoded)+'" download="'+{{ filename }} + '">Download</a>';
          }
          else if(filetype.includes('PNG image')){
              document.getElementById('disp').innerHTML = '<embed height=50% src="data:image/png;base64,' + btoa(decoded) + '">';
