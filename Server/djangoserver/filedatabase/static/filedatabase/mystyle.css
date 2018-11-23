@@ -1,10 +1,11 @@
 .navbar {
-	background-color: red;
+	background-color: blue;
 }
 
 .navbar a{
 	/* background-color: black; */
 	color: white;
+	font-family: 'Roboto Condensed' ;
 }
 
 .navbar .active {

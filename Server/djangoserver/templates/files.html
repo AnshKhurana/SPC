@@ -73,7 +73,7 @@
 
          if (filetype.includes('ASCII text')) {
              document.getElementById('disp').innerHTML = '<embed height=50% width=70% src="data:text/txt;base64,' + btoa(decoded) + '"><br>' +
-                 '<a href="data:text/txt;base64,'+btoa(decoded)+'" download="'+{{ filename }} + '">Download</a>';
+                 '<a href="data:text/txt;base64,'+btoa(decoded)+'" download="'+'{{ filename }}' + '">Download</a>';
          }
          else if(filetype.includes('PNG image')){
              document.getElementById('disp').innerHTML = '<embed height=50% src="data:image/png;base64,' + btoa(decoded) + '">';
@@ -86,7 +86,7 @@
                  document.getElementById('disp').innerHTML = '<audio controls> <source src="data:audio/mpeg;base64,' + btoa(decoded) + '"> </audio>';
              }
              else if(filetype.includes('v4')) {
-                 document.getElementById('disp').innerHTML = '<video width=60% controls> <source type="video/mp4" src="data:video/mp4;base64,' + btoa(decoded) + '"> </video>';
+                 document.getElementById('disp').innerHTML = '<video height=50% controls> <source src="data:video/webm;base64,' + btoa(decoded) + '"> </video>';
              }
          }
          else if(filetype.includes('PDF document')){
