@@ -11,3 +11,10 @@
 .navbar .active {
 	background-color: brown;
 }
+
+.home-head {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 3ex;
+}
+
+

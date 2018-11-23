@@ -4,13 +4,13 @@
 
 {% block content %}
 {% if user.is_authenticated %}
-  Hi {{ user.username }}!
-    Choose decryption scheme and key:
+  <p class="home-head"> Hi {{ user.username }}!
+    Choose decryption scheme and key: </p>
     <br>
 
-        <input type="radio" name="scheme" value="AES" >AES<br>
-        <input type="radio" name="scheme" value="ARC4" >ARC4<br>
-        <input type="radio" name="scheme" value="Blowfish" >Blowfish<br>
+        <input class="radiox" type="radio" name="scheme" value="AES" >AES<br>
+        <input class="radiox" type="radio" name="scheme" value="ARC4" >ARC4<br>
+        <input class="radiox" type="radio" name="scheme" value="Blowfish" >Blowfish<br>
         <input type="text" name="key" placeholder="Key" id="key" required>
         <input type="submit" value="Submit" onclick="savedata()">
 

@@ -1,8 +1,10 @@
 import hashlib
 import json
+import time
 import urllib
 from ast import literal_eval
 
+from django import db
 from django.contrib.auth.forms import UserCreationForm
 import sqlite3
 from django.db.models import QuerySet
@@ -15,6 +17,7 @@ from rest_framework.permissions import IsAdminUser, AllowAny
 from rest_framework.response import Response
 from rest_framework.reverse import reverse
 
+from djangoserver.settings import STATIC_URL
 from filedatabase.models import FileRecord
 from filedatabase.permissions import IsOwner
 from filedatabase.serializers import FileSerializer, UserSerializer
@@ -140,5 +143,32 @@ def filedisp(request):
                   filedata.replace('"', '\\"'), 'isnotdir': isnotdir, 'filename': filename.split('/')[-1]})
 
 
+def activecheck(request):
+    with open('active.json','r') as f:
+        active_users = json.load(f)
+        # print(active_users)
+    arg = True
+    if 'beginsync' in request.GET:
 
+        if active_users.get(request.GET['beginsync']) and (active_users[request.GET['beginsync']] + 60 < time.time()):
+            db.connections.close_all()
+            active_users.__delitem__(request.GET['beginsync'])
+        if not active_users.get(request.GET['beginsync']):
+            # print('yo')
+            active_users.update({request.GET['beginsync']: time.time()})
+            arg = False
 
+    if 'endsync' in request.GET:
+        try:
+            active_users.__delitem__(request.GET['endsync'])
+        except KeyError:
+            pass
+
+    if 'updatetime' in request.GET:
+        if active_users.get(request.GET['updatetime']):
+            active_users[request.GET['updatetime']] = time.time()
+    # print(active_users)
+    with open('active.json','w') as f:
+        json.dump(active_users, f)
+
+    return HttpResponse(json.dumps({'active': arg}))

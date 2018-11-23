@@ -22,5 +22,6 @@ urlpatterns = [
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
     path('files/', views.filedisp, name="files"),
     path('md5/', views.md5calc, name='md5'),
+    path('active/', views.activecheck,name='active'),
     # path('useronly/, views.')
 ]

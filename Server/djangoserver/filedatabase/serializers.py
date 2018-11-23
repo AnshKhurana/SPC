@@ -1,3 +1,5 @@
+import json
+
 from rest_framework import serializers
 from filedatabase.models import FileRecord
 from django.contrib.auth.models import User
@@ -18,7 +20,7 @@ class UserSerializer(serializers.HyperlinkedModelSerializer):
 
     class Meta:
         model = User
-        fields = ('url', 'id', 'username', 'password', 'files', 'cur_active')
+        fields = ('url', 'id', 'username', 'password', 'files')
 
     def create(self, validated_data):
         user = super(UserSerializer, self).create(validated_data)
