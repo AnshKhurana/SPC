@@ -52,9 +52,9 @@ parser.add_argument("--sync", help="Syncs the user with the client.", action="st
 parser.add_argument('--version', action='version', version='%(prog)s 0.7')
 parser.add_argument("--observe", help="Observe a directory")
 parser.add_argument("--login", help="Check if fields are filled", action="store_true")
-parser.add_argument("--download", action="store_true", help="A subprocess to download the files - has to be removed")
-parser.add_argument("--upload", action="store_true", help="A subprocess to upload the files - has to be removed")
-parser.add_argument("--delete", action="store_true", help="Delete files from the database")
+parser.add_argument("--download", action="store_true", help="A subprocess to download the files. (Use with caution)")
+parser.add_argument("--upload", action="store_true", help="A subprocess to upload the files. (Use with caution)")
+parser.add_argument("--delete", action="store_true", help="Delete files from the database. (Use with caution)")
 
 subparsers = parser.add_subparsers(help='Specify secondary options', dest='sub')
 
@@ -65,11 +65,11 @@ parser_config = subparsers.add_parser('config', help='config sub-commands')
 parser_server.add_argument('--set_url', action="store_true", help="Set up url of the server")
 parser_server.add_argument('--disconnect', action="store_true", help="Remove server")
 
-parser_ende.add_argument('--list', action="store_true")
-parser_ende.add_argument('--update', action="store_true")
-parser_ende.add_argument('--dump', action="store_true")
-parser_ende.add_argument('--file', '-f')
-parser_ende.add_argument('--view', action='store_true')
+parser_ende.add_argument('--list', action="store_true", help="List the available encryption schemes")
+parser_ende.add_argument('--update', action="store_true", help="Update the encryption scheme")
+parser_ende.add_argument('--dump', action="store_true", help="Dump current scheme")
+parser_ende.add_argument('--file', '-f', help="specify a file")
+parser_ende.add_argument('--view', action='store_true', help="View the current scheme")
 
 parser_config.add_argument('--delete', action="store_true")
 parser_config.add_argument('--edit', action='store_true')
@@ -428,7 +428,7 @@ def sync():
     except:
         print("Authentication failed")
         return None
-    isactive = requests.post(server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
+    isactive = requests.post('http://'+server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
     active_stat = isactive.json['active']
     if active_stat:
         print('Sorry, syncing from another machine')
@@ -456,7 +456,7 @@ def sync():
             status()
         else:
             print("Invalid option")
-    requests.post(server_url + '/active/?endsync=' + urllib.parse.quote_plus(username))
+    requests.post('http://'+server_url + '/active/?endsync=' + urllib.parse.quote_plus(username))
 
 
 def observe(path):

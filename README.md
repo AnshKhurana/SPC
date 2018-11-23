@@ -18,7 +18,9 @@ If it doesn't work try:
 
 # Usage and Functionalities
 The following are the various steps that you need to follow to create a personal space on the server and getting started with storing your sensitive files:-
-(Note that at any point of time you can see your saved settings and your files if any by running the command spc --status from the terminal)
+Note: At any point of time you can see your saved settings and your files if any by running the command spc --status from the terminal)
+
+Note: Before logging in you must sign-up on our web-client
 
 ## Linux-Client
  
@@ -50,32 +52,58 @@ Deleting currently saved credentials
 
 #### Connecting to the server
 
+Setting the url:
+
     $ spc server --set_url
     Enter domain: <Domain url, for example: 127.0.0.1>
     Enter port:   <Current port, for example 8000>
+
+Disconnecting from the url:
+    $ spc server --disconnect
 
 #### Observing a directory:
     
     $ spc --observe <observe path>
 
+### Setting/updating encryption schemes
 
-#### 
+#### Print list of available encryption schemes:
 
+    $ spc en-de --list
 
-1. See the version of the software that you are using by running spc --version
-2. Signup using the web client setting a username and password for yourself
-3. Save your login credentials on your machine for any future use by spc --login and doin as prompted
-4. Set the target directory whose files are to be stored on server using spc --observe
-5. Set up the url of the server by spc --set_url
+#### Update/set an encryption scheme:
+
+    1. By entering the details on the terminal
+
+        $ spc en-de --update
+
+    2. By using a schema file
+
+        $ spc en-de --update -f <path of the schema file>
+
+#### Displaying/saving current encryption scheme:
+
+    1. To display the scheme on the terminal
+
+        $ spc en-de --dump
+
+    2. To dump the encryption scheme in the given file
+
+        $ spc en-de --dump -f <path of the file>
+### Syncing files with your SPC:
+
+To sync with your SPC, enter the following command and choose any of the offered syncing strategies.
+
+    $ spc --sync 
+
+    
+## Race Conditions
+Please note that you cannot use more than one client to sync with the server. Working along the lines of first-come and first serve basis if any other user is changing his/her files then you may not be able to do the same concurrently.
+
 6. Choose among any of the 3 encryption schemes available and a strong key for it using spc --update 
 7. Sync using any of the 3 options available using spc --sync
 8. You may also perform explicit upload, download and delete operations(see man-page for details)
-IMPORTANT:-
-1. If at any point of time you feel that your security is being compromised you can change the encryption scheme and key in one step without any hassle using spc --update
-2. If you need to change the server-url etc you can do so by using spc --edit
-
-# Race Conditions
-Please note that you may not be the only one using the services of the server. Working along the lines of first-come and first serve basis if any other user is changing his/her files then you may not be able to do the same concurrently. You are advised to wait for a minute and retry.
+ to wait for a minute and retry.
 
 # Web-Client
 If there is any requirement to view your files remotely from a web-browser then that can also be done easily using our web-client. Just give you spc user credentials, the encryption schema and key and enjoy the rendering of all common file formats saved by you like text, image, pdf, audio and some formats of video.

@@ -2,7 +2,6 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myscript.py" beforeDir="false" afterPath="$PROJECT_DIR$/myscript.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/sync.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
@@ -32,8 +31,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myscript.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="319">
-              <caret line="759" column="25" selection-start-line="759" selection-start-column="25" selection-end-line="759" selection-end-column="25" />
+            <state relative-caret-position="169">
+              <caret line="54" column="114" selection-start-line="54" selection-start-column="114" selection-end-line="54" selection-end-column="114" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -44,8 +43,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sync.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="109">
-              <caret line="217" column="18" selection-start-line="217" selection-start-column="18" selection-end-line="217" selection-end-column="18" />
+            <state relative-caret-position="3480">
+              <caret line="232" lean-forward="true" selection-start-line="232" selection-end-line="232" />
               <folding>
                 <element signature="e#0#13#0" expanded="true" />
               </folding>
@@ -163,10 +162,10 @@
       <find>download(</find>
       <find>download</find>
       <find>progress</find>
-      <find>sync</find>
       <find>status</find>
       <find>status(</find>
       <find>auth</find>
+      <find>sync</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -195,8 +194,8 @@
         <option value="$PROJECT_DIR$/aes.py" />
         <option value="$PROJECT_DIR$/file_status.py" />
         <option value="$PROJECT_DIR$/modify_scheme.py" />
-        <option value="$PROJECT_DIR$/myscript.py" />
         <option value="$PROJECT_DIR$/sync.py" />
+        <option value="$PROJECT_DIR$/myscript.py" />
       </list>
     </option>
   </component>
@@ -260,12 +259,12 @@
       <workItem from="1542825183465" duration="12401000" />
       <workItem from="1542869326405" duration="18092000" />
       <workItem from="1542891140008" duration="38660000" />
-      <workItem from="1542969844007" duration="15220000" />
+      <workItem from="1542969844007" duration="17088000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="84373000" />
+    <option name="totallyTimeSpent" value="86241000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -439,8 +438,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sync.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="109">
-          <caret line="217" column="18" selection-start-line="217" selection-start-column="18" selection-end-line="217" selection-end-column="18" />
+        <state relative-caret-position="3480">
+          <caret line="232" lean-forward="true" selection-start-line="232" selection-end-line="232" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
           </folding>
@@ -449,8 +448,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myscript.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="319">
-          <caret line="759" column="25" selection-start-line="759" selection-start-column="25" selection-end-line="759" selection-end-column="25" />
+        <state relative-caret-position="169">
+          <caret line="54" column="114" selection-start-line="54" selection-start-column="114" selection-end-line="54" selection-end-column="114" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

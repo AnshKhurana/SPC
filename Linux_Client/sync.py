@@ -127,7 +127,7 @@ def sync2(uname,passwd,obdir,upath,domain):
     sl=list(sublist)
     # print(sl)
     for f in pbar(sl):
-        requests.post(upath + '/active/?updatetime=' + urllib.parse.quote_plus(uname))
+        requests.post('http://'+upath + '/active/?updatetime=' + urllib.parse.quote_plus(uname))
         # print('hello')
         b=0
         # print(f)
