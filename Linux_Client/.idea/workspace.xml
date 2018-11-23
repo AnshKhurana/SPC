@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../ldir.py" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/../../myscript.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sync.py" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../sync2.py" beforeDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -12,6 +15,18 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/../myscript.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="6574">
+              <caret line="631" column="39" lean-forward="true" selection-start-line="631" selection-start-column="39" selection-end-line="631" selection-end-column="39" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../file_status.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -57,18 +72,6 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/../sync.py">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-390">
-              <caret line="144" column="57" selection-start-line="144" selection-start-column="57" selection-end-line="144" selection-end-column="57" />
-              <folding>
-                <element signature="e#0#13#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../enc_stackoverflow.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -84,8 +87,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/../crypto_aes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="49">
-              <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
+            <state relative-caret-position="285">
+              <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
               <folding>
                 <element signature="e#56#69#0" expanded="true" />
               </folding>
@@ -140,7 +143,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>userl</find>
       <find>dow`</find>
       <find>dump_</find>
       <find>syn</find>
@@ -159,7 +161,6 @@
       <find>upath</find>
       <find>encrypt</find>
       <find>passwd</find>
-      <find>delete</find>
       <find>download</find>
       <find>observe</find>
       <find>observe(</find>
@@ -170,6 +171,8 @@
       <find>server</find>
       <find>uid</find>
       <find>count</find>
+      <find>downl</find>
+      <find>delete</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -256,12 +259,12 @@
       <updated>1538582361435</updated>
       <workItem from="1542825183465" duration="12401000" />
       <workItem from="1542869326405" duration="18092000" />
-      <workItem from="1542891140008" duration="29750000" />
+      <workItem from="1542891140008" duration="33194000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="60243000" />
+    <option name="totallyTimeSpent" value="63687000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -274,8 +277,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1280" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" weight="0.18881686" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.18881686" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -385,16 +389,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../myscript.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="124">
-          <caret line="169" column="42" lean-forward="true" selection-start-line="169" selection-start-column="42" selection-end-line="169" selection-end-column="42" />
-          <folding>
-            <element signature="e#0#15#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/../aes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-506">
@@ -409,26 +403,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state>
           <caret column="28" lean-forward="true" selection-start-column="28" selection-end-column="28" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../crypto_aes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49">
-          <caret line="22" column="37" selection-start-line="22" selection-start-column="37" selection-end-line="22" selection-end-column="37" />
-          <folding>
-            <element signature="e#56#69#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/../enc_stackoverflow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="285">
-          <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -454,10 +428,40 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/../sync.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-390">
-          <caret line="144" column="57" selection-start-line="144" selection-start-column="57" selection-end-line="144" selection-end-column="57" />
+        <state relative-caret-position="150">
+          <caret line="87" column="4" lean-forward="true" selection-start-line="77" selection-start-column="4" selection-end-line="87" selection-end-column="4" />
           <folding>
             <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../crypto_aes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="35" lean-forward="true" selection-start-line="19" selection-start-column="35" selection-end-line="19" selection-end-column="35" />
+          <folding>
+            <element signature="e#56#69#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../enc_stackoverflow.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="285">
+          <caret line="19" column="32" selection-start-line="19" selection-start-column="32" selection-end-line="19" selection-end-column="32" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/../myscript.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="6574">
+          <caret line="631" column="39" lean-forward="true" selection-start-line="631" selection-start-column="39" selection-end-line="631" selection-end-column="39" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
           </folding>
         </state>
       </provider>
