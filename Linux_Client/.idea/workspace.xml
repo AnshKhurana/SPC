@@ -2,9 +2,9 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/aes.py" beforeDir="false" afterPath="$PROJECT_DIR$/aes.py" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/myscript.py" beforeDir="false" afterPath="$PROJECT_DIR$/myscript.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/notify.sh" beforeDir="false" afterPath="$PROJECT_DIR$/notify.sh" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/sync.cron" beforeDir="false" afterPath="$PROJECT_DIR$/sync.cron" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../spc" beforeDir="false" afterPath="$PROJECT_DIR$/../spc" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -32,8 +32,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myscript.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="264">
-              <caret line="535" column="21" selection-start-line="535" selection-start-column="21" selection-end-line="535" selection-end-column="21" />
+            <state relative-caret-position="181">
+              <caret line="518" column="36" selection-start-line="518" selection-start-column="36" selection-end-line="518" selection-end-column="36" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -117,8 +117,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/aes.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="134">
-              <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+            <state relative-caret-position="91">
+              <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
               <folding>
                 <element signature="e#0#29#0" expanded="true" />
               </folding>
@@ -137,7 +137,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>dump</find>
       <find>update_</find>
       <find>upa</find>
       <find>sync2</find>
@@ -167,6 +166,7 @@
       <find>partial</find>
       <find>print(</find>
       <find>download(</find>
+      <find>auth</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -260,12 +260,12 @@
       <workItem from="1542825183465" duration="12401000" />
       <workItem from="1542869326405" duration="18092000" />
       <workItem from="1542891140008" duration="38660000" />
-      <workItem from="1542969844007" duration="8383000" />
+      <workItem from="1542969844007" duration="11094000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="77536000" />
+    <option name="totallyTimeSpent" value="80247000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -278,9 +278,8 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1280" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
-      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19124797" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19124797" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -291,9 +290,9 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286219" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info anchor="bottom" id="Terminal" order="8" weight="0.29151943" />
+      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.29151943" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
-      <window_info anchor="bottom" id="Python Console" order="10" visible="true" weight="0.32685512" />
+      <window_info anchor="bottom" id="Python Console" order="10" weight="0.32685512" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
       <window_info anchor="bottom" id="Database Changes" order="12" show_stripe_button="false" />
       <window_info anchor="right" id="Commander" internal_type="SLIDING" order="0" type="SLIDING" weight="0.4" />
@@ -439,8 +438,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/aes.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="134">
-          <caret line="56" lean-forward="true" selection-start-line="56" selection-end-line="56" />
+        <state relative-caret-position="91">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
           </folding>
@@ -449,8 +448,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myscript.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="535" column="21" selection-start-line="535" selection-start-column="21" selection-end-line="535" selection-end-column="21" />
+        <state relative-caret-position="181">
+          <caret line="518" column="36" selection-start-line="518" selection-start-column="36" selection-end-line="518" selection-end-column="36" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
