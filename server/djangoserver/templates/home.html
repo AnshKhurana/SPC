@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Home{% endblock %}
+
+{% block content %}
+{% if user.is_authenticated %}
+    <div style="text-align: center; margin: 5%; color: blue"><h1> Hi {{ user.username }}!<br>
+    Choose decryption scheme and key: </h1></div>
+    <br>
+        <div style="font-size: x-large" class="hor-center">
+            <input class="radiox" type="radio" name="scheme" value="AES" >AES<br>
+            <input class="radiox" type="radio" name="scheme" value="ARC4" >ARC4<br>
+            <input class="radiox" type="radio" name="scheme" value="Blowfish" >Blowfish<br>
+            <input type="text" name="key" placeholder="Key" id="key" required>
+            <input class="btn btn-info btn-lg" type="submit" value="Submit" onclick="savedata()">
+        </div>
+    <script>
+    function savedata(form){
+        var radios = document.getElementsByName("scheme");
+        var sche = "";
+        for(var i=0;i<3;++i){
+            if(radios[i].checked==true){
+                sche = radios[i].value;
+                break;
+            }
+        }
+        console.log(sche);
+        document.cookie = "scheme=" + sche+";path=/";
+        document.cookie = "key=" + document.getElementById("key").value+";path=/";
+        window.location = '/files/'
+
+    }
+    </script>
+
+{% else %}
+  <p>You are not logged in</p>
+{% endif %}
+{% endblock %}

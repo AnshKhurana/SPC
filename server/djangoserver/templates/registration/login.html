@@ -1,0 +1,12 @@
+{% extends 'base.html' %}
+ {% block title %}Login{% endblock %}
+ {% block content %}
+     <div style="text-align: center; margin: 5%; color: blue"><h1>Welcome to SPC</h1></div>
+  <div class="hor-center"  >
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button class='hor-center btn btn-info btn-lg' type="submit">Login</button>
+  </form>
+  </div>
+{% endblock %} 

@@ -1,0 +1,160 @@
+{% extends 'base.html' %}
+{%  load staticfiles %}
+ {% block title %}Files in {{ root }}{% endblock %}
+ {% block content %}
+     {%  autoescape off %}
+         <div style="text-align: center; color: blue"><h3>{{ filename }}<br></h3></div>
+     {{ html }}
+
+
+    <div id ='disp'></div>
+
+     <script>
+     function getCookie(cname) {
+        var name = cname + "=";
+        var decodedCookie = decodeURIComponent(document.cookie);
+        var ca = decodedCookie.split(';');
+        for(var i = 0; i <ca.length; i++) {
+            var c = ca[i];
+            while (c.charAt(0) == ' ') {
+                c = c.substring(1);
+            }
+            if (c.indexOf(name) == 0) {
+                return c.substring(name.length, c.length);
+            }
+        }
+    return "";
+}
+     </script>
+     <script type="text/javascript" src="https://cdn.rawgit.com/ricmoo/aes-js/e27b99df/index.js"></script>
+     <script type="text/javascript" src="{% static 'filedatabase/arc4.js' %}"></script>
+     <script type="text/javascript" src="{% static 'filedatabase/sha256.js' %}"></script>
+     <script type="text/javascript" src="http://sladex.org/blowfish.js/ext/blowfish.js"></script>
+         <script>
+         function str2ab(str) {
+             var buf = new Uint8Array(str.length);
+             for(var i=0;i<str.length;++i){
+                 buf[i]=str.charCodeAt(i);
+             }
+             return buf;
+         }
+        function uint2a(uint) {
+            var arr = [];
+            for(var i=0;i<uint.length;++i){
+                 arr[i]=uint[i];
+             }
+             return arr;
+        }
+     if ({{ isnotdir }}) {
+         var key = getCookie('key');
+         var scheme = getCookie('scheme');
+         console.log(scheme);
+         {#var keyb = str2ab(key);#}
+
+         var filedata = "{{ filedata }}";
+         var filetype = "{{ filetype }}";
+         {#filedata = filedata.slice(2,filedata.length-1);#}
+         if (scheme == "AES") {
+             var hash = sha256.create();
+             hash.update(key);
+             var nkey = hash.array();
+             filedata = str2ab(filedata);
+             {#console.log(filedata)#}
+             var iv = filedata.slice(0,16);
+             {#console.log(iv);#}
+             filedata = filedata.slice(16,filedata.length);
+             var aescbc = new aesjs.ModeOfOperation.cbc(nkey,iv);
+             var decoded =aescbc.decrypt(filedata);
+             decoded = decoded.slice(0,decoded.length-decoded[decoded.length-1]);
+             decoded = uint2a(decoded);
+             console.log(decoded);
+         }
+         else if (scheme == "ARC4") {
+             var hash = sha256.create();
+             hash.update(key);
+             var nkey = hash.array();
+
+             var arc = new ARC4(nkey);
+             var decoded = arc.decrypt(filedata);
+             console.log(typeof(decoded));
+         }
+         else if (scheme == "Blowfish") {
+             var decoded = blowfish.decrypt(filedata,key,{outputType: 2 ,cipherMode: 1});
+             decoded = decoded.slice(8,decoded.length);
+             console.log(decoded);
+         }
+
+         function detectmob() {
+             if( navigator.userAgent.match(/Android/i)
+                 || navigator.userAgent.match(/webOS/i)
+                 || navigator.userAgent.match(/iPhone/i)
+                 || navigator.userAgent.match(/iPad/i)
+                 || navigator.userAgent.match(/iPod/i)
+                 || navigator.userAgent.match(/BlackBerry/i)
+                 || navigator.userAgent.match(/Windows Phone/i)
+             ){
+                return true;
+              }
+             else {
+                return false;
+              }
+            }
+
+         if (filetype.includes('ASCII text')) {
+             document.getElementById('disp').innerHTML = '<embed height=50% width=70% src="data:text/txt;base64,' + btoa(decoded) + '"><br>' +
+                 '<br><a class="hor-center btn btn-info btn-lg" href="data:text/txt;base64,'+btoa(decoded)+
+                 '" download="'+'{{ filename }}' + '">Download <span class="glyphicon glyphicon-download-alt"></span></a><br>';
+         }
+         else if(filetype.includes('PNG image')){
+             document.getElementById('disp').innerHTML = '<embed style="max-width: 100%" src="data:image/png;base64,' + btoa(decoded) + '"><br>' +
+                                  '<br><a class="hor-center btn btn-info btn-lg" href="data:image/png;base64,'
+                 +btoa(decoded)+'"download="'+'{{ filename }}' + '">Download <span class="glyphicon glyphicon-download-alt"></a><br>';
+         }
+         else if(filetype.includes('JPEG image')){
+             document.getElementById('disp').innerHTML = '<embed style="max-width: 100%" src="data:image/jpeg;base64,' + btoa(decoded) + '"><br>' +
+                                  '<br><a class="hor-center btn btn-info btn-lg" href="data:image/jpeg;base64,' +btoa(decoded)+
+                 '"download="'+'{{ filename }}' + '">Download <span class="glyphicon glyphicon-download-alt"></a><br>';
+         }
+         else if(filetype.includes('MPEG')){
+             if(filetype.includes('Audio')) {
+                 document.getElementById('disp').innerHTML = '<audio controls> <source src="data:audio/mpeg;base64,' + btoa(decoded) + '"> </audio><br>' +
+                                  '<br><a class="hor-center btn btn-info btn-lg" href="data:audio/mpeg;base64,' +btoa(decoded)+
+                     '"download="'+'{{ filename }}' + '">Download <span class="glyphicon glyphicon-download-alt"></a><br>';
+             }
+             else if(filetype.includes('v4')) {
+                 document.getElementById('disp').innerHTML = '<video style="max-width: 100%" controls autoplay> <source src="data:video/mp4;base64,' + btoa(decoded) + '"> </video><br>' +
+                                  '<br><a class="hor-center btn btn-info btn-lg" href="data:video/mp4;base64,' +btoa(decoded)+
+                     '"download="'+'{{ filename }}' + '">Download <span class="glyphicon glyphicon-download-alt"></a><br>';
+             }
+         }
+         else if(filetype.includes('MP3')) {
+                 document.getElementById('disp').innerHTML = '<audio controls> <source src="data:audio/mpeg;base64,' + btoa(decoded) + '"> </audio><br>' +
+                                  '<br><a class="hor-center btn btn-info btn-lg" href="data:audio/mpeg;base64,' +btoa(decoded)+
+                     '"download="'+'{{ filename }}' + '">Download <span class="glyphicon glyphicon-download-alt"></a><br>';
+         }
+         else if(filetype.includes('MP4')) {
+                 document.getElementById('disp').innerHTML = '<video style="max-width: 100%" controls autoplay> <source src="data:video/mp4;base64,' + btoa(decoded) + '"> </video><br>' +
+                                  '<br><a class="hor-center btn btn-info btn-lg" href="data:video/mp4;base64,' +btoa(decoded)+
+                     '"download="'+'{{ filename }}' + '">Download <span class="glyphicon glyphicon-download-alt"></a><br>';
+         }
+         else if(filetype.includes('PDF document')){
+             if(detectmob()){
+                 document.getElementById('disp').innerHTML = '<br><a class="hor-center btn btn-info btn-lg" href="data:application/pdf;base64,' +btoa(decoded)+
+                     '"download="'+'{{ filename }}' + '">Download <span class="glyphicon glyphicon-download-alt"></a><br>';
+             }
+             else{
+                 document.getElementById('disp').innerHTML = '<embed height=70% width=80% src="data:application/pdf;base64,' + btoa(decoded) + '"><br>';
+             }
+         }
+         else if(filetype.includes('Empty')){
+             document.getElementById('disp').innerHTML = 'This file is empty.';
+         }
+         else{
+             document.getElementById('disp').innerHTML = 'This format is not supported.';
+         }
+     }
+     </script>
+
+         <br><br><br><a class='btn btn-info brn-lg' href='/home/'>Go back to Scheme Selection</a><br>
+{% endautoescape %}
+ {% endblock %}
