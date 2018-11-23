@@ -1,13 +1,27 @@
 # SPC(Secure Personal Cloud)
-Secure Personal Cloud(or SPC as its is called) is a cloud based file storage system like dropbox where the user can choose among three of the encryption schemes provided by the developers, namely:- AES, ARC4, Blowfish.
+Secure Personal Cloud(or SPC as it is called) is a cloud based file storage system like dropbox where the user can choose among three of the encryption schemes provided by the developers, namely:- AES, ARC4, Blowfish.
+
+The cloud is safe and secure to store any confidential information as the server has no knowledge about the encryption schemes and keys. This is a complete Zero-Knowledge based server.
 
 # Installation
-Installation is all about placing a few files in the /usr/bin of you machine and that is conveniently done by the installation script provided alongwith.
+From the SPC folder, use the install.sh script.
+
+$ ./install.sh
+
+Note: The sript requires execution permissions and sudo permissions for installation.
+
+If it doesn't work try:
+
+$ chmod +x install.sh
+$ ./install.sh
+
 
 # Usage and Functionalities
 The following are the various steps that you need to follow to create a personal space on the server and getting started with storing your sensitive files:-
 (Note that at any point of time you can see your saved settings and your files if any by running the command spc --status from the terminal)
-These are just indicative and the man-page (man spc) can be referred to for exact usage format
+
+## Linux-Client
+ 
 1. See the version of the software that you are using by running spc --version
 2. Signup using the web client setting a username and password for yourself
 3. Save your login credentials on your machine for any future use by spc --login and doin as prompted
@@ -27,4 +41,4 @@ Please note that you may not be the only one using the services of the server. W
 If there is any requirement to view your files remotely from a web-browser then that can also be done easily using our web-client. Just give you spc user credentials, the encryption schema and key and enjoy the rendering of all common file formats saved by you like text, image, pdf, audio and some formats of video.
 
 # Disclaimer
-Though you completely free to upload any format of file you can possibly think of but not all may be rendered by the web-client. Though we are working upon this issue and will come up with an update soon!
+Though you completely free to upload any format of file you can possibly think of but not all may be rendered by the web-client. Though we are working upon this issue and will come up with an update soon!=

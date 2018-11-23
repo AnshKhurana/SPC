@@ -511,9 +511,12 @@ def download():
             observe_path = data['observe_path']
     except:
         print("Directory not set-up")
-    auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
-    client = coreapi.Client(auth=auth)
-    document = client.get("http://" + server_url + "/schema/")
+    try:
+        auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
+        client = coreapi.Client(auth=auth)
+        document = client.get("http://" + server_url + "/schema/")
+    except:
+        print("Authentication failed")
     userlist = client.action(document, ['users', 'list'])
     user_id = None
     for obj in userlist['results']:
@@ -592,9 +595,12 @@ def delete():
             domain = data['domain']
     except FileNotFoundError:
         print("Server not set-up")
-    auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
-    client = coreapi.Client(auth=auth)
-    document = client.get("http://" + server_url + "/schema/")
+    try:
+        auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
+        client = coreapi.Client(auth=auth)
+        document = client.get("http://" + server_url + "/schema/")
+    except:
+        print("Authentication failed.")
     userlist = client.action(document, ['users', 'list'])
     user_id = None
     for obj in userlist['results']:
@@ -636,11 +642,15 @@ def login():
             domain = data['domain']
     except FileNotFoundError:
         print("Use server --set_url <url> to connect.")
-    auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
-    client = coreapi.Client(auth=auth)
-    document = client.get("http://" + server_url + "/schema/")
+    try:
+        auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
+        client = coreapi.Client(auth=auth)
+        document = client.get("http://" + server_url + "/schema/")
+    except:
+        print("Authentication failed.")
+
     print(document)
-    client.action(document, ['users', 'list'])
+    # client.action(document, ['users', 'list'])
 
 
 def signup():

@@ -2,7 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c54d112-281b-4c7c-9520-52a5d8d9dc4d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/Linux_Client/README.md" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/Linux_Client/myscript.py" beforeDir="false" afterPath="$PROJECT_DIR$/Linux_Client/myscript.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/Linux_Client/sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/Linux_Client/sync.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -23,22 +26,22 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.open">
         <counts>
-          <entry key="py" value="14" />
+          <entry key="py" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.open">
         <counts>
-          <entry key="Python" value="14" />
+          <entry key="Python" value="15" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="2891" />
+          <entry key="py" value="3133" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="2891" />
+          <entry key="Python" value="3133" />
         </counts>
       </usages-collector>
     </session>
@@ -48,10 +51,21 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Linux_Client/myscript.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="221">
-              <caret line="616" column="36" selection-start-line="616" selection-start-column="36" selection-end-line="616" selection-end-column="36" />
+            <state relative-caret-position="526">
+              <caret line="713" column="25" selection-start-line="713" selection-start-column="25" selection-end-line="713" selection-end-column="25" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Linux_Client/modify_scheme.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -72,8 +86,11 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Linux_Client/sync.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="220">
-              <caret line="10" column="35" lean-forward="true" selection-start-line="10" selection-end-line="10" selection-end-column="35" />
+            <state relative-caret-position="242">
+              <caret line="11" column="13" lean-forward="true" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+              <folding>
+                <element signature="e#1#14#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -128,6 +145,8 @@
       <find>config</find>
       <find>here</find>
       <find>download</find>
+      <find>sync</find>
+      <find>uname</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -155,10 +174,10 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="73" />
-    <option name="y" value="-5" />
-    <option name="width" value="1355" />
-    <option name="height" value="1085" />
+    <option name="x" value="996" />
+    <option name="y" value="27" />
+    <option name="width" value="924" />
+    <option name="height" value="1053" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -214,7 +233,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="72" y="-8" width="1849" height="1089" extended-state="6" />
+    <frame x="73" y="-5" width="1847" height="1085" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.13050753" />
@@ -305,17 +324,29 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Linux_Client/timecheck.py" />
     <entry file="file://$PROJECT_DIR$/Linux_Client/aes256.py" />
+    <entry file="file://$PROJECT_DIR$/Linux_Client/modify_scheme.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/Linux_Client/sync.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="220">
-          <caret line="10" column="35" lean-forward="true" selection-start-line="10" selection-end-line="10" selection-end-column="35" />
+        <state relative-caret-position="242">
+          <caret line="11" column="13" lean-forward="true" selection-start-line="11" selection-start-column="13" selection-end-line="11" selection-end-column="13" />
+          <folding>
+            <element signature="e#1#14#0" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Linux_Client/myscript.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="221">
-          <caret line="616" column="36" selection-start-line="616" selection-start-column="36" selection-end-line="616" selection-end-column="36" />
+        <state relative-caret-position="526">
+          <caret line="713" column="25" selection-start-line="713" selection-start-column="25" selection-end-line="713" selection-end-column="25" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>
