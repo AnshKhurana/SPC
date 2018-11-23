@@ -43,7 +43,7 @@ schema_name = None
 sym_key = None
 public_key = None
 private_key = None
-IDS = {"RSA": 4, "AES": 1, "ARC4": 2, "Blowfish": 3}
+IDS = {"AES": 1, "ARC4": 2, "Blowfish": 3}
 
 myupath = os.path.expanduser('~')  # work around
 
@@ -75,15 +75,6 @@ parser_config.add_argument('--delete', action="store_true", help="Delete current
 parser_config.add_argument('--edit', action='store_true', help="Edit your credentials")
 
 
-
-# subparsers_level2 = parser_ende.add_subparsers(help='sub options for encryption and decryption', dest='ende')
-# parser_update = subparsers_level2.add_parser('update', help="update scheme options")
-# parser_dump = subparsers_level2.add_parser('dump', help="dump current scheme")
-#
-# parser_update.add_argument('-f', '--file')
-# parser_dump.add_argument('-f', '--file')
-
-
 def choose_scheme(id):
     if id==1:
         from aes import decrypt
@@ -92,7 +83,6 @@ def choose_scheme(id):
     elif id==3:
         from blowfish import decrypt
 
-
 def md5sum(filename):
     with open(str(filename), 'rb') as file_to_check:
         # read contents of the file
@@ -100,7 +90,6 @@ def md5sum(filename):
         # pipe contents of the file through
         md5_returned = hashlib.md5(data).hexdigest()
         return md5_returned
-
 
 def read_schema():
     global schema_id
@@ -114,7 +103,7 @@ def read_schema():
             sym_key = data['Symmetric_Key']
           #  choose_scheme(schema_id)
     except FileNotFoundError:
-        print("Need to set the schema before this operation")
+        print("Need to set the schema before this operation.")
 
 
 
@@ -784,7 +773,7 @@ if __name__ == '__main__':
     if args.sub == 'server':
         if args.set_url:
             set_url()
-        if args.disconnect:
+        elif args.disconnect:
             disconnect()
         else:
             server_info()
