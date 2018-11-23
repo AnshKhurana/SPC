@@ -434,23 +434,41 @@ def sync():
     print("2. Merge Server and disk contents and perform overwrites on server")
     print("3. Merge Server and disk contents and perform overwrites on client")
     print("")
-    isactive = requests.post('http://' + server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
-    active_stat = isactive.json()['active']
-    # print(active_stat)
-    if active_stat:
-        print('Sorry, syncing from another machine')
-        return None
 
     while True:
         ch = input("Enter choice[1-3] or s to show status: ")
         if ch in ['1', '2', '3']:
             if ch == '1':
+                isactive = requests.post(
+                    'http://' + server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
+                # print(active_stat)
+                active_stat = isactive.json()['active']
+                if active_stat:
+                    print('Sorry, syncing from another machine')
+                    return None
+
                 delete()
                 upload()
             elif ch == '2':
+                isactive = requests.post(
+                    'http://' + server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
+                # print(active_stat)
+                active_stat = isactive.json()['active']
+                if active_stat:
+                    print('Sorry, syncing from another machine')
+                    return None
+
                 upload()
                 download()
             else:
+                isactive = requests.post(
+                    'http://' + server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
+                # print(active_stat)
+                active_stat = isactive.json()['active']
+                if active_stat:
+                    print('Sorry, syncing from another machine')
+                    return None
+
                 download()
                 upload()
             break
