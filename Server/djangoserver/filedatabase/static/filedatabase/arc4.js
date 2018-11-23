@@ -24,7 +24,7 @@ ARC4.prototype.encrypt = function(message){
     var j = 0;
     var encrypted = [];
     var temp = this.s.slice();
-    console.log(message);
+    // console.log(message);
     for(var k = 0; k < message.length; k++){
         var charCode = 0;
         i = (i + 1) & 0xff ;

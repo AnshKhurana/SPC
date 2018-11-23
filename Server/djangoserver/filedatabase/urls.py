@@ -14,11 +14,13 @@ router.register(r'users', views.UserViewSet)
 
 # The API URLs are now determined automatically by the router.
 urlpatterns = [
+    path('', views.redir_home),
     path('', include(router.urls)),
+
     path('schema/', schema_view),
     path('signup/', views.SignUp.as_view(), name='signup'),
     path('home/', TemplateView.as_view(template_name='home.html'), name='home'),
     path('files/', views.filedisp, name="files"),
-    path('md5/', views.md5calc ,name='md5'),
+    path('md5/', views.md5calc, name='md5'),
     # path('useronly/, views.')
 ]

@@ -7,7 +7,7 @@ from django.contrib.auth.forms import UserCreationForm
 import sqlite3
 from django.db.models import QuerySet
 from django.http import HttpResponse, Http404
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.urls import reverse_lazy
 from django.views import generic
 from rest_framework.decorators import action, api_view, permission_classes
@@ -74,6 +74,10 @@ class SignUp(generic.CreateView):
     template_name = 'signup.html'
 
 
+def redir_home(request):
+    return redirect('/home/')
+
+
 def md5calc(request):
     db = sqlite3.connect('db.sqlite3')
     cur = db.cursor()
@@ -82,7 +86,7 @@ def md5calc(request):
     cur.execute("SELECT file_data from filedatabase_filerecord where owner_id=? and file_name=?", [ownerid, filename])
     data = literal_eval(cur.fetchall()[0][0])
     md5 = hashlib.md5(data).hexdigest()
-    return HttpResponse(md5)
+    return HttpResponse(json.dumps({"md5":md5}))
 
 
 def filedisp(request):
@@ -90,7 +94,10 @@ def filedisp(request):
     db = sqlite3.connect('db.sqlite3')
     cur = db.cursor()
     cur.execute("SELECT file_name FROM filedatabase_filerecord order by id limit 1")
-    root = cur.fetchall()[0][0].split('/')[0]
+    try:
+        root = cur.fetchall()[0][0].split('/')[0]
+    except:
+        raise Http404("No files exist")
     html = ""
     filedata = "b''"
     filetype = ""

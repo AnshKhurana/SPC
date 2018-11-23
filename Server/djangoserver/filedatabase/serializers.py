@@ -15,10 +15,11 @@ class FileSerializer(serializers.HyperlinkedModelSerializer):
 class UserSerializer(serializers.HyperlinkedModelSerializer):
     files = serializers.HyperlinkedRelatedField(many=True, view_name='filerecord-detail', read_only=True)
     password = serializers.CharField(write_only=True)
+    cur_active = serializers.BooleanField(default=0)
 
     class Meta:
         model = User
-        fields = ('url', 'id', 'username', 'password', 'files')
+        fields = ('url', 'id', 'username', 'password', 'files', 'cur_active')
 
     def create(self, validated_data):
         user = super(UserSerializer, self).create(validated_data)
