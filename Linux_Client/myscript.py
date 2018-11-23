@@ -82,6 +82,13 @@ parser_config.add_argument('--edit', action='store_true')
 # parser_update.add_argument('-f', '--file')
 # parser_dump.add_argument('-f', '--file')
 
+# subparsers_level2 = parser_ende.add_subparsers(help='sub options for encryption and decryption', dest='ende')
+# parser_update = subparsers_level2.add_parser('update', help="update scheme options")
+# parser_dump = subparsers_level2.add_parser('dump', help="dump current scheme")
+#
+# parser_update.add_argument('-f', '--file')
+# parser_dump.add_argument('-f', '--file')
+
 
 def choose_scheme(id):
     if id==1:
@@ -429,7 +436,8 @@ def sync():
         print("Authentication failed")
         return None
     isactive = requests.post('http://'+server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
-    active_stat = isactive.json['active']
+    active_stat = isactive.json()['active']
+    print(active_stat)
     if active_stat:
         print('Sorry, syncing from another machine')
         return None
