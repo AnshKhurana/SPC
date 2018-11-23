@@ -6,14 +6,14 @@ The cloud is safe and secure to store any confidential information as the server
 # Installation
 From the SPC folder, use the install.sh script.
 
-$ ./install.sh
+    $ ./install.sh
 
 Note: The sript requires execution permissions and sudo permissions for installation.
 
 If it doesn't work try:
 
-$ chmod +x install.sh
-$ ./install.sh
+    $ chmod +x install.sh
+    $ ./install.sh
 
 
 # Usage and Functionalities
@@ -22,6 +22,46 @@ The following are the various steps that you need to follow to create a personal
 
 ## Linux-Client
  
+### General commands
+
+#### SPC Version
+
+    $ spc --version
+#### SPC Help
+
+    $ spc --help
+
+### Setup
+
+Use the following commands to enter your credentials and configure your cloud.   
+    
+#### Adding credentials
+
+Changing/adding your credentials 
+
+    $ spc config --edit
+    Username: <username>
+    Password: <password>
+    Confirm password: <password>
+
+Deleting currently saved credentials
+    
+    $ spc config --delete
+
+#### Connecting to the server
+
+    $ spc server --set_url
+    Enter domain: <Domain url, for example: 127.0.0.1>
+    Enter port:   <Current port, for example 8000>
+
+#### Observing a directory:
+    
+    $ spc --observe <observe path>
+
+
+#### 
+
+
 1. See the version of the software that you are using by running spc --version
 2. Signup using the web client setting a username and password for yourself
 3. Save your login credentials on your machine for any future use by spc --login and doin as prompted

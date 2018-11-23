@@ -61,12 +61,6 @@ def getsubs(mypath):
 
 
 def sync2(uname,passwd,obdir,upath,domain):
-    isactive=requests.post(upath+'/active/?beginsync='+urllib.parse.quote_plus(uname))
-    active_stat=isactive.json['active']
-    if active_stat:
-        print('Sorry, syncing from another machine')
-        return None
-
     prefix_obdir='/'.join(obdir.split('/')[0:-1])+'/'
     # print(prefix_obdir)
     # print('here')
@@ -232,7 +226,7 @@ def sync2(uname,passwd,obdir,upath,domain):
         print("Files were not uploaded correctly, please retry.")
     # print('done')
     # client.action(document, ['users', 'partial_update'], params={'id': uid, 'cur_active': False})
-    requests.post(upath + '/active/?endsync=' + urllib.parse.quote_plus(uname))
+
 
 if __name__ == '__main__':
     print(md5sumc('requirements.txt'))
