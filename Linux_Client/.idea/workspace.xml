@@ -3,6 +3,7 @@
   <component name="ChangeListManager">
     <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/myscript.py" beforeDir="false" afterPath="$PROJECT_DIR$/myscript.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../README.md" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -29,8 +30,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myscript.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+            <state relative-caret-position="256">
+              <caret line="467" column="30" lean-forward="true" selection-start-line="467" selection-start-column="30" selection-end-line="467" selection-end-column="30" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -41,8 +42,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/sync.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="259">
-              <caret line="232" column="38" selection-start-line="232" selection-start-column="38" selection-end-line="232" selection-end-column="38" />
+            <state relative-caret-position="106">
+              <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
               <folding>
                 <element signature="e#1#14#0" expanded="true" />
               </folding>
@@ -134,9 +135,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>fd</find>
-      <find>file_list</find>
-      <find>print</find>
       <find>myupath</find>
       <find>upath</find>
       <find>encrypt</find>
@@ -146,15 +144,12 @@
       <find>list</find>
       <find>update_scheme</find>
       <find>update_schema</find>
-      <find>server</find>
       <find>uid</find>
       <find>count</find>
       <find>downl</find>
       <find>delete</find>
       <find>is_active</find>
       <find>partial</find>
-      <find>download(</find>
-      <find>download</find>
       <find>progress</find>
       <find>status</find>
       <find>status(</find>
@@ -164,6 +159,12 @@
       <find>print(a</find>
       <find>sync(</find>
       <find>s</find>
+      <find>download</find>
+      <find>download(</find>
+      <find>server</find>
+      <find>Authentication</find>
+      <find>Download</find>
+      <find>beginsyn</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -257,12 +258,12 @@
       <workItem from="1542825183465" duration="12401000" />
       <workItem from="1542869326405" duration="18092000" />
       <workItem from="1542891140008" duration="38660000" />
-      <workItem from="1542969844007" duration="19710000" />
+      <workItem from="1542969844007" duration="23585000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="88863000" />
+    <option name="totallyTimeSpent" value="92738000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -275,7 +276,6 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1280" height="695" extended-state="6" />
-    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19124797" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -436,8 +436,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/sync.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="259">
-          <caret line="232" column="38" selection-start-line="232" selection-start-column="38" selection-end-line="232" selection-end-column="38" />
+        <state relative-caret-position="106">
+          <caret line="42" column="40" selection-start-line="42" selection-start-column="40" selection-end-line="42" selection-end-column="40" />
           <folding>
             <element signature="e#1#14#0" expanded="true" />
           </folding>
@@ -446,8 +446,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myscript.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="76" lean-forward="true" selection-start-line="76" selection-end-line="76" />
+        <state relative-caret-position="256">
+          <caret line="467" column="30" lean-forward="true" selection-start-line="467" selection-start-column="30" selection-end-line="467" selection-end-column="30" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

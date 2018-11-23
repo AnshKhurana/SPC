@@ -83,30 +83,54 @@ Disconnecting from the url:
 
 #### Displaying/saving current encryption scheme:
 
-    1. To display the scheme on the terminal
+1. To display the scheme on the terminal
 
-        $ spc en-de --dump
+    $ spc en-de --dump
 
-    2. To dump the encryption scheme in the given file
+2. To dump the encryption scheme in the given file
 
-        $ spc en-de --dump -f <path of the file>
+    $ spc en-de --dump -f <path of the file>
+
 ### Syncing files with your SPC:
+
+#### Sync with a given strategy:
 
 To sync with your SPC, enter the following command and choose any of the offered syncing strategies.
 
     $ spc --sync 
 
+#### Advanced usage:
+
+The following commands should be used with caution. 
+
+1. Upload your files to the server (performs overwrites on the server):
+
+    $ spc --upload
+    Choose spc sync approach:
+    1. Mirror local directory to server
+    2. Merge Server and disk contents and perform overwrites on server
+    3. Merge Server and disk contents and perform overwrites on client
+
+    Enter choice[1-3] or s to show status: <your choice>
+
+2. Download files from the server (performs overwrites on the client):
+
+    $ spc --download
+
+3. Delete all files on the server:
+
+    $ spc --delete
 
 ## Race Conditions
-Please note that you cannot use more than one client to sync with the server. Working along the lines of first-come and first serve basis if any other machine(client) of yours is changing the files then you may not be able to do the same concurrently.
+Please note that you cannot use more than one client to sync with the server. If one client is already modifying the database, no client of the  same user would be able to connect.
 
-6. Choose among any of the 3 encryption schemes available and a strong key for it using spc --update 
-7. Sync using any of the 3 options available using spc --sync
-8. You may also perform explicit upload, download and delete operations(see man-page for details)
- to wait for a minute and retry.
+## Web-Client
 
-# Web-Client
-If there is any requirement to view your files remotely from a web-browser then that can also be done easily using our web-client. Just give you spc user credentials, the encryption schema and key and enjoy the rendering of all common file formats saved by you like text, image, pdf, audio and some formats of video.
+You can easily sign-up and login on our web-client. The url of the web client is specified by the server. If running locally, enter 127.0.0.1:8000 in your web browser.
 
-# Disclaimer
+If there is any requirement to view your files remotely from a web-browser then that can also be done easily using our web-client. Just give your spc user credentials, the encryption schema and key and enjoy the rendering of all common file formats saved by you like text, image, pdf, audio and some formats of video.
+
+<!-- # Disclaimer
+
 Though you completely free to upload any format of file you can possibly think of but not all may be rendered by the web-client. Though we are working upon this issue and will come up with an update soon!=
+ -->

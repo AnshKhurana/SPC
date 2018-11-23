@@ -338,6 +338,7 @@ def config_delete():
                 print("Succesfully logged out.")
             else:
                 print("Authentication failed.")
+                return None
     except FileNotFoundError:
         print("No configuration set")
 
@@ -556,7 +557,8 @@ def download():
         from arc4 import decrypt
     elif schema_id==3:
         from blowfish import decrypt
-    count=0
+    count = 0
+    mismatch = 0
     try:
         with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
@@ -584,6 +586,7 @@ def download():
         document = client.get("http://" + server_url + "/schema/")
     except:
         print("Authentication failed")
+        return None
     userlist = client.action(document, ['users', 'list'])
     user_id = None
     for obj in userlist['results']:
@@ -623,6 +626,10 @@ def download():
                     #print(file_dict['file_data'])
                     count = count + 1
                     decrypt(str(abspath), literal_eval(file_dict['file_data']), sym_key)
+                    local_md = md5sum(str(abspath))
+                    server_md = file_dict['md5sum']
+                    if local_md != server_md:
+                        mismatch = mismatch + 1
             else:
                 if os.path.exists(str(abspath)):
                     pass
@@ -635,9 +642,17 @@ def download():
                         #     fOut.write(file_dict['file_data'])
                         count = count + 1
                         decrypt(str(abspath), literal_eval(file_dict['file_data']), sym_key)
+                        local_md = md5sum(str(abspath))
+                        server_md = file_dict['md5sum']
+                        if local_md != server_md:
+                            mismatch = mismatch + 1
     if count == 0:
         print("Local directory already up-to-date")
-
+    else:
+        if mismatch != 0:
+            print("Files were not downloaded correctly, please check your connection.")
+        else:
+            print("Files were downloaded correctly and verified with md5sum")
 
 def delete():
     pbar=ProgressBar()
@@ -668,6 +683,7 @@ def delete():
         document = client.get("http://" + server_url + "/schema/")
     except:
         print("Authentication failed.")
+        return None
     userlist = client.action(document, ['users', 'list'])
     user_id = None
     for obj in userlist['results']:
@@ -715,7 +731,7 @@ def login():
         document = client.get("http://" + server_url + "/schema/")
     except:
         print("Authentication failed.")
-
+        return None
     print(document)
     # client.action(document, ['users', 'list'])
 
