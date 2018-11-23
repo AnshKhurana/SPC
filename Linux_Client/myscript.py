@@ -1,10 +1,14 @@
 import argparse
+import urllib
+
 import coreapi
 import getpass
 import json
 import os
 import hashlib
 from pathlib import Path
+
+import requests
 from sync import sync2
 
 from file_status import get_status
@@ -424,7 +428,11 @@ def sync():
     except:
         print("Authentication failed")
         return None
-
+    isactive = requests.post(server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
+    active_stat = isactive.json['active']
+    if active_stat:
+        print('Sorry, syncing from another machine')
+        return None
     print("Choose spc sync approach:")
     print("1. Mirror local directory to server")
     print("2. Merge Server and disk contents and perform overwrites on server")
@@ -448,6 +456,7 @@ def sync():
             status()
         else:
             print("Invalid option")
+    requests.post(server_url + '/active/?endsync=' + urllib.parse.quote_plus(username))
 
 
 def observe(path):
