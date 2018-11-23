@@ -71,19 +71,10 @@ parser_ende.add_argument('--dump', action="store_true", help="Dump current schem
 parser_ende.add_argument('--file', '-f', help="specify a file")
 parser_ende.add_argument('--view', action='store_true', help="View the current scheme")
 
-parser_config.add_argument('--delete', action="store_true")
-parser_config.add_argument('--edit', action='store_true')
+parser_config.add_argument('--delete', action="store_true", help="Delete current credentials")
+parser_config.add_argument('--edit', action='store_true', help="Edit your credentials")
 
 
-# subparsers_level2 = parser_ende.add_subparsers(help='sub options for encryption and decryption', dest='ende')
-# parser_update = subparsers_level2.add_parser('update', help="update scheme options")
-# parser_dump = subparsers_level2.add_parser('dump', help="dump current scheme")
-#
-# parser_update.add_argument('-f', '--file')
-# parser_dump.add_argument('-f', '--file')
-# subparsers_level2 = parser_ende.add_subparsers(help='sub options for encryption and decryption', dest='ende')
-# parser_update = subparsers_level2.add_parser('update', help="update scheme options")
-# parser_dump = subparsers_level2.add_parser('dump', help="dump current scheme")
 
 # subparsers_level2 = parser_ende.add_subparsers(help='sub options for encryption and decryption', dest='ende')
 # parser_update = subparsers_level2.add_parser('update', help="update scheme options")
@@ -212,6 +203,8 @@ def update_scheme_file(filename):
 
         if updated:
             print("Encryption schema has been updated according to " + filename)
+
+
 def update_schema():
     global schema_id
     global schema_name
