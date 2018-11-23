@@ -92,17 +92,19 @@ def sync2(uname,passwd,obdir,upath,domain):
         if fetched_data['next'] == None:
             break
     # print(user_list)
-    is_active = 0
+    # is_active = 0
     for person in user_list:
         if person['username'] == uname:
             uid = person['id']
-            is_active = person['cur_active']
+            # is_active = person['cur_active']
+            # print('is active is',is_active)
             break
-    if is_active:
-        print("Sorry, a sync is already active for given user.")
-    else:
-        is_active = 1
-        client.action(document, ['users', 'partial_update'], params={'id':uid,'cur_active': True})
+    # if is_active:
+    #     print("Sorry, a sync is already active for given user.")
+    #     return None
+    # else:
+    #     is_active = True
+    #     client.action(document, ['users', 'partial_update'], params={'id':uid,'cur_active':True})
 
     uid = str(uid)
     file_list = []
@@ -129,127 +131,102 @@ def sync2(uname,passwd,obdir,upath,domain):
         # print('hello')
         b=0
         # print(f)
-        signal.alarm(10)
-        try:
-            for j in mylist:
-                # if(f=='abc/temp.txt'):
-                #     print(j['file_name'])
-                if(j['file_name']==f):
-                    b=1
-                    if(j['file_type']=='DIR'):
-                        break
-                    else:
-                        # print('/'.join(f.split('/')[0:]))
-                        # print(md5sumc('/'.join(f.split('/')[0:])))
-                        if md5sumc(prefix_obdir+'/'.join(f.split('/')[0:]))!=j['md5sum']:
-                            # print('entered')
-                            ft = magic.from_file(prefix_obdir+'/'.join(f.split('/')[0:]))
-                            id1=j['id']
-                            fd=encrypt(prefix_obdir+'/'.join(f.split('/')[0:]), sym_key)
-                            # fd = fd + b'=' * ((4 - (len(fd) % 4)) % 4)
-                            msum = md5sumc(prefix_obdir+'/'.join(f.split('/')[0:]))
-                            # print(msum)
-                            auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
-                            client = coreapi.Client(auth=auth)
-                            document = client.get('http://'+upath + "/schema/")
-                            print(hashlib.md5(fd).hexdigest())
-                            userlist = client.action(document, ['filedatabase', 'update'],
-                                                     params={'file_name': f, 'file_type': ft, \
-                                                             'file_data': str(fd), 'md5sum': msum,'id':id1})
-                            local_md = (hashlib.md5(fd).hexdigest())
-                            # print(upath, uid, f)
-                            server_md = requests.get("http://" + upath + "/md5/?ownerid=" + uid + "&filename=" + urllib.parse.quote_plus(f))
-                            server_md = server_md.json()['md5']
-                            if local_md != server_md:
-                                count = count + 1
-
-                        break
-            if(b==0):
-                # print(f)
-                ft=''
-                fd=b''
-                msum='-'
-                # print(obdir+'/'.join(f.split('/')[0:]))
-                if isfile(prefix_obdir+'/'.join(f.split('/')[0:])):
-                    ft=magic.from_file(prefix_obdir+'/'.join(f.split('/')[0:]))
-                    # print('/'.join(f.split('/')[0:]))
-                    # print(ft)
-                    msum=md5sumc(prefix_obdir+'/'.join(f.split('/')[0:]))
-                    fd=encrypt(prefix_obdir+'/'.join(f.split('/')[0:]), sym_key)
-
-                else:
-                    ft='DIR'
-                # print(f)
-                # print(len(fd))
-                # fd=fd+b'='*((4-(len(fd)%4))%4)
-                # print(len(fd))
-                auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
-                client = coreapi.Client(auth=auth)
-                document = client.get('http://'+upath + "/schema/")
-                client.action(document, ['filedatabase', 'create'],params={'file_name':f,'file_type':ft,'file_data':str(fd),'md5sum':msum})
-
-                local_md = (hashlib.md5(fd).hexdigest())
-                # print(upath, uid, f)
-                # print(uid)
-                server_md = requests.get("http://" + upath + "/md5/?ownerid=" + uid + "&filename=" + urllib.parse.quote_plus(f))
-                server_md = server_md.json()["md5"]
-
-                if local_md != server_md:
-                    count = count + 1
-        except:
-            print("Error in uploading files")
-            new_file_list = []
-            pageno = 1
-            while True:
-                fetched_data = client.action(document, ['filedatabase', 'list'], params={'page': pageno})
-                # print(fetched_data)
-                pageno = pageno + 1
-                new_file_list = new_file_list + fetched_data['results']
-                # print(fetched_data['next'])
-                if fetched_data['next'] == None:
+        # signal.alarm(60)
+        for j in mylist:
+            # if(f=='abc/temp.txt'):
+            #     print(j['file_name'])
+            if(j['file_name']==f):
+                b=1
+                if(j['file_type']=='DIR'):
                     break
-            for newfile in new_file_list:
-                if(newfile['owner']==uname):
-                    client.action(document,['filedatabase','delete'],params={'id':newfile['id']})
-            for oldfile in mylist:
-                client.action(document, ['filedatabase', 'create'],
-                              params={'file_name': oldfile['file_name'], 'file_type': oldfile['file_type']\
-                                  , 'file_data': oldfile['file_data'], 'md5sum':oldfile['md5sum']})
-            #user files delete
-            #mylist files upload
-            client.action(document, ['users', 'partial_update'], params={'id': uid, 'cur_active': False})
-            return None
+                else:
+                    # print('/'.join(f.split('/')[0:]))
+                    # print(md5sumc('/'.join(f.split('/')[0:])))
+                    if md5sumc(prefix_obdir+'/'.join(f.split('/')[0:]))!=j['md5sum']:
+                        # print('entered')
+                        ft = magic.from_file(prefix_obdir+'/'.join(f.split('/')[0:]))
+                        id1=j['id']
+                        fd=encrypt(prefix_obdir+'/'.join(f.split('/')[0:]), sym_key)
+                        # fd = fd + b'=' * ((4 - (len(fd) % 4)) % 4)
+                        msum = md5sumc(prefix_obdir+'/'.join(f.split('/')[0:]))
+                        # print(msum)
+                        auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
+                        client = coreapi.Client(auth=auth)
+                        document = client.get('http://'+upath + "/schema/")
+                        print(hashlib.md5(fd).hexdigest())
+                        userlist = client.action(document, ['filedatabase', 'update'],
+                                                 params={'file_name': f, 'file_type': ft, \
+                                                         'file_data': str(fd), 'md5sum': msum,'id':id1})
+                        local_md = (hashlib.md5(fd).hexdigest())
+                        # print(upath, uid, f)
+                        server_md = requests.get("http://" + upath + "/md5/?ownerid=" + uid + "&filename=" + urllib.parse.quote_plus(f))
+                        server_md = server_md.json()['md5']
+                        if local_md != server_md:
+                            count = count + 1
+
+                    break
+        if(b==0):
+            # print(f)
+            ft=''
+            fd=b''
+            msum='-'
+            # print(obdir+'/'.join(f.split('/')[0:]))
+            if isfile(prefix_obdir+'/'.join(f.split('/')[0:])):
+                ft=magic.from_file(prefix_obdir+'/'.join(f.split('/')[0:]))
+                # print('/'.join(f.split('/')[0:]))
+                # print(ft)
+                msum=md5sumc(prefix_obdir+'/'.join(f.split('/')[0:]))
+                fd=encrypt(prefix_obdir+'/'.join(f.split('/')[0:]), sym_key)
+
+            else:
+                ft='DIR'
+            # print(f)
+            # print(len(fd))
+            # fd=fd+b'='*((4-(len(fd)%4))%4)
+            # print(len(fd))
+            auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
+            client = coreapi.Client(auth=auth)
+            document = client.get('http://'+upath + "/schema/")
+            client.action(document, ['filedatabase', 'create'],params={'file_name':f,'file_type':ft,'file_data':str(fd),'md5sum':msum})
+
+            local_md = (hashlib.md5(fd).hexdigest())
+            # print(upath, uid, f)
+            # print(uid)
+            server_md = requests.get("http://" + upath + "/md5/?ownerid=" + uid + "&filename=" + urllib.parse.quote_plus(f))
+            server_md = server_md.json()["md5"]
+
+            if local_md != server_md:
+                count = count + 1
+        # print("Error in uploading files")
+        # new_file_list = []
+        # pageno = 1
+        # while True:
+        #     fetched_data = client.action(document, ['filedatabase', 'list'], params={'page': pageno})
+        #     # print(fetched_data)
+        #     pageno = pageno + 1
+        #     new_file_list = new_file_list + fetched_data['results']
+        #     # print(fetched_data['next'])
+        #     if fetched_data['next'] == None:
+        #         break
+        # for newfile in new_file_list:
+        #     if(newfile['owner']==uname):
+        #         client.action(document,['filedatabase','delete'],params={'id':newfile['id']})
+        # for oldfile in mylist:
+        #     client.action(document, ['filedatabase', 'create'],
+        #                   params={'file_name': oldfile['file_name'], 'file_type': oldfile['file_type']\
+        #                       , 'file_data': oldfile['file_data'], 'md5sum':oldfile['md5sum']})
+        # #user files delete
+        #mylist files upload
+        # client.action(document, ['users', 'partial_update'], params={'id': uid, 'cur_active': False})
+        # return None
 
     if count == 0:
         print("Files were uploaded correctly and verified with md5sum")
     else:
         print("Files were not uploaded correctly, please retry.")
     # print('done')
-    client.action(document, ['users', 'partial_update'], params={'id': uid, 'cur_active': False})
+    # client.action(document, ['users', 'partial_update'], params={'id': uid, 'cur_active': False})
 
 
 if __name__ == '__main__':
-    # print(md5sumc('requirements.txt'))
-    # sublist = map(lambda s: '/'.join(s.split('/')[ol - 1:]), sublist)
-    auth = coreapi.auth.BasicAuthentication(username="ansh", password="arkhamknight", domain="10.196.16.186")
-    client = coreapi.Client(auth=auth)
-    document = client.get('http://' + "10.196.16.186:8000" + "/schema/")
-    client.action(document, ['users', 'partial_update'], params={"id" : 4, "cur_active" : 1})
-    user_list = []
-    pageno = 1
-    while True:
-        fetched_data = client.action(document, ['users', 'list'], params={'page': pageno})
-        # print(fetched_data)
-        pageno = pageno + 1
-        user_list = user_list + fetched_data['results']
-        # print(fetched_data['next'])
-        if fetched_data['next'] == None:
-            break
-    # print(user_list)
-    is_active = 0
-    for person in user_list:
-        if person['username'] == "ansh":
-            uid = person['id']
-            is_active = person['cur_active']
-            break
-    print(uid, is_active)
+    print(md5sumc('requirements.txt'))

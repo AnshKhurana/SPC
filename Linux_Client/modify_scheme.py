@@ -18,7 +18,7 @@ def schema_update(uname, passwd, upath, domain, oldscheme, newscheme, oldkey, ne
     decrypt=0
     if(oldscheme==newscheme):
         if(oldscheme=='AES'):
-            print('yo yp')
+            # print('yo yp')
             encrypt=aesenc
             decrypt=aesdec
         elif(oldscheme=='ARC4'):
