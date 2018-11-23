@@ -125,6 +125,7 @@ def update_scheme_file(filename):
                 login_status = data['login']
         except FileNotFoundError:
             print("Use config --edit to login")
+            return None
         try:
             with open(myupath + "/config/url.json", "r") as read_file:
                 data = json.load(read_file)
@@ -132,9 +133,15 @@ def update_scheme_file(filename):
                 domain = data['domain']
         except FileNotFoundError:
             print("Use server --set_url to connect")
-        # auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
-        # client = coreapi.Client(auth=auth)
-        # document = client.get("http://" + server_url + "/schema/")
+            return None
+        try:
+            auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
+            client = coreapi.Client(auth=auth)
+            document = client.get("http://" + server_url + "/schema/")
+        except:
+            print("Authentication failed.")
+            return None
+
         with open(myupath + "/config/scheme.json", "r") as read_file:
             data = json.load(read_file)
             old_id = data['ID']
@@ -143,7 +150,7 @@ def update_scheme_file(filename):
             if os.path.exists(filename):
                 with open(filename, 'r') as f:
                     content = f.read().splitlines()
-                    if content[0] in ['AES', 'ARC4', 'RSA', 'Blowfish']:
+                    if content[0] in ['AES', 'ARC4', 'Blowfish']:
                         schema_name = content[0]
                         schema_id = IDS[schema_name]
                         sym_key = content[1]
@@ -170,7 +177,7 @@ def update_scheme_file(filename):
         if os.path.exists(filename):
             with open(str(filename), 'r') as f:
                 content = f.read().splitlines()
-                if content[0] in ['AES', 'ARC4', 'RSA', 'Blowfish']:
+                if content[0] in ['AES', 'ARC4', 'Blowfish']:
                     schema_name = content[0]
                     schema_id = IDS[schema_name]
                     sym_key = content[1]
@@ -211,6 +218,7 @@ def update_schema():
                 login_status = data['login']
         except FileNotFoundError:
             print("Use config --edit to login")
+            return None
         try:
             with open(myupath + "/config/url.json", "r") as read_file:
                 data = json.load(read_file)
@@ -218,6 +226,7 @@ def update_schema():
                 domain = data['domain']
         except FileNotFoundError:
             print("Use server --set_url to connect.")
+            return None
         # auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
         # client = coreapi.Client(auth=auth)
         # document = client.get("http://" + server_url + "/schema/")
@@ -254,7 +263,7 @@ def update_schema():
         print("")
         while True:
             schema_name = input("Enter a scheme name: ")
-            if schema_name in ['RSA', 'AES', 'ARC4', 'Blowfish']:
+            if schema_name in ['AES', 'ARC4', 'Blowfish']:
                 break
             else:
                 print("Schema name is not valid, enter the scheme name from the above list(case sensitive)")
@@ -344,8 +353,16 @@ def config_edit():
             print("Passwords do not match")
     login_status = True
     data = {"username": usern, "password": passwd, "login": login_status}
-    with open(myupath + "/config/config.json", "w") as write_file:
-        json.dump(data, write_file)
+    if os.path.exists(myupath + "/config/"):
+        with open(myupath + "/config/config.json", "w") as write_file:
+            json.dump(data, write_file)
+    else:
+        os.makedirs(myupath + "/config/")
+        with open(myupath + "/config/config.json", "w") as write_file:
+            json.dump(data, write_file)
+
+    # with open(myupath + "/config/config.json", "w") as write_file:
+    #     json.dump(data, write_file)
 
 def status():
     global username
@@ -354,6 +371,7 @@ def status():
     global server_url
     global domain
     global observe_path
+    count = 0
     try:
         with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
@@ -362,6 +380,7 @@ def status():
             login_status = data['login']
             print("The current user is: " + username)
     except FileNotFoundError:
+        count = count + 1
         print("No user logged in")
     try:
         with open(myupath + "/config/url.json", "r") as read_file:
@@ -370,6 +389,7 @@ def status():
             domain = data['domain']
             print("Currently connected to: " + server_url)
     except FileNotFoundError:
+        count = count + 1
         print("Server not set-up")
     try:
         with open(myupath + "/config/path.json", 'r') as read_file:
@@ -377,10 +397,13 @@ def status():
             observe_path = data['observe_path']
             print("Currently observing: " + os.path.abspath(observe_path))
     except:
+        count = count + 1
         print("Directory not set-up")
     print("-----------------")
-    get_status(username, password, observe_path, server_url, domain)
-
+    if count == 0:
+        get_status(username, password, observe_path, server_url, domain)
+    else:
+        print("Configure SPC completely to see status of your files.")
 
 def sync():
     global username
@@ -473,8 +496,18 @@ def sync():
 def observe(path):
     path = os.path.abspath(path)
     data = {"observe_path": path}
-    with open(myupath + "/config/path.json", "w") as write_file:
-        json.dump(data, write_file)
+
+    if os.path.exists(myupath + "/config/"):
+        with open(myupath + "/config/path.json", "w") as write_file:
+            json.dump(data, write_file)
+    else:
+        os.makedirs(myupath + "/config/")
+        with open(myupath + "/config/path.json", "w") as write_file:
+            json.dump(data, write_file)
+
+    # with open(myupath + "/config/path.json", "w") as write_file:
+    #     json.dump(data, write_file)
+    #
     print("Now observing  " + path)
 
 
@@ -483,8 +516,18 @@ def set_url():
     port_number = input("Enter port: ")
     sys_url = url + ":" + port_number
     data = {"server_url": sys_url, "domain": url}
-    with open(myupath + "/config/url.json", "w") as write_file:
-        json.dump(data, write_file)
+
+    if os.path.exists(myupath + "/config/"):
+        with open(myupath + "/config/url.json", "w") as write_file:
+            json.dump(data, write_file)
+    else:
+        os.makedirs(myupath + "/config/")
+        with open(myupath + "/config/url.json", "w") as write_file:
+            json.dump(data, write_file)
+
+    # with open(myupath + "/config/url.json", "w") as write_file:
+    #     json.dump(data, write_file)
+
     print("Connecting to " + sys_url)
 
 
@@ -495,9 +538,11 @@ def scheme():
 
 def disconnect():
     server_url = None
-    os.remove(myupath + '/config/url.json')
-    print("Disconnected")
-
+    try:
+        os.remove(myupath + '/config/url.json')
+        print("Disconnected.")
+    except:
+        print("Disconnected.")
 
 def upload():
     global username
@@ -507,6 +552,7 @@ def upload():
     global domain
     global observe_path
     read_schema()
+    # count = 0
     try:
         with open(myupath + "/config/config.json", "r") as read_file:
             data = json.load(read_file)
@@ -515,6 +561,7 @@ def upload():
             login_status = data['login']
     except FileNotFoundError:
         print("No user logged in")
+        return None
     try:
         with open(myupath + "/config/url.json", "r") as read_file:
             data = json.load(read_file)
@@ -522,12 +569,15 @@ def upload():
             domain = data['domain']
     except FileNotFoundError:
         print("Server not set-up")
+        return None
     try:
         with open(myupath + "/config/path.json", 'r') as read_file:
             data = json.load(read_file)
             observe_path = data['observe_path']
     except:
         print("Directory not set-up")
+        return None
+
     sync2(username, password, observe_path, server_url, domain)
 
 
@@ -556,6 +606,7 @@ def download():
             login_status = data['login']
     except FileNotFoundError:
         print("No user logged in")
+        return None
     try:
         with open(myupath + "/config/url.json", "r") as read_file:
             data = json.load(read_file)
@@ -563,12 +614,14 @@ def download():
             domain = data['domain']
     except FileNotFoundError:
         print("Server not set-up")
+        return None
     try:
         with open(myupath + "/config/path.json", 'r') as read_file:
             data = json.load(read_file)
             observe_path = data['observe_path']
     except:
         print("Directory not set-up")
+        return None
     try:
         auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
         client = coreapi.Client(auth=auth)
@@ -660,6 +713,7 @@ def delete():
             login_status = data['login']
     except FileNotFoundError:
         print("No user logged in")
+        return None
     try:
         with open(myupath + "/config/url.json", "r") as read_file:
             data = json.load(read_file)
@@ -667,6 +721,7 @@ def delete():
             domain = data['domain']
     except FileNotFoundError:
         print("Server not set-up")
+        return None
     try:
         auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
         client = coreapi.Client(auth=auth)
@@ -682,6 +737,7 @@ def delete():
             break
     if user_id == None:
         print("User " + username + " has not signed up")
+        return None
     file_list = []
     pageno = 1
     while True:
@@ -752,7 +808,6 @@ def list_schemes():
     print("     1. AES")
     print("     2. ARC4")
     print("     3. Blowfish")
-    print("     4. RSA")
 
 if __name__ == '__main__':
     args = parser.parse_args()
