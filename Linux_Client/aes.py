@@ -1,7 +1,7 @@
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from Crypto import Random
-from Crypto.Util.Padding import pad,unpad
+from Crypto.Util.Padding import pad, unpad
 from os import stat, remove, rename
 
 
@@ -55,10 +55,10 @@ def decrypt(filename, enc, key):
     with open(str(filename), 'wb') as fout:
         fout.write(dat)
 
-#
-# if _name_ == '_main_':
-#     # print(encrypt("Makefile", "hello"))
-#     x = encrypt('file1.txt','arkhamknight')
-#     decrypt("file1dec.txt",x, "arkhamknight")
-#
+
+if __name__ == '_main_':
+    # print(encrypt("Makefile", "hello"))
+    x = encrypt('file1.txt','arkhamknight')
+    decrypt("file1dec.txt",x, "arkhamknight")
+
     # decrypt("test.png.aes", "hello")

@@ -1,0 +1,7 @@
+argparse
+pathlib
+pycryptodome
+coreapi
+python-magic 
+progressbar
+

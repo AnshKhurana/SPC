@@ -18,7 +18,7 @@ def decrypt(filename, data, key):
     cipher = ARC4.new(tempkey)
     fdata = data
     msg = cipher.decrypt(fdata)
-    with open(str(filename), 'wb') as fout:
+    with open(filename, 'wb') as fout:
         fout.write(msg)
 
 

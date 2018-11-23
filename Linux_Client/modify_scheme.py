@@ -18,7 +18,7 @@ def schema_update(uname, passwd, upath, domain, oldscheme, newscheme, oldkey, ne
     decrypt=0
     if(oldscheme==newscheme):
         if(oldscheme=='AES'):
-            print('yo yp')
+            # print('yo yp')
             encrypt=aesenc
             decrypt=aesdec
         elif(oldscheme=='ARC4'):
@@ -48,9 +48,12 @@ def schema_update(uname, passwd, upath, domain, oldscheme, newscheme, oldkey, ne
         else:
             decrypt=bldec
             encrypt=arcenc
-    auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
-    client = coreapi.Client(auth=auth)
-    document = client.get('http://' + upath + "/schema/")
+    try:
+        auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
+        client = coreapi.Client(auth=auth)
+        document = client.get('http://' + upath + "/schema/")
+    except:
+        print("Authentication failed.")
     file_list = []
     pageno = 1
     while True:
@@ -71,9 +74,14 @@ def schema_update(uname, passwd, upath, domain, oldscheme, newscheme, oldkey, ne
             continue
         decrypt('tempout',literal_eval(file['file_data']),oldkey)
         newdata=encrypt('tempout',newkey)
-        auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
-        client = coreapi.Client(auth=auth)
-        document = client.get('http://' + upath + "/schema/")
+
+        try:
+            auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
+            client = coreapi.Client(auth=auth)
+            document = client.get('http://' + upath + "/schema/")
+        except:
+            print("Authentication failed")
+
         userlist = client.action(document, ['filedatabase', 'update'],
                                  params={'file_name': file['file_name'], 'file_type': file['file_type'], \
                                          'file_data': str(newdata), 'md5sum': file['md5sum'], 'id': file['id']})

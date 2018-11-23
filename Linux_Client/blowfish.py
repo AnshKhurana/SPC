@@ -9,7 +9,7 @@ def encrypt(filename, key):
     key=key.encode('ascii')
     iv=Random.new().read(bs)
     cipher=Blowfish.new(key,Blowfish.MODE_CBC,iv)
-    pdata=open(str(filename),'rb').read()
+    pdata=open(filename,'rb').read()
     plen=bs-divmod(len(pdata),bs)[1]
     padding=[plen]*plen
     padding=pack('b'*plen,*padding)
@@ -28,7 +28,7 @@ def decrypt(filename, data, key):
     msg = cipher.decrypt(pdata)
     last_byte = msg[-1]
     msg = msg[:- (last_byte if type(last_byte) is int else ord(last_byte))]
-    with open(str(filename), 'wb') as fOut:
+    with open(filename, 'wb') as fOut:
         fOut.write(msg)
 
 if __name__ == '__main__':

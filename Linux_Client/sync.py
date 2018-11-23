@@ -1,4 +1,3 @@
-
 import urllib
 from ast import literal_eval
 from os import walk, listdir

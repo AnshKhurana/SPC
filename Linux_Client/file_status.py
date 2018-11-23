@@ -1,20 +1,8 @@
 from os import walk, listdir
 from os.path import join, isfile, expanduser
-#from apt_pkg import md5sum
-import base64
-from arc4 import encrypt
 import hashlib
 import coreapi
-import magic
-import requests
 import json
-from progressbar import ProgressBar
-# import hashlib
-# uname='pk'
-# passwd='lokikoli'
-# obdir='/home/aman/Desktop/machine-learning-ex8'
-# upath='127.0.0.1:8000'
-
 myupath = expanduser('~')  # work around
 
 
@@ -42,9 +30,12 @@ def get_status(uname,passwd,obdir,upath,domain):
     cdiff=[]
     sublist=getsubs(obdir)
     ol=len(obdir.split('/'))
-    auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
-    client = coreapi.Client(auth=auth)
-    document = client.get('http://' + upath + "/schema/")
+    try:
+        auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
+        client = coreapi.Client(auth=auth)
+        document = client.get('http://' + upath + "/schema/")
+    except:
+        print("Authentication failed")
     sublist=map(lambda s: '/'.join(s.split('/')[ol-1:]),sublist)
     file_list = []
     pageno = 1
