@@ -62,6 +62,7 @@ def getsubs(mypath):
 
 
 def sync2(uname,passwd,obdir,upath,domain):
+    pbar = ProgressBar()
     prefix_obdir='/'.join(obdir.split('/')[0:-1])+'/'
     # print(prefix_obdir)
     # print('here')
@@ -72,7 +73,7 @@ def sync2(uname,passwd,obdir,upath,domain):
         from arc4 import encrypt
     elif schema_id==3:
         from blowfish import encrypt
-    pbar=ProgressBar()
+
     sublist = getsubs(obdir)
     ol=len(obdir.split('/'))
     sublist = map(lambda s: '/'.join(s.split('/')[ol-1:]), sublist)
@@ -128,6 +129,7 @@ def sync2(uname,passwd,obdir,upath,domain):
     sl=list(sublist)
     # print(sl)
     for f in pbar(sl):
+        print(f + " has been uploaded.")
         requests.post('http://'+upath + '/active/?updatetime=' + urllib.parse.quote_plus(uname))
         # print('hello')
         b=0
@@ -154,7 +156,7 @@ def sync2(uname,passwd,obdir,upath,domain):
                         auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
                         client = coreapi.Client(auth=auth)
                         document = client.get('http://'+upath + "/schema/")
-                        print(hashlib.md5(fd).hexdigest())
+                        # print(hashlib.md5(fd).hexdigest())
                         userlist = client.action(document, ['filedatabase', 'update'],
                                                  params={'file_name': f, 'file_type': ft, \
                                                          'file_data': str(fd), 'md5sum': msum,'id':id1})
@@ -188,6 +190,7 @@ def sync2(uname,passwd,obdir,upath,domain):
             auth = coreapi.auth.BasicAuthentication(username=uname, password=passwd, domain=domain)
             client = coreapi.Client(auth=auth)
             document = client.get('http://'+upath + "/schema/")
+            # print(f + " is being uploaded.")
             client.action(document, ['filedatabase', 'create'],params={'file_name':f,'file_type':ft,'file_data':str(fd),'md5sum':msum})
 
             local_md = (hashlib.md5(fd).hexdigest())
@@ -198,36 +201,10 @@ def sync2(uname,passwd,obdir,upath,domain):
 
             if local_md != server_md:
                 count = count + 1
-        # print("Error in uploading files")
-        # new_file_list = []
-        # pageno = 1
-        # while True:
-        #     fetched_data = client.action(document, ['filedatabase', 'list'], params={'page': pageno})
-        #     # print(fetched_data)
-        #     pageno = pageno + 1
-        #     new_file_list = new_file_list + fetched_data['results']
-        #     # print(fetched_data['next'])
-        #     if fetched_data['next'] == None:
-        #         break
-        # for newfile in new_file_list:
-        #     if(newfile['owner']==uname):
-        #         client.action(document,['filedatabase','delete'],params={'id':newfile['id']})
-        # for oldfile in mylist:
-        #     client.action(document, ['filedatabase', 'create'],
-        #                   params={'file_name': oldfile['file_name'], 'file_type': oldfile['file_type']\
-        #                       , 'file_data': oldfile['file_data'], 'md5sum':oldfile['md5sum']})
-        # #user files delete
-        #mylist files upload
-        # client.action(document, ['users', 'partial_update'], params={'id': uid, 'cur_active': False})
-        # return None
-
     if count == 0:
         print("Files were uploaded correctly and verified with md5sum")
     else:
         print("Files were not uploaded correctly, please retry.")
-    # print('done')
-    # client.action(document, ['users', 'partial_update'], params={'id': uid, 'cur_active': False})
-
 
 if __name__ == '__main__':
     print(md5sumc('requirements.txt'))

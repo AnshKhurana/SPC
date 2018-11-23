@@ -656,6 +656,7 @@ def download():
 
 def delete():
     pbar=ProgressBar()
+    print("Preparing server for mirror.")
     # key = password # Temporary
     global username
     global password
@@ -735,6 +736,16 @@ def login():
     print(document)
     # client.action(document, ['users', 'list'])
 
+def server_info():
+    try:
+        with open(myupath + "/config/url.json", "r") as read_file:
+            data = json.load(read_file)
+            server_url = data['server_url']
+            domain = data['domain']
+            print("Server IP: " + domain)
+            print("Port Number: " +  server_url.replace(domain + ":", ''))
+    except FileNotFoundError:
+        print("Use server --set_url <url> to connect.")
 
 def signup():
     while (True):
@@ -775,6 +786,8 @@ if __name__ == '__main__':
             set_url()
         if args.disconnect:
             disconnect()
+        else:
+            server_info()
     if args.sub == 'config':
         if args.edit:
             config_edit()
