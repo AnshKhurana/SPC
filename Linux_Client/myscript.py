@@ -428,17 +428,18 @@ def sync():
     except:
         print("Authentication failed")
         return None
-    isactive = requests.post('http://'+server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
-    active_stat = isactive.json()['active']
-    print(active_stat)
-    if active_stat:
-        print('Sorry, syncing from another machine')
-        return None
+
     print("Choose spc sync approach:")
     print("1. Mirror local directory to server")
     print("2. Merge Server and disk contents and perform overwrites on server")
     print("3. Merge Server and disk contents and perform overwrites on client")
     print("")
+    isactive = requests.post('http://' + server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
+    active_stat = isactive.json()['active']
+    # print(active_stat)
+    if active_stat:
+        print('Sorry, syncing from another machine')
+        return None
 
     while True:
         ch = input("Enter choice[1-3] or s to show status: ")
