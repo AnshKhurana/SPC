@@ -1,7 +1,7 @@
 from Crypto.Cipher import AES
 from Crypto.Hash import SHA256
 from Crypto import Random
-from Crypto.Util.Padding import pad,unpad
+from Crypto.Util.Padding import pad, unpad
 from os import stat, remove, rename
 
 

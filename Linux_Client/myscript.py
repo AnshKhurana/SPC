@@ -12,7 +12,7 @@ from file_status import get_status
 from modify_scheme import schema_update
 
 from ast import literal_eval
-
+from progressbar import ProgressBar
 parser = argparse.ArgumentParser(prog='spc')
 
 # coreapi variables
@@ -89,7 +89,7 @@ def choose_scheme(id):
 
 
 def md5sum(filename):
-    with open(filename, 'rb') as file_to_check:
+    with open(str(filename), 'rb') as file_to_check:
         # read contents of the file
         data = file_to_check.read()
         # pipe contents of the file through
@@ -174,7 +174,7 @@ def update_scheme_file(filename):
             schema_update(username, password, server_url, domain, old_schema_name, schema_name, old_sym_key, sym_key)
     except FileNotFoundError:
         if os.path.exists(filename):
-            with open(filename, 'r') as f:
+            with open(str(filename), 'r') as f:
                 content = f.read().splitlines()
                 if content[0] in ['AES', 'ARC4', 'RSA', 'Blowfish']:
                     schema_name = content[0]
@@ -475,6 +475,7 @@ def upload():
 
 
 def download():
+    pbar=ProgressBar()
     # key = password # Temporary
     global username
     global password
@@ -569,6 +570,7 @@ def download():
 
 
 def delete():
+    pbar=ProgressBar()
     # key = password # Temporary
     global username
     global password
@@ -612,7 +614,7 @@ def delete():
         if fetched_data['next'] == None:
             break
     # print(file_list)
-    for file_dict in file_list:
+    for file_dict in pbar(file_list):
         if (file_dict['owner'] == username):
             file_name = file_dict['file_name']
             client.action(document, ['filedatabase', 'delete'], params={'id': file_dict['id']})
