@@ -4,7 +4,7 @@ Secure Personal Cloud(or SPC as it is called) is a cloud based file storage syst
 The cloud is safe and secure to store any confidential information as the server has no knowledge about the encryption schemes and keys. This is a complete Zero-Knowledge based server.
 
 # Installation
-From the SPC folder, use the install.sh script.
+From the client folder, use the install.sh script.
 ```
     $ ./install.sh
 ```

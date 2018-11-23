@@ -104,6 +104,7 @@ def read_schema():
           #  choose_scheme(schema_id)
     except FileNotFoundError:
         print("Need to set the schema before this operation.")
+        return None
 
 
 
