@@ -100,6 +100,12 @@ Disconnecting from the url:
 To sync with your SPC, enter the following command and choose any of the offered syncing strategies.
 ```
     $ spc --sync 
+    Choose spc sync approach:
+    1. Mirror local directory to server
+    2. Merge Server and disk contents and perform overwrites on server
+    3. Merge Server and disk contents and perform overwrites on client
+
+    Enter choice[1-3] or s to show status: <your choice>
 ```
 #### Advanced usage:
 
@@ -108,12 +114,6 @@ The following commands should be used with caution.
 1. Upload your files to the server (performs overwrites on the server):
 ```
     $ spc --upload
-    Choose spc sync approach:
-    1. Mirror local directory to server
-    2. Merge Server and disk contents and perform overwrites on server
-    3. Merge Server and disk contents and perform overwrites on client
-
-    Enter choice[1-3] or s to show status: <your choice>
 ```
 2. Download files from the server (performs overwrites on the client):
 ```
