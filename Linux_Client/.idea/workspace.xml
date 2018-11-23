@@ -2,7 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/myscript.py" beforeDir="false" afterPath="$PROJECT_DIR$/myscript.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/file_status.py" beforeDir="false" afterPath="$PROJECT_DIR$/file_status.py" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/modify_scheme.py" beforeDir="false" afterPath="$PROJECT_DIR$/modify_scheme.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -26,11 +27,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myscript.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="94">
-              <caret line="406" column="25" selection-start-line="406" selection-start-column="25" selection-end-line="406" selection-end-column="25" />
+            <state relative-caret-position="-224">
+              <caret line="352" column="11" selection-start-line="352" selection-start-column="4" selection-end-line="352" selection-end-column="11" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -90,7 +91,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/file_status.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state>
+            <state relative-caret-position="136">
+              <caret line="33" column="12" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="12" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -98,11 +100,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/modify_scheme.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="191">
-              <caret line="57" column="16" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="16" />
+            <state relative-caret-position="154">
+              <caret line="84" column="29" selection-start-line="84" selection-start-column="29" selection-end-line="84" selection-end-column="29" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
               </folding>
@@ -133,8 +135,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>upa</find>
-      <find>sync2</find>
       <find>decr</find>
       <find>dec</find>
       <find>config_e</find>
@@ -159,10 +159,12 @@
       <find>partial</find>
       <find>print(</find>
       <find>download(</find>
-      <find>auth</find>
       <find>download</find>
       <find>progress</find>
       <find>sync</find>
+      <find>status</find>
+      <find>status(</find>
+      <find>auth</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -174,7 +176,6 @@
         <option value="$PROJECT_DIR$/md5_test.py" />
         <option value="$PROJECT_DIR$/status.py" />
         <option value="$PROJECT_DIR$/aes_backup.py" />
-        <option value="$PROJECT_DIR$/file_status.py" />
         <option value="$PROJECT_DIR$/arc4.py" />
         <option value="$PROJECT_DIR$/blowfish.py" />
         <option value="$PROJECT_DIR$/DES3.py" />
@@ -189,10 +190,11 @@
         <option value="$PROJECT_DIR$/../myscript.py" />
         <option value="$PROJECT_DIR$/../sync.py" />
         <option value="$PROJECT_DIR$/install.sh" />
-        <option value="$PROJECT_DIR$/modify_scheme.py" />
         <option value="$PROJECT_DIR$/aes.py" />
         <option value="$PROJECT_DIR$/sync.py" />
         <option value="$PROJECT_DIR$/myscript.py" />
+        <option value="$PROJECT_DIR$/file_status.py" />
+        <option value="$PROJECT_DIR$/modify_scheme.py" />
       </list>
     </option>
   </component>
@@ -256,12 +258,12 @@
       <workItem from="1542825183465" duration="12401000" />
       <workItem from="1542869326405" duration="18092000" />
       <workItem from="1542891140008" duration="38660000" />
-      <workItem from="1542969844007" duration="13486000" />
+      <workItem from="1542969844007" duration="13821000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="82639000" />
+    <option name="totallyTimeSpent" value="82974000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -276,7 +278,7 @@
     <frame x="0" y="25" width="1280" height="695" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19124797" />
+      <window_info active="true" content_ui="combo" id="Project" order="0" visible="true" weight="0.19124797" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -287,7 +289,7 @@
       <window_info anchor="bottom" id="Inspection" order="5" weight="0.4" />
       <window_info anchor="bottom" id="TODO" order="6" weight="0.3286219" />
       <window_info anchor="bottom" id="Version Control" order="7" show_stripe_button="false" />
-      <window_info active="true" anchor="bottom" id="Terminal" order="8" visible="true" weight="0.29151943" />
+      <window_info anchor="bottom" id="Terminal" order="8" visible="true" weight="0.29151943" />
       <window_info anchor="bottom" id="Event Log" order="9" side_tool="true" />
       <window_info anchor="bottom" id="Python Console" order="10" weight="0.32685512" />
       <window_info anchor="bottom" id="Docker" order="11" show_stripe_button="false" />
@@ -385,25 +387,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modify_scheme.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="191">
-          <caret line="57" column="16" selection-start-line="57" selection-start-column="10" selection-end-line="57" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/file_status.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crypto_aes.py">
       <provider selected="true" editor-type-id="text-editor" />
     </entry>
@@ -444,10 +427,30 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myscript.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="94">
-          <caret line="406" column="25" selection-start-line="406" selection-start-column="25" selection-end-line="406" selection-end-column="25" />
+        <state relative-caret-position="-224">
+          <caret line="352" column="11" selection-start-line="352" selection-start-column="4" selection-end-line="352" selection-end-column="11" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_status.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="136">
+          <caret line="33" column="12" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="12" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modify_scheme.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="154">
+          <caret line="84" column="29" selection-start-line="84" selection-start-column="29" selection-end-line="84" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
           </folding>
         </state>
       </provider>
