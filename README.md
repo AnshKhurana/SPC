@@ -27,8 +27,9 @@ Note: Before logging in you must sign-up on our web-client
 ### General commands
 
 #### SPC Version
-
+```
     $ spc --version
+```
 #### SPC Help
 
     $ spc --help
@@ -59,6 +60,7 @@ Setting the url:
     Enter port:   <Current port, for example 8000>
 
 Disconnecting from the url:
+   
     $ spc server --disconnect
 
 #### Observing a directory:
@@ -73,24 +75,24 @@ Disconnecting from the url:
 
 #### Update/set an encryption scheme:
 
-    1. By entering the details on the terminal
+1. By entering the details on the terminal
 
         $ spc en-de --update
 
-    2. By using a schema file
+2. By using a schema file
 
         $ spc en-de --update -f <path of the schema file>
 
 #### Displaying/saving current encryption scheme:
 
 1. To display the scheme on the terminal
-
+```
     $ spc en-de --dump
-
+```
 2. To dump the encryption scheme in the given file
-
+```
     $ spc en-de --dump -f <path of the file>
-
+```
 ### Syncing files with your SPC:
 
 #### Sync with a given strategy:
@@ -104,7 +106,7 @@ To sync with your SPC, enter the following command and choose any of the offered
 The following commands should be used with caution. 
 
 1. Upload your files to the server (performs overwrites on the server):
-
+```
     $ spc --upload
     Choose spc sync approach:
     1. Mirror local directory to server
@@ -112,15 +114,15 @@ The following commands should be used with caution.
     3. Merge Server and disk contents and perform overwrites on client
 
     Enter choice[1-3] or s to show status: <your choice>
-
+```
 2. Download files from the server (performs overwrites on the client):
-
+```
     $ spc --download
-
+```
 3. Delete all files on the server:
-
+```
     $ spc --delete
-
+```
 ## Race Conditions
 Please note that you cannot use more than one client to sync with the server. If one client is already modifying the database, no client of the  same user would be able to connect.
 
