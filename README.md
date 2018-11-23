@@ -96,9 +96,9 @@ To sync with your SPC, enter the following command and choose any of the offered
 
     $ spc --sync 
 
-    
+
 ## Race Conditions
-Please note that you cannot use more than one client to sync with the server. Working along the lines of first-come and first serve basis if any other user is changing his/her files then you may not be able to do the same concurrently.
+Please note that you cannot use more than one client to sync with the server. Working along the lines of first-come and first serve basis if any other machine(client) of yours is changing the files then you may not be able to do the same concurrently.
 
 6. Choose among any of the 3 encryption schemes available and a strong key for it using spc --update 
 7. Sync using any of the 3 options available using spc --sync

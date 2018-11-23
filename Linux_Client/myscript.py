@@ -81,6 +81,9 @@ parser_config.add_argument('--edit', action='store_true')
 #
 # parser_update.add_argument('-f', '--file')
 # parser_dump.add_argument('-f', '--file')
+# subparsers_level2 = parser_ende.add_subparsers(help='sub options for encryption and decryption', dest='ende')
+# parser_update = subparsers_level2.add_parser('update', help="update scheme options")
+# parser_dump = subparsers_level2.add_parser('dump', help="dump current scheme")
 
 # subparsers_level2 = parser_ende.add_subparsers(help='sub options for encryption and decryption', dest='ende')
 # parser_update = subparsers_level2.add_parser('update', help="update scheme options")
@@ -435,28 +438,45 @@ def sync():
     except:
         print("Authentication failed")
         return None
-    isactive = requests.post('http://'+server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
-    active_stat = isactive.json()['active']
-    print(active_stat)
-    if active_stat:
-        print('Sorry, syncing from another machine')
-        return None
+
     print("Choose spc sync approach:")
     print("1. Mirror local directory to server")
     print("2. Merge Server and disk contents and perform overwrites on server")
     print("3. Merge Server and disk contents and perform overwrites on client")
     print("")
 
+
     while True:
         ch = input("Enter choice[1-3] or s to show status: ")
         if ch in ['1', '2', '3']:
             if ch == '1':
+                isactive = requests.post(
+                    'http://' + server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
+                active_stat = isactive.json()['active']
+                # print(active_stat)
+                if active_stat:
+                    print('Sorry, syncing from another machine')
+                    return None
                 delete()
                 upload()
             elif ch == '2':
+                isactive = requests.post(
+                    'http://' + server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
+                active_stat = isactive.json()['active']
+                # print(active_stat)
+                if active_stat:
+                    print('Sorry, syncing from another machine')
+                    return None
                 upload()
                 download()
             else:
+                isactive = requests.post(
+                    'http://' + server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
+                active_stat = isactive.json()['active']
+                # print(active_stat)
+                if active_stat:
+                    print('Sorry, syncing from another machine')
+                    return None
                 download()
                 upload()
             break
