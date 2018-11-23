@@ -31,9 +31,9 @@ Note: Before logging in you must sign-up on our web-client
     $ spc --version
 ```
 #### SPC Help
-
+```
     $ spc --help
-
+```
 ### Setup
 
 Use the following commands to enter your credentials and configure your cloud.   
@@ -41,48 +41,48 @@ Use the following commands to enter your credentials and configure your cloud.
 #### Adding credentials
 
 Changing/adding your credentials 
-
+```
     $ spc config --edit
     Username: <username>
     Password: <password>
     Confirm password: <password>
-
+```
 Deleting currently saved credentials
-    
+``` 
     $ spc config --delete
-
+```
 #### Connecting to the server
 
 Setting the url:
-
+```
     $ spc server --set_url
     Enter domain: <Domain url, for example: 127.0.0.1>
     Enter port:   <Current port, for example 8000>
-
+```
 Disconnecting from the url:
-   
+```
     $ spc server --disconnect
-
+```
 #### Observing a directory:
-    
+```    
     $ spc --observe <observe path>
-
+```
 ### Setting/updating encryption schemes
 
 #### Print list of available encryption schemes:
-
+```
     $ spc en-de --list
-
+```
 #### Update/set an encryption scheme:
 
 1. By entering the details on the terminal
-
-        $ spc en-de --update
-
+```
+    $ spc en-de --update
+```
 2. By using a schema file
-
-        $ spc en-de --update -f <path of the schema file>
-
+```
+    $ spc en-de --update -f <path of the schema file>
+```
 #### Displaying/saving current encryption scheme:
 
 1. To display the scheme on the terminal
@@ -98,9 +98,9 @@ Disconnecting from the url:
 #### Sync with a given strategy:
 
 To sync with your SPC, enter the following command and choose any of the offered syncing strategies.
-
+```
     $ spc --sync 
-
+```
 #### Advanced usage:
 
 The following commands should be used with caution. 
