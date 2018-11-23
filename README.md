@@ -53,6 +53,12 @@ Deleting currently saved credentials
 ```
 #### Connecting to the server
 
+View current status:
+
+```
+    $ spc server
+```
+
 Setting the url:
 ```
     $ spc server --set_url

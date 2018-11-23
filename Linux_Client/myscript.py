@@ -142,7 +142,7 @@ def update_scheme_file(filename):
                 server_url = data['server_url']
                 domain = data['domain']
         except FileNotFoundError:
-            print("Use server --set_url <url> to connect.")
+            print("Use server --set_url to connect")
         # auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
         # client = coreapi.Client(auth=auth)
         # document = client.get("http://" + server_url + "/schema/")
@@ -228,7 +228,7 @@ def update_schema():
                 server_url = data['server_url']
                 domain = data['domain']
         except FileNotFoundError:
-            print("Use server --set_url <url> to connect.")
+            print("Use server --set_url to connect.")
         # auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
         # client = coreapi.Client(auth=auth)
         # document = client.get("http://" + server_url + "/schema/")
@@ -725,7 +725,7 @@ def login():
             server_url = data['server_url']
             domain = data['domain']
     except FileNotFoundError:
-        print("Use server --set_url <url> to connect.")
+        print("Use server --set_url to connect.")
     try:
         auth = coreapi.auth.BasicAuthentication(username=username, password=password, domain=domain)
         client = coreapi.Client(auth=auth)
@@ -745,7 +745,7 @@ def server_info():
             print("Server IP: " + domain)
             print("Port Number: " +  server_url.replace(domain + ":", ''))
     except FileNotFoundError:
-        print("Use server --set_url <url> to connect.")
+        print("Use server --set_url to connect.")
 
 def signup():
     while (True):
