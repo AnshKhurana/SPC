@@ -3,9 +3,6 @@
   <component name="ChangeListManager">
     <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/myscript.py" beforeDir="false" afterPath="$PROJECT_DIR$/myscript.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/notify.sh" beforeDir="false" afterPath="$PROJECT_DIR$/notify.sh" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/sync.cron" beforeDir="false" afterPath="$PROJECT_DIR$/sync.cron" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/../spc" beforeDir="false" afterPath="$PROJECT_DIR$/../spc" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -32,8 +29,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/myscript.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="181">
-              <caret line="518" column="36" selection-start-line="518" selection-start-column="36" selection-end-line="518" selection-end-column="36" />
+            <state relative-caret-position="241">
+              <caret line="486" column="31" lean-forward="true" selection-start-line="486" selection-start-column="31" selection-end-line="486" selection-end-column="31" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -137,7 +134,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>update_</find>
       <find>upa</find>
       <find>sync2</find>
       <find>decr</find>
@@ -150,7 +146,6 @@
       <find>upath</find>
       <find>encrypt</find>
       <find>passwd</find>
-      <find>download</find>
       <find>observe</find>
       <find>observe(</find>
       <find>list</find>
@@ -167,6 +162,8 @@
       <find>print(</find>
       <find>download(</find>
       <find>auth</find>
+      <find>download</find>
+      <find>progress</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -260,12 +257,12 @@
       <workItem from="1542825183465" duration="12401000" />
       <workItem from="1542869326405" duration="18092000" />
       <workItem from="1542891140008" duration="38660000" />
-      <workItem from="1542969844007" duration="11094000" />
+      <workItem from="1542969844007" duration="11919000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="80247000" />
+    <option name="totallyTimeSpent" value="81072000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -278,6 +275,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1280" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
       <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19124797" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
@@ -448,8 +446,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/myscript.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="181">
-          <caret line="518" column="36" selection-start-line="518" selection-start-column="36" selection-end-line="518" selection-end-column="36" />
+        <state relative-caret-position="241">
+          <caret line="486" column="31" lean-forward="true" selection-start-line="486" selection-start-column="31" selection-end-line="486" selection-end-column="31" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

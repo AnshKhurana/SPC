@@ -536,7 +536,7 @@ def download():
         if fetched_data['next'] == None:
             break
     # print(file_list)
-    for file_dict in file_list:
+    for file_dict in pbar(file_list):
         if (file_dict['owner'] == username):
             file_name = file_dict['file_name']
             file_name = "/" + file_name
