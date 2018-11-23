@@ -5,16 +5,16 @@ The cloud is safe and secure to store any confidential information as the server
 
 # Installation
 From the SPC folder, use the install.sh script.
-
+```
     $ ./install.sh
-
+```
 Note: The sript requires execution permissions and sudo permissions for installation.
 
 If it doesn't work try:
-
+```
     $ chmod +x install.sh
     $ ./install.sh
-
+```
 
 # Usage and Functionalities
 The following are the various steps that you need to follow to create a personal space on the server and getting started with storing your sensitive files:-
