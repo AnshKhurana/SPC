@@ -102,7 +102,7 @@ def sync2(uname,passwd,obdir,upath,domain):
         print("Sorry, a sync is already active for given user.")
     else:
         is_active = 1
-        client.action(document, ['users', 'partial_update'], params={'id':uid,'cur_active':is_active})
+        client.action(document, ['users', 'partial_update'], params={'id':uid,'cur_active': True})
 
     uid = str(uid)
     file_list = []
@@ -129,7 +129,7 @@ def sync2(uname,passwd,obdir,upath,domain):
         # print('hello')
         b=0
         # print(f)
-        signal.alarm(60)
+        signal.alarm(10)
         try:
             for j in mylist:
                 # if(f=='abc/temp.txt'):
@@ -217,7 +217,7 @@ def sync2(uname,passwd,obdir,upath,domain):
                                   , 'file_data': oldfile['file_data'], 'md5sum':oldfile['md5sum']})
             #user files delete
             #mylist files upload
-            client.action(document, ['users', 'partial_update'], params={'id': uid, 'cur_active': 0})
+            client.action(document, ['users', 'partial_update'], params={'id': uid, 'cur_active': False})
             return None
 
     if count == 0:
@@ -225,8 +225,31 @@ def sync2(uname,passwd,obdir,upath,domain):
     else:
         print("Files were not uploaded correctly, please retry.")
     # print('done')
-    client.action(document, ['users', 'partial_update'], params={'id': uid, 'cur_active': 0})
+    client.action(document, ['users', 'partial_update'], params={'id': uid, 'cur_active': False})
 
 
 if __name__ == '__main__':
-    print(md5sumc('requirements.txt'))
+    # print(md5sumc('requirements.txt'))
+    # sublist = map(lambda s: '/'.join(s.split('/')[ol - 1:]), sublist)
+    auth = coreapi.auth.BasicAuthentication(username="ansh", password="arkhamknight", domain="10.196.16.186")
+    client = coreapi.Client(auth=auth)
+    document = client.get('http://' + "10.196.16.186:8000" + "/schema/")
+    client.action(document, ['users', 'partial_update'], params={"id" : 4, "cur_active" : 1})
+    user_list = []
+    pageno = 1
+    while True:
+        fetched_data = client.action(document, ['users', 'list'], params={'page': pageno})
+        # print(fetched_data)
+        pageno = pageno + 1
+        user_list = user_list + fetched_data['results']
+        # print(fetched_data['next'])
+        if fetched_data['next'] == None:
+            break
+    # print(user_list)
+    is_active = 0
+    for person in user_list:
+        if person['username'] == "ansh":
+            uid = person['id']
+            is_active = person['cur_active']
+            break
+    print(uid, is_active)
