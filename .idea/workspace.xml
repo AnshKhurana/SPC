@@ -2,9 +2,7 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="2c54d112-281b-4c7c-9520-52a5d8d9dc4d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/Linux_Client/myscript.py" beforeDir="false" afterPath="$PROJECT_DIR$/Linux_Client/myscript.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/Linux_Client/sync.py" beforeDir="false" afterPath="$PROJECT_DIR$/Linux_Client/sync.py" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -35,12 +33,12 @@
       </usages-collector>
       <usages-collector id="statistics.file.extensions.edit">
         <counts>
-          <entry key="py" value="3207" />
+          <entry key="py" value="3217" />
         </counts>
       </usages-collector>
       <usages-collector id="statistics.file.types.edit">
         <counts>
-          <entry key="Python" value="3207" />
+          <entry key="Python" value="3217" />
         </counts>
       </usages-collector>
     </session>
@@ -50,8 +48,8 @@
       <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Linux_Client/myscript.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="280">
-              <caret line="432" column="19" lean-forward="true" selection-start-line="432" selection-start-column="19" selection-end-line="432" selection-end-column="19" />
+            <state relative-caret-position="364">
+              <caret line="437" column="35" lean-forward="true" selection-start-line="437" selection-start-column="35" selection-end-line="437" selection-end-column="35" />
               <folding>
                 <element signature="e#0#15#0" expanded="true" />
               </folding>
@@ -85,8 +83,8 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Linux_Client/sync.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="416">
-              <caret line="129" column="27" lean-forward="true" selection-start-line="129" selection-start-column="27" selection-end-line="129" selection-end-column="27" />
+            <state relative-caret-position="746">
+              <caret line="129" column="20" lean-forward="true" selection-start-line="129" selection-start-column="20" selection-end-line="129" selection-end-column="20" />
               <folding>
                 <element signature="e#1#14#0" expanded="true" />
               </folding>
@@ -165,8 +163,8 @@
         <option value="$PROJECT_DIR$/Linux_Client/testingaes.py" />
         <option value="$PROJECT_DIR$/Linux_Client/gui.py" />
         <option value="$PROJECT_DIR$/Linux_Client/timecheck.py" />
-        <option value="$PROJECT_DIR$/Linux_Client/myscript.py" />
         <option value="$PROJECT_DIR$/Linux_Client/sync.py" />
+        <option value="$PROJECT_DIR$/Linux_Client/myscript.py" />
       </list>
     </option>
   </component>
@@ -348,8 +346,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Linux_Client/sync.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="416">
-          <caret line="129" column="27" lean-forward="true" selection-start-line="129" selection-start-column="27" selection-end-line="129" selection-end-column="27" />
+        <state relative-caret-position="746">
+          <caret line="129" column="20" lean-forward="true" selection-start-line="129" selection-start-column="20" selection-end-line="129" selection-end-column="20" />
           <folding>
             <element signature="e#1#14#0" expanded="true" />
           </folding>
@@ -358,8 +356,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/Linux_Client/myscript.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="280">
-          <caret line="432" column="19" lean-forward="true" selection-start-line="432" selection-start-column="19" selection-end-line="432" selection-end-column="19" />
+        <state relative-caret-position="364">
+          <caret line="437" column="35" lean-forward="true" selection-start-line="437" selection-start-column="35" selection-end-line="437" selection-end-column="35" />
           <folding>
             <element signature="e#0#15#0" expanded="true" />
           </folding>

@@ -429,7 +429,8 @@ def sync():
         print("Authentication failed")
         return None
     isactive = requests.post('http://'+server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
-    active_stat = isactive.json['active']
+    active_stat = isactive.json()['active']
+    print(active_stat)
     if active_stat:
         print('Sorry, syncing from another machine')
         return None
