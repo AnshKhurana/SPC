@@ -456,8 +456,7 @@ def sync():
         ch = input("Enter choice[1-3] or s to show status: ")
         if ch in ['1', '2', '3']:
             if ch == '1':
-                isactive = requests.post(
-                    'http://' + server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
+                isactive = requests.post('http://' + server_url + '/active/?beginsync=' + urllib.parse.quote_plus(username))
                 active_stat = isactive.json()['active']
                 # print(active_stat)
                 if active_stat:
@@ -649,6 +648,7 @@ def download():
             break
     # print(file_list)
     for file_dict in pbar(file_list):
+        requests.post('http://' + server_url + '/active/?updatetime=' + urllib.parse.quote_plus(username))
         if (file_dict['owner'] == username):
             file_name = file_dict['file_name']
             file_name = "/" + file_name
@@ -750,6 +750,7 @@ def delete():
             break
     # print(file_list)
     for file_dict in pbar(file_list):
+        requests.post('http://' + server_url + '/active/?updatetime=' + urllib.parse.quote_plus(username))
         if (file_dict['owner'] == username):
             file_name = file_dict['file_name']
             client.action(document, ['filedatabase', 'delete'], params={'id': file_dict['id']})

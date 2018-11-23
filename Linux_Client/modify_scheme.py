@@ -1,7 +1,10 @@
 import os
+import urllib
 
 import coreapi
 from ast import literal_eval
+
+import requests
 
 from aes import encrypt as aesenc
 from aes import decrypt as aesdec
@@ -11,7 +14,13 @@ from blowfish import encrypt as blenc
 from blowfish import decrypt as bldec
 
 def schema_update(uname, passwd, upath, domain, oldscheme, newscheme, oldkey, newkey):
-    print("upath is: " + upath)
+    isactive = requests.post('http://' + upath + '/active/?beginsync=' + urllib.parse.quote_plus(uname))
+    active_stat = isactive.json()['active']
+    # print(active_stat)
+    if active_stat:
+        print('Sorry, syncing from another machine')
+        return None
+    # print("upath is: " + upath)
     if(oldscheme==newscheme and oldkey==newkey):
         return None
     encrypt=0
@@ -69,6 +78,7 @@ def schema_update(uname, passwd, upath, domain, oldscheme, newscheme, oldkey, ne
         if i['owner']==uname:
             user_files.append(i)
     for file in user_files:
+        requests.post('http://' + upath + '/active/?updatetime=' + urllib.parse.quote_plus(uname))
         # print('here')
         if(file['file_type']=='DIR'):
             continue
@@ -87,3 +97,4 @@ def schema_update(uname, passwd, upath, domain, oldscheme, newscheme, oldkey, ne
                                          'file_data': str(newdata), 'md5sum': file['md5sum'], 'id': file['id']})
     if(os.path.exists('tempout')):
         os.remove('tempout')
+    requests.post('http://' + upath + '/active/?endsync=' + urllib.parse.quote_plus(uname))
