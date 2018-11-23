@@ -12,7 +12,7 @@ from file_status import get_status
 from modify_scheme import schema_update
 
 from ast import literal_eval
-
+from progressbar import ProgressBar
 parser = argparse.ArgumentParser(prog='spc')
 
 # coreapi variables
@@ -475,6 +475,7 @@ def upload():
 
 
 def download():
+    pbar=ProgressBar()
     # key = password # Temporary
     global username
     global password
@@ -532,7 +533,7 @@ def download():
         if fetched_data['next'] == None:
             break
     # print(file_list)
-    for file_dict in file_list:
+    for file_dict in pbar(file_list):
         if (file_dict['owner'] == username):
             file_name = file_dict['file_name']
             file_name = "/" + file_name
@@ -569,6 +570,7 @@ def download():
 
 
 def delete():
+    pbar=ProgressBar()
     # key = password # Temporary
     global username
     global password
@@ -612,7 +614,7 @@ def delete():
         if fetched_data['next'] == None:
             break
     # print(file_list)
-    for file_dict in file_list:
+    for file_dict in pbar(file_list):
         if (file_dict['owner'] == username):
             file_name = file_dict['file_name']
             client.action(document, ['filedatabase', 'delete'], params={'id': file_dict['id']})
