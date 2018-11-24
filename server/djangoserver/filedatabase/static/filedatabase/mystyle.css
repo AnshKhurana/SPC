@@ -1,0 +1,36 @@
+.navbar {
+	background-color: blue;
+}
+
+.navbar a{
+	/* background-color: black; */
+	color: white;
+	font-family: 'Roboto Condensed' ;
+}
+
+.navbar .active {
+	background-color: brown;
+}
+
+.home-head {
+    font-family: 'Fira Sans', sans-serif;
+    font-size: 3ex;
+}
+
+.center {
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -ms-transform: translate(-50%, -50%);
+  transform: translate(-50%, -50%);
+}
+
+.hor-center {
+    margin: 0;
+  position: absolute;
+  left: 50%;
+  -ms-transform: translateX(-50%);
+  transform: translateX(-50%);
+}
+

@@ -1,9 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/../client/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/../client/README.md" afterDir="false" />
-    </list>
+    <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,7 +23,68 @@
     <select />
   </component>
   <component name="FileEditorManager">
-    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300" />
+    <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
+      <file pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/myscript.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="271">
+              <caret line="107" selection-start-line="107" selection-end-line="107" />
+              <folding>
+                <element signature="e#0#15#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/modify_scheme.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1005">
+              <caret line="80" column="98" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="98" />
+              <folding>
+                <element signature="e#0#9#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/sync.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="1830">
+              <caret line="132" column="96" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="96" />
+              <folding>
+                <element signature="e#1#14#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/file_status.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="435">
+              <caret line="33" column="12" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="12" />
+              <folding>
+                <element signature="e#0#28#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/aes.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="90">
+              <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+              <folding>
+                <element signature="e#0#29#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
   </component>
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
@@ -51,7 +110,6 @@
       <find>sync</find>
       <find>print(</find>
       <find>print(a</find>
-      <find>sync(</find>
       <find>s</find>
       <find>server</find>
       <find>Authentication</find>
@@ -66,10 +124,11 @@
       <find>update</find>
       <find>delete</find>
       <find>download</find>
+      <find>sync(</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
-    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/.." />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$/../.." />
   </component>
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
@@ -111,18 +170,23 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
             <path>
               <item name="Linux_Client" type="b2602c69:ProjectViewProjectNode" />
-              <item name="SPC_Post_Eval" type="462c0819:PsiDirectoryNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="Linux_Client" type="b2602c69:ProjectViewProjectNode" />
+              <item name="client" type="462c0819:PsiDirectoryNode" />
+              <item name="Linux_Client" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -154,12 +218,13 @@
       <workItem from="1542825183465" duration="12401000" />
       <workItem from="1542869326405" duration="18092000" />
       <workItem from="1542891140008" duration="38660000" />
-      <workItem from="1542969844007" duration="35022000" />
+      <workItem from="1542969844007" duration="34423000" />
+      <workItem from="1543016281695" duration="623000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104175000" />
+    <option name="totallyTimeSpent" value="104199000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -173,7 +238,7 @@
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1280" height="695" extended-state="6" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19124797" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19448946" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -245,16 +310,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/../aes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="15">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="e#0#17#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/../aes.py" />
     <entry file="file://$PROJECT_DIR$/aes_file.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -273,31 +329,9 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/enc_stackoverflow.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#13#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/decrypted_tester">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/DES3.py">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/aes.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="91">
-          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
-          <folding>
-            <element signature="e#0#29#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/enc_stackoverflow.py" />
+    <entry file="file://$PROJECT_DIR$/decrypted_tester" />
+    <entry file="file://$PROJECT_DIR$/DES3.py" />
     <entry file="file://$PROJECT_DIR$/blowfish.py">
       <provider selected="true" editor-type-id="text-editor">
         <state>
@@ -307,24 +341,24 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file_status.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="136">
-          <caret line="33" column="12" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/crypto_aes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-270" />
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/myscript.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="271">
+          <caret line="107" selection-start-line="107" selection-end-line="107" />
+          <folding>
+            <element signature="e#0#15#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/modify_scheme.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="49">
+        <state relative-caret-position="1005">
           <caret line="80" column="98" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="98" />
           <folding>
             <element signature="e#0#9#0" expanded="true" />
@@ -332,22 +366,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/myscript.py">
+    <entry file="file://$PROJECT_DIR$/sync.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="106">
-          <caret line="594" column="32" selection-start-line="594" selection-start-column="32" selection-end-line="594" selection-end-column="32" />
+        <state relative-caret-position="1830">
+          <caret line="132" column="96" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="96" />
           <folding>
-            <element signature="e#0#15#0" expanded="true" />
+            <element signature="e#1#14#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/sync.py">
+    <entry file="file://$PROJECT_DIR$/file_status.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="105">
-          <caret line="132" column="96" selection-start-line="132" selection-start-column="8" selection-end-line="132" selection-end-column="96" />
+        <state relative-caret-position="435">
+          <caret line="33" column="12" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="12" />
           <folding>
-            <element signature="e#1#14#0" expanded="true" />
+            <element signature="e#0#28#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/aes.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="90">
+          <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
+          <folding>
+            <element signature="e#0#29#0" expanded="true" />
           </folding>
         </state>
       </provider>
