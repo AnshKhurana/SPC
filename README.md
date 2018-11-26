@@ -163,7 +163,7 @@ In the server/djangoserver folder run
 
 ### IP address and links
 
-For local server the server URL will be 127.0.0.1:8000
+For local server the server URL will be 127.0.0.1:8000. 
 This URL will be the URL of the home page of our web-client.
 
 <!-- # Disclaimer
