@@ -1,7 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="" />
+    <list default="true" id="a8a3c426-837c-40bc-8a75-8fc6b3b30f2d" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../server/djangoserver/db.sqlite3" beforeDir="false" />
+    </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -24,7 +26,7 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file pinned="false" current-in-tab="true">
+      <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/myscript.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="271">
@@ -39,7 +41,7 @@
       <file pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/modify_scheme.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1005">
+            <state relative-caret-position="319">
               <caret line="80" column="98" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="98" />
               <folding>
                 <element signature="e#0#9#0" expanded="true" />
@@ -60,11 +62,11 @@
           </provider>
         </entry>
       </file>
-      <file pinned="false" current-in-tab="false">
+      <file pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/file_status.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="435">
-              <caret line="33" column="12" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="12" />
+            <state relative-caret-position="229">
+              <caret line="55" column="16" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
               <folding>
                 <element signature="e#0#28#0" expanded="true" />
               </folding>
@@ -159,10 +161,9 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="307" />
-    <option name="y" value="27" />
-    <option name="width" value="643" />
-    <option name="height" value="519" />
+    <option name="x" value="676" />
+    <option name="width" value="697" />
+    <option name="height" value="735" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectView">
@@ -220,11 +221,12 @@
       <workItem from="1542891140008" duration="38660000" />
       <workItem from="1542969844007" duration="34423000" />
       <workItem from="1543016281695" duration="623000" />
+      <workItem from="1543062224440" duration="1875000" />
     </task>
     <servers />
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="104199000" />
+    <option name="totallyTimeSpent" value="106074000" />
   </component>
   <component name="TodoView">
     <todo-panel id="selected-file">
@@ -237,8 +239,9 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="0" y="25" width="1280" height="695" extended-state="6" />
+    <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19448946" />
+      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19773096" />
       <window_info id="Structure" order="1" side_tool="true" weight="0.25" />
       <window_info id="Favorites" order="2" side_tool="true" />
       <window_info anchor="bottom" id="Message" order="0" />
@@ -356,16 +359,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/modify_scheme.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1005">
-          <caret line="80" column="98" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="98" />
-          <folding>
-            <element signature="e#0#9#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/sync.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1830">
@@ -376,22 +369,32 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/file_status.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="435">
-          <caret line="33" column="12" selection-start-line="33" selection-start-column="8" selection-end-line="33" selection-end-column="12" />
-          <folding>
-            <element signature="e#0#28#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/aes.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="90">
           <caret line="10" column="49" selection-start-line="10" selection-start-column="49" selection-end-line="10" selection-end-column="49" />
           <folding>
             <element signature="e#0#29#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/modify_scheme.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="319">
+          <caret line="80" column="98" selection-start-line="80" selection-start-column="8" selection-end-line="80" selection-end-column="98" />
+          <folding>
+            <element signature="e#0#9#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/file_status.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="229">
+          <caret line="55" column="16" selection-start-line="55" selection-start-column="16" selection-end-line="55" selection-end-column="16" />
+          <folding>
+            <element signature="e#0#28#0" expanded="true" />
           </folding>
         </state>
       </provider>
