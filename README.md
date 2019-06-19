@@ -16,7 +16,7 @@ If it doesn't work try:
     $ ./install.sh
 ```
 
-# Usage and Functionalities
+# Usage 
 The following are the various steps that you need to follow to create a personal space on the server and getting started with storing your sensitive files:-
 Note: At any point of time you can see your saved settings and your files if any by running the command spc --status from the terminal)
 
