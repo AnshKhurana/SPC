@@ -1,16 +1,12 @@
 # SPC (Secure Personal Cloud)
-Secure Personal Cloud(or SPC as it is called) is a cloud based file storage system like dropbox where the user can choose among three of the encryption schemes provided by the developers, namely:- AES, ARC4, Blowfish.
+SPC is a cloud based file storage system like dropbox where the user can choose among three of the encryption schemes provided by the developers, namely:- AES, ARC4, Blowfish.
 
-The cloud is safe and secure to store any confidential information as the server has no knowledge about the encryption schemes and keys. This is a complete Zero-Knowledge based server.
+The cloud is safe and secure to store any confidential information as the server has no knowledge about the encryption schemes and keys. A proof of concept example for a Zero-Knowledge based server.
 
 # Installation
 From the client folder, use the install.sh script.
-```
-    $ ./install.sh
-```
 Note: The sript requires execution permissions and sudo permissions for installation.
 
-If it doesn't work try:
 ```
     $ chmod +x install.sh
     $ ./install.sh
